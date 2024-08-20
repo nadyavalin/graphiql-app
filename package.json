@@ -1,0 +1,42 @@
+{
+  "name": "moon-graphql-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "format:fix": "prettier --write .",
+    "lint": "next lint",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "eslint --fix",
+    "*.{js,jsx,ts,tsx,json,css,md}": "prettier --write"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "dependencies": {
+    "next": "14.2.5",
+    "react": "18",
+    "react-dom": "18"
+  },
+  "devDependencies": {
+    "@types/node": "20",
+    "@types/react": "18",
+    "@types/react-dom": "18",
+    "eslint": "8",
+    "eslint-config-next": "14.2.5",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-prettier": "5.2.1",
+    "husky": "9.1.5",
+    "lint-staged": "15.2.9",
+    "postcss": "8",
+    "prettier": "3.3.3",
+    "tailwindcss": "3.4.1",
+    "typescript": "5"
+  }
+}
