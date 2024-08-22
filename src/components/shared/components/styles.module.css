@@ -1,0 +1,13 @@
+.footer {
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  font-size: 14px;
+}
+
+.developers {
+  display: flex;
+  gap: 20px;
+}

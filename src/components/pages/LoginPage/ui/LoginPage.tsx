@@ -1,10 +1,9 @@
-import MainHeader from "@widgets/MainHeader/ui/MainHeader";
+import MainHeader from "@widgets/header/ui/header";
 
 const LoginPage = () => {
   return (
     <>
-      <MainHeader />
-      <main>LoginPage</main>
+      <main>Login Page</main>
     </>
   );
 };

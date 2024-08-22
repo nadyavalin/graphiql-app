@@ -1,14 +1,14 @@
 "use client";
 
-import { SimpleButton } from "@shared/ui-kit/buttons";
 import { useRouter } from "next/navigation";
-import React from "react";
+import styles from "./styles.module.css";
+import { SimpleButton } from "@shared/ui-kit/buttons";
 
-const MainHeader = () => {
+const Header = () => {
   const router = useRouter();
 
   return (
-    <header className="flex min-h-20 w-full justify-between gap-5 px-4 py-2 md:px-10">
+    <header className={styles.header}>
       <SimpleButton buttonDetails={{ name: "Login" }} onClick={() => router.push("login")} />
       <SimpleButton
         buttonDetails={{ name: "Registration" }}
@@ -19,4 +19,4 @@ const MainHeader = () => {
   );
 };
 
-export default MainHeader;
+export default Header;
