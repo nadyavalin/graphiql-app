@@ -6,6 +6,9 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
-    exclude: [...configDefaults.exclude, "@shared/components/footer", "@widgets/header/ui/header"],
+    exclude: [...configDefaults.exclude],
+    coverage: {
+      exclude: ["./src/components/widgets/**", "./src/components/shared/**"],
+    },
   },
 });

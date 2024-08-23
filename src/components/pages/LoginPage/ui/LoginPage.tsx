@@ -1,5 +1,3 @@
-import MainHeader from "@widgets/header/ui/header";
-
 const LoginPage = () => {
   return (
     <>
