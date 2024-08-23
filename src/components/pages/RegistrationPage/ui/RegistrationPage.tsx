@@ -1,7 +1,9 @@
 const RegistrationPage = () => {
   return (
     <>
-      <main>Registration Page</main>
+      <main>
+        <h1>Registration Page</h1>
+      </main>
     </>
   );
 };

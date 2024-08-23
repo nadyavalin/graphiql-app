@@ -24,6 +24,7 @@ body {
   --text-color: #dedbff;
   --color-hover: #6f74ca;
   --main-color: #a399fd;
+  --lang-color: #3f7cff;
 
   display: flex;
   flex-direction: column;

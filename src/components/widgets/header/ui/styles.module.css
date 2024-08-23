@@ -19,3 +19,11 @@
   background-color: var(--bg-middle-color);
   height: 60px;
 }
+
+.lang {
+  width: 50px;
+  display: flex;
+  align-items: center;
+  color: var(--lang-color);
+  gap: 5px;
+}
