@@ -1,11 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, ReactNode } from "react";
+import { createContext, useContext, ReactNode } from "react";
 
 interface Dictionary {
   buttons: {
     login: string;
     registration: string;
+    logout: string;
     welcome: string;
   };
 }

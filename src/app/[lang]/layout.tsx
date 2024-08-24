@@ -25,10 +25,11 @@ export default async function RootLayout({
   params: LangParams;
 }>) {
   const dictionary = await getDictionary(params.lang);
+  console.log("Dictionary:", dictionary);
   return (
     <html lang={params.lang}>
       <body>
-        <DictionaryProvider value={dictionary}>
+        <DictionaryProvider value={{ dictionary }}>
           <Header />
           {children}
           <Footer />

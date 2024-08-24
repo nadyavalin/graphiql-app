@@ -1,5 +1,3 @@
-import React from "react";
-
 export type ButtonProps = {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   buttonDetails: ButtonDetails;

@@ -8,8 +8,9 @@
     "desc": "This is a demo of Next.js i18n"
   },
   "buttons": {
-    "login": "Login",
-    "reg": "Registartion",
+    "login": "Sing In",
+    "registration": "Sing Up",
+    "logout": "Sing Out",
     "welcome": "Welcome"
   }
 }
