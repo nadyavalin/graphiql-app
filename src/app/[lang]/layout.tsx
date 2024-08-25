@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import "../globals.css";
-import { Header } from "@widgets/header/";
-import { Footer } from "@shared/components";
-import { DictionaryProvider } from "@app/providers/DictionaryContext";
 import { getDictionary } from "./dictionaries";
+import { DictionaryProvider } from "@shared/providers/DictionaryContext";
+import { Footer, Header } from "@shared/ui";
 
 export const metadata: Metadata = {
   title: "Create Next App",

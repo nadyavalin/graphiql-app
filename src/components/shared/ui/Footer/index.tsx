@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./styles.module.css";
-import logo from "../../../../public/rss-logo.svg";
+import logo from "@public/rss-logo.svg";
 
 export const Footer = (): ReactElement => {
   return (

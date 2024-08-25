@@ -10,17 +10,8 @@ export default defineConfig({
     css: true,
     mockReset: true,
     clearMocks: true,
-    exclude: [...configDefaults.exclude, "node_modules", "dist", ".idea", ".git", ".cache"],
     coverage: {
-      exclude: [
-        "src/components/widgets/**",
-        "src/components/shared/**",
-        "src/**/*.test.ts",
-        "src/**/*.test.tsx",
-        "src/tests/*.test.ts",
-        "src/tests/*.test.mjs",
-        "src/config/setupTests.ts",
-      ],
+      include: ["src/app/**/*.{ts,tsx}", "src/components/**/*.{ts,tsx}"],
     },
   },
 });

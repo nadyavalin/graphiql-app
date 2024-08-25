@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./styles.module.css";
 import { SimpleButton } from "@shared/ui-kit/buttons";
-import { useDictionary } from "@app/providers/DictionaryContext";
+import { useDictionary } from "@shared/providers/DictionaryContext";
 
-const Header = () => {
+export const Header = () => {
   const { dictionary } = useDictionary();
   const router = useRouter();
   const [isSticky, setIsSticky] = useState(false);
@@ -50,5 +50,3 @@ const Header = () => {
     </header>
   );
 };
-
-export default Header;

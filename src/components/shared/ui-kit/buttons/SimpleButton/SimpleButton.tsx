@@ -28,3 +28,5 @@ const SimpleButton: React.FC<ButtonProps> = ({ onClick, buttonDetails }) => {
 };
 
 export default SimpleButton;
+
+// TODO сделать на MUI

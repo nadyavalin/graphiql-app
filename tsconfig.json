@@ -18,6 +18,7 @@
       }
     ],
     "paths": {
+      "@public/*": ["./public/*"],
       "@app/*": ["./src/components/app/*"],
       "@pages/*": ["./src/components/pages/*"],
       "@widgets/*": ["./src/components/widgets/*"],
