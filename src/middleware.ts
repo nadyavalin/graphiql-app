@@ -5,6 +5,7 @@ let defaultLocale = "en";
 function getLocale(request: NextRequest) {
   return defaultLocale;
 }
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const pathnameHasLocale = locales.some(
