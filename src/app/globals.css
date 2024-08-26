@@ -12,7 +12,7 @@
 }
 
 body {
-  --main-theme-color: #6e75ff;
+  --main-color: #6e75ff;
   --bg-light-color: #dedbff;
   --bg-middle-color: #3f51b5;
   --bg-dark-color: #090033;
@@ -22,8 +22,7 @@ body {
   --transparent-color-disabled: rgba(119, 94, 229, 0.2);
   --text-main-color: #4d54da;
   --text-color: #dedbff;
-  --color-hover: #6f74ca;
-  --main-color: #a399fd;
+  --color-hover: #2733d8;
   --lang-color: #3f7cff;
 
   display: flex;

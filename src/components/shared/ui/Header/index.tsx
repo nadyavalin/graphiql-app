@@ -2,13 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import styles from "./styles.module.css";
-import { SimpleButton } from "@shared/ui-kit/buttons";
-import { useDictionary } from "@shared/providers/DictionaryContext";
+import { Menu } from "./view/Menu";
+import { LangSwitcher } from "./view/LangSwitcher";
 
 export const Header = () => {
-  const { dictionary } = useDictionary();
   const router = useRouter();
   const [isSticky, setIsSticky] = useState(false);
 
@@ -25,28 +23,8 @@ export const Header = () => {
 
   return (
     <header className={`${styles.header} ${isSticky ? styles.sticky : ""}`}>
-      <SimpleButton
-        buttonDetails={{ name: dictionary.buttons.login }}
-        onClick={() => router.push("/login")}
-      />
-      <SimpleButton
-        buttonDetails={{ name: dictionary.buttons.registration }}
-        onClick={() => router.push("/registration")}
-      />
-      <SimpleButton
-        buttonDetails={{ name: dictionary.buttons.logout }}
-        onClick={() => router.push("/")}
-      />
-      <SimpleButton
-        buttonDetails={{ name: dictionary.buttons.welcome }}
-        onClick={() => router.push("/")}
-      />
-
-      <div className={styles.lang}>
-        <Link href="/en">EN</Link>
-        <span>|</span>
-        <Link href="/ru">RU</Link>
-      </div>
+      <Menu />
+      <LangSwitcher />
     </header>
   );
 };
