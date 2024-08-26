@@ -23,7 +23,9 @@ export const Header = () => {
 
   return (
     <header className={`${styles.header} ${isSticky ? styles.sticky : ""}`}>
-      <Menu />
+      <nav className={styles.nav}>
+        <Menu />
+      </nav>
       <LangSwitcher />
     </header>
   );

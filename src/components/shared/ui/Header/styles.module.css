@@ -19,3 +19,8 @@
   background-color: var(--bg-middle-color);
   height: 60px;
 }
+
+.nav {
+  display: flex;
+  gap: 10px;
+}
