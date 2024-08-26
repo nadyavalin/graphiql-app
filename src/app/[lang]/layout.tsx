@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import "../globals.css";
-import { getDictionary } from "./dictionaries";
-import { DictionaryProvider } from "@shared/providers/DictionaryContext";
 import { Footer, Header } from "@shared/ui";
+import ClientProviders from "@shared/providers/ClientProviders";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -12,27 +11,25 @@ export const metadata: Metadata = {
 interface LangParams {
   lang: string;
 }
+
 export async function generateStaticParams() {
   return [{ lang: "en" }, { lang: "ru" }];
 }
 
-export default async function RootLayout({
-  children,
-  params,
-}: Readonly<{
+interface RootLayoutProps {
   children: React.ReactNode;
   params: LangParams;
-}>) {
-  const dictionary = await getDictionary(params.lang);
-  console.log("Dictionary:", dictionary);
+}
+
+export default async function RootLayout({ children, params }: RootLayoutProps) {
   return (
     <html lang={params.lang}>
       <body>
-        <DictionaryProvider value={{ dictionary }}>
+        <ClientProviders>
           <Header />
           {children}
           <Footer />
-        </DictionaryProvider>
+        </ClientProviders>
       </body>
     </html>
   );

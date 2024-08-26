@@ -1,16 +1,13 @@
-import { createWrapper } from "next-redux-wrapper";
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
+import languageReducer from "./slices/languageSlice";
 
-const rootReducer = combineReducers({});
+const store = configureStore({
+  reducer: {
+    language: languageReducer,
+  },
+});
 
-export const setupStore = () => {
-  return configureStore({
-    reducer: rootReducer,
-  });
-};
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
-export type RootState = ReturnType<typeof rootReducer>;
-export type AppStore = ReturnType<typeof setupStore>;
-export type AppDispatch = AppStore["dispatch"];
-
-export const wrapper = createWrapper<AppStore>(setupStore);
+export default store;

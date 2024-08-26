@@ -1,10 +1,11 @@
-import { Link } from "@mui/material";
-import { useDictionary } from "@shared/providers/DictionaryContext";
 import NextLink from "next/link";
+import { useSelector } from "react-redux";
+import { Link } from "@mui/material";
 import styles from "./styles.module.css";
+import { RootState } from "@shared/store";
 
 export const Menu = () => {
-  const { dictionary } = useDictionary();
+  const dictionary = useSelector((state: RootState) => state.language.dictionary);
 
   return (
     <>
