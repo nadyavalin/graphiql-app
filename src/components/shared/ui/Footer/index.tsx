@@ -8,7 +8,9 @@ export const Footer = (): ReactElement => {
   return (
     <footer className={styles.footer}>
       <div>
-        <Image src={logo} alt="RSSchool Logo" width="50" height="50" className={styles.logo} />
+        <Link href="https://rs.school" target="_blank" rel="noreferrer">
+          <Image src={logo} alt="RSSchool Logo" width="50" height="50" className={styles.logo} />
+        </Link>
       </div>
       <div className={styles.developers}>
         <Link href="https://github.com/nadyavalin" target="_blank" rel="noreferrer">
