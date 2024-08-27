@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { loadDictionary } from "@shared/utils/loadDictionary";
+import { loadDictionary } from "../../../utils/loadDictionary";
 
 interface LanguageState {
   lang: string;
