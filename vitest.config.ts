@@ -12,6 +12,7 @@ export default defineConfig({
     clearMocks: true,
     coverage: {
       include: ["src/app/**/*.{ts,tsx}", "src/components/**/*.{ts,tsx}"],
+      exclude: ["src/components/shared/ui/index.ts"],
     },
   },
 });
