@@ -2,11 +2,11 @@ import { render } from "@testing-library/react";
 import { useSelector } from "react-redux";
 import { beforeEach, describe, expect, it } from "vitest";
 import { ClientProviders } from "../ClientProviders";
-import store from "../../store";
+import store, { RootState } from "../../store";
 
 const StoreTestComponent = () => {
-  const state = useSelector((state) => state);
-  return <div data-testid="store-value">{JSON.stringify(state)}</div>;
+  const languageState = useSelector((state: RootState) => state.language);
+  return <div data-testid="store-value">{JSON.stringify(languageState)}</div>;
 };
 
 describe("ClientProviders", () => {
@@ -44,7 +44,7 @@ describe("ClientProviders", () => {
       </ClientProviders>,
     );
 
-    const storeValue = getByTestId("store-value").textContent;
-    expect(storeValue).toBe(JSON.stringify(initialStore));
+    const storeValue = JSON.parse(getByTestId("store-value").textContent || "");
+    expect(storeValue).toEqual(initialStore.language);
   });
 });
