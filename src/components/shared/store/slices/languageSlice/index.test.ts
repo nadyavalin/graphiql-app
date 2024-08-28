@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import languageReducer, { setLanguage } from "./";
-import { loadDictionary } from "../../../utils/loadDictionary";
+import { loadDictionary } from "@shared/utils/loadDictionary";
 
 const initialState = {
   lang: "en",

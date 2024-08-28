@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { setLanguage } from "./slices/languageSlice";
-import store, { RootState, AppDispatch } from "../store";
-import enDictionary from "../../../../public/dictionaries/en.json";
-import ruDictionary from "../../../../public/dictionaries/ru.json";
+import store, { RootState, AppDispatch } from "@shared/store";
+import { setLanguage } from "@shared/store/slices/languageSlice";
+import enDictionary from "@public/dictionaries/en.json";
+import ruDictionary from "@public/dictionaries/ru.json";
 
 describe("Redux Store", () => {
   it("should initialize the store with language slice", () => {

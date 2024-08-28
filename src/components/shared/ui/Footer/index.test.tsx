@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { describe, expect, it } from "vitest";
-import { Footer } from "./";
-import logo from "../../../../../public/rss-logo.svg";
+import { Footer } from "@shared/ui/Footer";
+import logo from "@public/rss-logo.svg";
 
 describe("Footer component", () => {
   it("renders the RSSchool logo", () => {
