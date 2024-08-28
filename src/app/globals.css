@@ -41,7 +41,6 @@ main {
   flex-grow: 1;
   font-size: 16px;
   height: 2000px; /* TODO remove, temporary height for checking header */
-  margin-top: 100px;
 }
 
 a {

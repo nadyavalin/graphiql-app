@@ -9,21 +9,28 @@ export const Menu = () => {
 
   return (
     <>
-      <Link href="/login" className={styles.menuLink} underline="none" component={NextLink}>
-        {dictionary.buttons.login}
-      </Link>
+      <nav className={styles.nav}>
+        <Link href="/login" className={styles.menuLink} underline="none" component={NextLink}>
+          {dictionary.buttons.login}
+        </Link>
 
-      <Link href="/registration" className={styles.menuLink} underline="none" component={NextLink}>
-        {dictionary.buttons.registration}
-      </Link>
+        <Link
+          href="/registration"
+          className={styles.menuLink}
+          underline="none"
+          component={NextLink}
+        >
+          {dictionary.buttons.registration}
+        </Link>
 
-      <Link href="/" className={styles.menuLink} underline="none" component={NextLink}>
-        {dictionary.buttons.logout}
-      </Link>
+        <Link href="/" className={styles.menuLink} underline="none" component={NextLink}>
+          {dictionary.buttons.logout}
+        </Link>
 
-      <Link href="/" className={styles.menuLink} underline="none" component={NextLink}>
-        {dictionary.buttons.welcome}
-      </Link>
+        <Link href="/" className={styles.menuLink} underline="none" component={NextLink}>
+          {dictionary.buttons.welcome}
+        </Link>
+      </nav>
     </>
   );
 };
