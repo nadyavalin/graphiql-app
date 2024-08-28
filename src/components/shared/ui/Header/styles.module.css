@@ -11,8 +11,8 @@
   background-color: var(--bg-light-color);
   box-shadow: var(--header-shadow);
   transition:
-    background-color 0.3s,
-    height 0.3s;
+    background-color 0.3s ease,
+    height 0.3s ease;
 }
 
 .sticky {
