@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { setLanguage } from "./slices/languageSlice";
 import store, { RootState, AppDispatch } from "../store";
-import enDictionary from "../../../../public/dictionaries/en.json";
-import ruDictionary from "../../../../public/dictionaries/ru.json";
+import en from "../../../../public/dictionaries/en.json";
+import ru from "../../../../public/dictionaries/ru.json";
 
 describe("Redux Store", () => {
   it("should initialize the store with language slice", () => {
@@ -10,7 +10,7 @@ describe("Redux Store", () => {
     expect(currentState).toHaveProperty("language");
     expect(currentState.language).toEqual({
       lang: "en",
-      dictionary: enDictionary,
+      dictionary: en,
     });
   });
 
@@ -22,7 +22,7 @@ describe("Redux Store", () => {
     const currentState: RootState = store.getState();
     expect(currentState.language).toEqual({
       lang: "ru",
-      dictionary: ruDictionary,
+      dictionary: ru,
     });
   });
 });
