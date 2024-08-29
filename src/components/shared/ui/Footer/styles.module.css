@@ -13,3 +13,13 @@
   display: flex;
   gap: 20px;
 }
+
+.devLink {
+  color: var(--lang-color);
+}
+
+@media (hover: hover) {
+  .devLink:hover {
+    color: var(--text-color);
+  }
+}

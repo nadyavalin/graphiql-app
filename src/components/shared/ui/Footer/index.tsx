@@ -13,13 +13,28 @@ export const Footer = (): ReactElement => {
         </Link>
       </div>
       <div className={styles.developers}>
-        <Link href="https://github.com/nadyavalin" target="_blank" rel="noreferrer">
+        <Link
+          href="https://github.com/nadyavalin"
+          target="_blank"
+          rel="noreferrer"
+          className={styles.devLink}
+        >
           nadyavalin
         </Link>
-        <Link href="https://github.com/ifbfirst" target="_blank" rel="noreferrer">
+        <Link
+          href="https://github.com/ifbfirst"
+          target="_blank"
+          rel="noreferrer"
+          className={styles.devLink}
+        >
           katika
         </Link>
-        <Link href="https://github.com/LarryDavidd" target="_blank" rel="noreferrer">
+        <Link
+          href="https://github.com/LarryDavidd"
+          target="_blank"
+          rel="noreferrer"
+          className={styles.devLink}
+        >
           LarryDavidd
         </Link>
       </div>

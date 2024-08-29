@@ -22,8 +22,8 @@ body {
   --transparent-color-disabled: rgba(119, 94, 229, 0.2);
   --text-main-color: #4d54da;
   --text-color: #dedbff;
-  --color-hover: #2733d8;
-  --lang-color: #3f7cff;
+  --color-hover: #4f5aff;
+  --lang-color: #8bb0ff;
 
   display: flex;
   flex-direction: column;
@@ -40,7 +40,7 @@ body {
 main {
   flex-grow: 1;
   font-size: 16px;
-  height: 2000px; /* TODO remove, temporary height for checking header */
+  height: 1000px; /* TODO remove, temporary height for checking header */
 }
 
 a {
