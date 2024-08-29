@@ -18,6 +18,7 @@
       }
     ],
     "paths": {
+      "@public/*": ["./public/*"],
       "@app/*": ["./src/components/app/*"],
       "@pages/*": ["./src/components/pages/*"],
       "@widgets/*": ["./src/components/widgets/*"],
@@ -26,6 +27,12 @@
       "@shared/*": ["./src/components/shared/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/[lang]/dictionaries.js"
+  ],
   "exclude": ["node_modules"]
 }

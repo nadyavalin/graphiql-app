@@ -1,4 +1,5 @@
 :root {
+  font-family: Inter, system-ui, Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -11,28 +12,37 @@
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 100vh;
-  margin: 0;
-  background-image: var(--bg-image);
-  background-attachment: fixed;
-  text-align: center;
-  color: var(--text-color);
-  background-color: var(--transparent-color);
-  background-blend-mode: darken;
-
-  --main-theme-color: #6e75ff;
-  --bg-color: #090033;
+  --main-color: #6e75ff;
+  --bg-light-color: #dedbff;
+  --bg-middle-color: #3f51b5;
+  --bg-dark-color: #090033;
+  --header-shadow: 0 5px 10px rgba(155, 168, 241, 0.8);
   --transparent-color: rgb(9, 0, 51, 0.7);
   --transparent-color-hover: rgba(119, 94, 229, 0.3);
   --transparent-color-disabled: rgba(119, 94, 229, 0.2);
   --text-main-color: #4d54da;
   --text-color: #dedbff;
-  --color-hover: #a0a5ff;
-  --main-color: #7378d8;
+  --color-hover: #4f5aff;
+  --lang-color: #8bb0ff;
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--bg-dark-color);
+  background-attachment: fixed;
+  text-align: center;
+  color: var(--text-color);
+  background-blend-mode: darken;
 }
+
+main {
+  flex-grow: 1;
+  font-size: 16px;
+  height: 1000px; /* TODO remove, temporary height for checking header */
+}
+
 a {
   font-weight: 500;
   color: var(--main-color);

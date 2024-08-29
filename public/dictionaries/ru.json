@@ -1,0 +1,16 @@
+{
+  "page": {
+    "title": "Демонстрация Next.js i18n",
+    "desc": "Как реализовать i18n с помощью Next.js (на основе App Router)"
+  },
+  "home": {
+    "title": "Привет, Next.js i18n",
+    "desc": "Это демо Next.js i18n"
+  },
+  "buttons": {
+    "login": "Логин",
+    "registration": "Регистрация",
+    "logout": "Выйти",
+    "welcome": "Приветственная страница"
+  }
+}
