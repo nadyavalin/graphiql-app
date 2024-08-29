@@ -1,30 +1,26 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { Menu } from "./view/Menu";
 import { LangSwitcher } from "./view/LangSwitcher";
 
 export const Header = () => {
-  const headerRef = useRef(null);
+  const [isSticky, setIsSticky] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      const [entry] = entries;
-      console.log(entry);
+    const handleScroll = () => {
+      setIsSticky(window.scrollY > 0);
+    };
 
-      entry.target.classList.toggle(styles.sticky, entry.intersectionRatio < 1);
-    });
-
-    if (headerRef.current) {
-      observer.observe(headerRef.current);
-    }
-
-    return () => observer.disconnect();
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return (
-    <header ref={headerRef} className={styles.header}>
+    <header className={`${styles.header} ${isSticky ? styles.sticky : ""}`}>
       <Menu />
       <LangSwitcher />
     </header>
