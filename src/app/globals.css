@@ -40,7 +40,6 @@ body {
 main {
   flex-grow: 1;
   font-size: 16px;
-  height: 1000px; /* TODO remove, temporary height for checking header */
 }
 
 a {

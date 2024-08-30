@@ -1,0 +1,28 @@
+.icon {
+  color: var(--text-main-color);
+}
+.send-btn {
+  background-color: var(--main-color);
+  border-radius: 8px;
+  margin: 20px auto;
+  color: var(--text-color);
+  border: none;
+}
+
+.rest-client-container {
+  margin: 0 auto 20px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.rest-client-container h3 {
+  text-align: left;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 800px) {
+  .rest-client-container {
+    flex-direction: column;
+  }
+}
