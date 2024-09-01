@@ -13,7 +13,7 @@
     "lint:fix": "eslint --fix --ext .ts,.js,.tsx,.jsx src/",
     "prepare": "husky",
     "test": "vitest --coverage",
-    "pre-push-test": "vitest run",
+    "pre-push-tests": "vitest run",
     "ui": "vitest --ui"
   },
   "dependencies": {
