@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-let locales = ["en", "ru"];
-let defaultLocale = "en";
 
-function getLocale(request: NextRequest) {
+const locales = ["en", "ru"];
+const defaultLocale = "en";
+
+function getLocale() {
   return defaultLocale;
 }
 
@@ -12,10 +13,11 @@ export function middleware(request: NextRequest) {
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
   );
   if (pathnameHasLocale) return;
-  const locale = getLocale(request);
+  const locale = getLocale();
   request.nextUrl.pathname = `/${locale}${pathname}`;
   return NextResponse.redirect(request.nextUrl);
 }
+
 export const config = {
   matcher: ["/((?!_next).*)"],
 };

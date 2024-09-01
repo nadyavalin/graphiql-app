@@ -1,5 +1,9 @@
-import { LoginPage } from "@pages/LoginPage";
-
 export default function Login() {
-  return <LoginPage />;
+  return (
+    <>
+      <main>
+        <h1>Login Page</h1>
+      </main>
+    </>
+  );
 }
