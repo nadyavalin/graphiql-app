@@ -1,12 +1,12 @@
-.icon {
-  color: var(--text-main-color);
-}
 .send-btn {
   background-color: var(--main-color);
   border-radius: 8px;
-  margin: 20px auto;
   color: var(--text-color);
   border: none;
+}
+.send-btn:hover {
+  background-color: var(--color-hover);
+  transition: 1s all;
 }
 
 .rest-client-container {
@@ -19,6 +19,11 @@
 .rest-client-container h3 {
   text-align: left;
   font-weight: 500;
+}
+.card {
+  background-color: var(--bg-light-color);
+  min-width: 550px;
+  min-height: 630px;
 }
 
 @media screen and (max-width: 800px) {
