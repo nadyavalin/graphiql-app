@@ -1,9 +1,9 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import NextLink from "next/link";
-import { useDispatch } from "react-redux";
 import { Link } from "@mui/material";
 import styles from "./styles.module.css";
-import { setLanguage } from "@shared/store/slices/languageSlice";
-import { usePathname } from "next/navigation";
 
 enum Languages {
   EN = "en",
@@ -11,37 +11,38 @@ enum Languages {
 }
 
 export const LangSwitcher = () => {
-  const dispatch = useDispatch();
-  const pathname = usePathname();
+  const [currentLang, setCurrentLang] = useState<Languages>(Languages.EN);
 
-  const changeLanguage = (lang: Languages) => {
-    dispatch(setLanguage(lang));
-  };
+  useEffect(() => {
+    const pathname = window.location.pathname.split("/");
+    setCurrentLang(pathname[1] as Languages);
+  }, []);
 
   const getNewPath = (lang: Languages) => {
-    return pathname.replace(/\/(en|ru)(\/|$)/, `/${lang}/`);
+    const pathname = window.location.pathname.split("/");
+    if (currentLang === lang) return;
+    pathname[1] = lang;
+    return pathname.join("/");
   };
 
   return (
     <div className={styles.lang}>
       <Link
-        href={getNewPath(Languages.EN)}
+        href={getNewPath(Languages.EN) || "/"}
         className={styles.lang}
         underline="none"
         component={NextLink}
-        onClick={() => changeLanguage(Languages.EN)}
-        passHref
+        onClick={() => setCurrentLang(Languages.EN)}
       >
         EN
       </Link>
       <span> | </span>
       <Link
-        href={getNewPath(Languages.RU)}
+        href={getNewPath(Languages.RU) || "/"}
         className={styles.lang}
         underline="none"
         component={NextLink}
-        onClick={() => changeLanguage(Languages.RU)}
-        passHref
+        onClick={() => setCurrentLang(Languages.RU)}
       >
         RU
       </Link>
