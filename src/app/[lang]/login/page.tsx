@@ -19,7 +19,7 @@ export const schema = yup.object({
     .matches(/(?=.*[!@#$%^&*])/, "*** Password must contain at least one special character"),
 });
 
-export const LoginPage = () => {
+const LoginPage = () => {
   const {
     register,
     handleSubmit,
@@ -30,23 +30,20 @@ export const LoginPage = () => {
   });
 
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
-    const d = {
-      email: data.email,
-      password: data.password,
-    };
+    console.log(data);
   };
 
   return (
     <>
-      <main className={styles.main}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <main>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
           <h1>Sign IN</h1>
           <label>Enter your email</label>
           <input {...register("email")} />
           {errors.email && <p>{errors.email.message}</p>}
 
           <label>Enter password</label>
-          <input {...register("password")} />
+          <input {...register("password")} type="password" />
           {errors.password && <p>{errors.password.message}</p>}
 
           <button
@@ -63,3 +60,5 @@ export const LoginPage = () => {
     </>
   );
 };
+
+export default LoginPage;

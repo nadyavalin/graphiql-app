@@ -25,7 +25,7 @@ export const schema = yup.object({
     .required("*** Password confirmation is required"),
 });
 
-export const RegistrationPage = () => {
+const RegistrationPage = () => {
   const {
     register,
     handleSubmit,
@@ -36,24 +36,25 @@ export const RegistrationPage = () => {
   });
 
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
-    const d = {
-      email: data.email,
-      password: data.password,
-    };
+    console.log(data);
   };
 
   return (
     <>
-      <main className={styles.main}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <h1>Sign IN</h1>
+      <main>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+          <h1>Sign UP</h1>
           <label>Enter your email</label>
           <input {...register("email")} />
           {errors.email && <p>{errors.email.message}</p>}
 
           <label>Enter password</label>
-          <input {...register("password")} />
+          <input {...register("password")} type="password" />
           {errors.password && <p>{errors.password.message}</p>}
+
+          <label>Confirm password</label>
+          <input {...register("confPassword")} type="password" />
+          {errors.confPassword && <p>{errors.confPassword.message}</p>}
 
           <button
             type="submit"
@@ -69,3 +70,5 @@ export const RegistrationPage = () => {
     </>
   );
 };
+
+export default RegistrationPage;

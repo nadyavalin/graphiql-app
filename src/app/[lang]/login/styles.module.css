@@ -1,10 +1,10 @@
-.main {
+.form {
   display: flex;
   flex-direction: column;
   gap: 15px;
   align-items: center;
 }
-.main label {
+.form label {
   display: flex;
   gap: 10px;
 }
