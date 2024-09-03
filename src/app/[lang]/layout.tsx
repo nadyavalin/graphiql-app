@@ -24,8 +24,9 @@ export default function RootLayout({
   isSticky: boolean;
 }) {
   const language = params.lang || "en";
+
   return (
-    <html lang={params.lang}>
+    <html lang={language}>
       <body>
         <ClientProviders>
           <HeaderServer params={{ lang: language }} sticky={isSticky} />

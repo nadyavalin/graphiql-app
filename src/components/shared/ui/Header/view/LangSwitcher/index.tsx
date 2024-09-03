@@ -1,51 +1,44 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import NextLink from "next/link";
-import { Link } from "@mui/material";
 import styles from "./styles.module.css";
-
-enum Languages {
-  EN = "en",
-  RU = "ru",
-}
+import { setLanguage } from "@shared/store/slices/languageSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@shared/store";
+import { Languages } from "@shared/types/types";
 
 export const LangSwitcher = () => {
-  const [currentLang, setCurrentLang] = useState<Languages>(Languages.EN);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    const pathname = window.location.pathname.split("/");
-    setCurrentLang(pathname[1] as Languages);
-  }, []);
+  const currentLanguage: Languages = useSelector((state: RootState) => state.language.lang);
 
-  const getNewPath = (lang: Languages) => {
-    const pathname = window.location.pathname.split("/");
-    if (currentLang === lang) return;
-    pathname[1] = lang;
-    return pathname.join("/");
+  const handleLanguageChange = (newLang: Languages) => {
+    if (newLang !== currentLanguage) {
+      dispatch(setLanguage(newLang));
+    }
   };
 
   return (
     <div className={styles.lang}>
-      <Link
-        href={getNewPath(Languages.EN) || "/"}
+      <NextLink
+        href={`/${Languages.EN}`}
         className={styles.lang}
-        underline="none"
-        component={NextLink}
-        onClick={() => setCurrentLang(Languages.EN)}
+        onClick={() => handleLanguageChange(Languages.EN)}
+        passHref
       >
-        EN
-      </Link>
+        {Languages.EN.toUpperCase()}
+      </NextLink>
+
       <span> | </span>
-      <Link
-        href={getNewPath(Languages.RU) || "/"}
+
+      <NextLink
+        href={`/${Languages.RU}`}
         className={styles.lang}
-        underline="none"
-        component={NextLink}
-        onClick={() => setCurrentLang(Languages.RU)}
+        onClick={() => handleLanguageChange(Languages.RU)}
+        passHref
       >
-        RU
-      </Link>
+        {Languages.RU.toUpperCase()}
+      </NextLink>
     </div>
   );
 };
