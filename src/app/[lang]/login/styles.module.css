@@ -1,0 +1,13 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+.main label {
+  display: flex;
+  gap: 10px;
+}
+.send-btn {
+  width: 100px;
+}
