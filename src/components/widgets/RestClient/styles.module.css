@@ -1,10 +1,16 @@
-.send-btn {
+.btn-send {
   background-color: var(--main-color);
+  padding: 5px;
   border-radius: 8px;
   color: var(--text-color);
   border: none;
 }
-.send-btn:hover {
+.btn-prettify {
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.btn-send:hover {
   background-color: var(--color-hover);
   transition: 1s all;
 }
@@ -21,9 +27,8 @@
   font-weight: 500;
 }
 .card {
-  background-color: var(--bg-light-color);
-  min-width: 550px;
   min-height: 630px;
+  max-width: 550px;
 }
 
 @media screen and (max-width: 800px) {

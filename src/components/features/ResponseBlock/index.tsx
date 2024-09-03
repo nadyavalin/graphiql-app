@@ -5,12 +5,12 @@ import { useState } from "react";
 import { formatDataEditor } from "@shared/utils/formatDataEditor";
 
 export const ResponseBlock = () => {
-  const [response, setResponse] = useState("");
+  const [response] = useState("");
 
   return (
     <section>
       <h2>Response</h2>
-      <Card className={styles.card}>
+      <Card className={styles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
         <CardContent>
           <h3>Status: </h3>
           <Editor isEditable={false} value={formatDataEditor(response)} />

@@ -14,6 +14,7 @@
 body {
   --main-color: #6e75ff;
   --bg-light-color: #dedbff;
+  --bg-menu-color: #aba6e7;
   --bg-middle-color: #3f51b5;
   --bg-dark-color: #090033;
   --header-shadow: 0 5px 10px rgba(155, 168, 241, 0.8);
@@ -44,7 +45,7 @@ main {
 
 a {
   font-weight: 500;
-  color: var(--main-color);
+  color: var(--text-color);
   text-decoration: inherit;
   transition: color 0.3s ease;
 }

@@ -22,16 +22,16 @@ export const RestClient = () => {
     <main className={styles["rest-client-container"]}>
       <section>
         <h2> REST Client</h2>
-        <Card className={styles.card}>
+        <Card className={styles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
           <CardContent>
-            <Box sx={{ display: "flex", gap: 2 }}>
+            <Box sx={{ display: "flex", gap: 1 }}>
               <Methods />
               <Field label={"Endpoint URL"} />
               <IconButton title="Prettify query" onClick={() => setBody(formatDataEditor(body))}>
-                <PrettifyIcon />
+                <PrettifyIcon className={styles["btn-prettify"]} />
               </IconButton>
-              <IconButton className={styles["send-btn"]} title="Send request">
-                <SendIcon />
+              <IconButton title="Send request">
+                <SendIcon className={styles["btn-send"]} />
               </IconButton>
             </Box>
             <h3>Body:</h3>
