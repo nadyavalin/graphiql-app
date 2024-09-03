@@ -1,16 +1,25 @@
 {
-  "page": {
-    "title": "Next.js i18n Demo",
-    "desc": "How to implement i18n with Next.js (based on App Router)"
-  },
-  "home": {
-    "title": "Hello, Next.js i18n",
-    "desc": "This is a demo of Next.js i18n"
-  },
   "buttons": {
     "login": "Sing In",
     "registration": "Sing Up",
     "logout": "Sing Out",
     "welcome": "Welcome"
+  },
+  "developers": {
+    "nadyavalin": {
+      "name": "Nadezhda Tkachuk",
+      "position": "Front-end developer",
+      "desc": "I am a leading specialist in auditing and monitoring processes and projects. My responsibilities include monitoring projects, monitoring how project managers apply different methodologies. They call me a scrum master, but I just help managers manage their projects in Bitrix correctly. I reflect all useful information in the Bitrix Knowledge Base. At my job, I achieved all this thanks to the skills I acquired at RSSchool. Now I want to become a full-fledged front-end developer and apply my skills (together with back-end developers) in software development at my current job."
+    },
+    "katika": {
+      "name": "Ekaterina Mashko",
+      "position": "Front-end developer",
+      "desc": "I graduated from BSU with a degree in biotechnology and worked in the pharmaceutical industry for many years. My interest in technology, beautiful and user-friendly interfaces, and the desire to learn led me to the world of programming. Studying at school allowed me to acquire the necessary skills, the ability to work independently and in a team, and to develop according to technical specifications. My dream is to work on a project related to biotechnology, science, education, or medicine."
+    },
+    "LarryDavidd": {
+      "name": "Eugene ...",
+      "position": "Front-end developer",
+      "desc": "..."
+    }
   }
 }
