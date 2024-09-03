@@ -2,11 +2,15 @@
 
 import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
-import { Menu } from "./view/Menu";
-import { LangSwitcher } from "./view/LangSwitcher";
 
-export const Header = () => {
-  const [isSticky, setIsSticky] = useState(false);
+export const HeaderClient = ({
+  children,
+  sticky,
+}: {
+  children: React.ReactNode;
+  sticky: boolean;
+}) => {
+  const [isSticky, setIsSticky] = useState(sticky);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,9 +24,6 @@ export const Header = () => {
   }, []);
 
   return (
-    <header className={`${styles.header} ${isSticky ? styles.sticky : ""}`}>
-      <Menu />
-      <LangSwitcher />
-    </header>
+    <header className={`${styles.header} ${isSticky ? styles.sticky : ""}`}>{children}</header>
   );
 };

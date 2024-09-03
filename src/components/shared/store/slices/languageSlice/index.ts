@@ -3,7 +3,7 @@ import { loadDictionary } from "@shared/utils/loadDictionary";
 
 interface LanguageState {
   lang: string;
-  dictionary: Record<string, any>;
+  dictionary: Record<string, unknown>;
 }
 
 const initialState: LanguageState = {
