@@ -3,6 +3,8 @@
     "login": "Sing In",
     "registration": "Sing Up",
     "logout": "Sing Out",
+    "restClient": "RestClient",
+    "graphQL": "GraphQL",
     "welcome": "Welcome"
   },
   "developers": {

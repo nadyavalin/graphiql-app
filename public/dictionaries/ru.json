@@ -3,6 +3,8 @@
     "login": "Логин",
     "registration": "Регистрация",
     "logout": "Выйти",
+    "restClient": "RestClient",
+    "graphQL": "GraphQL",
     "welcome": "Приветственная страница"
   },
   "developers": {

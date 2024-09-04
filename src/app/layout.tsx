@@ -1,5 +1,5 @@
 import "./globals.css";
-import { ClientProviders } from "@shared/providers/ClientProviders";
+import { ClientProvider } from "@shared/providers/ClientProvider";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,7 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html>
       <body>
-        <ClientProviders>{children}</ClientProviders>
+        <ClientProvider>{children}</ClientProvider>
       </body>
     </html>
   );

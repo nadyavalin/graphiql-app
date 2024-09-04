@@ -1,9 +1,11 @@
 import "../globals.css";
-import { Footer } from "@shared/ui";
-import { HeaderServer } from "@shared/ui/Header/index.server";
-import { ClientProviders } from "@shared/providers/ClientProviders";
+import { Footer, Header } from "@shared/ui";
+
 import type { Metadata } from "next";
-import { i18n, Locale } from "../../../i18n-config";
+import { i18n, Locale } from "@config/i18n-config";
+import { ClientProvider } from "@shared/providers/ClientProvider";
+import DictionaryProvider from "@shared/providers/DictionaryProvider";
+import { getDictionary } from "./dictionaries";
 
 export const metadata: Metadata = {
   title: "Moon GraphQL",
@@ -14,25 +16,27 @@ export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params,
-  isSticky,
 }: {
   children: React.ReactNode;
   params: { lang?: Locale };
   isSticky: boolean;
 }) {
   const language = params.lang || "en";
+  const dictionary = await getDictionary(language);
 
   return (
     <html lang={language}>
       <body>
-        <ClientProviders>
-          <HeaderServer params={{ lang: language }} sticky={isSticky} />
-          {children}
-          <Footer />
-        </ClientProviders>
+        <ClientProvider>
+          <DictionaryProvider dictionary={dictionary}>
+            <Header params={{ lang: language }} />
+            {children}
+            <Footer />
+          </DictionaryProvider>
+        </ClientProvider>
       </body>
     </html>
   );

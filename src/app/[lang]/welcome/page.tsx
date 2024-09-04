@@ -1,10 +1,10 @@
 import Image from "next/image";
 import styles from "./styles.module.css";
-import { Locale } from "../../../../i18n-config";
-import { getDictionary } from "../../../app/[lang]/dictionaries";
-import nadyavalin from "../../../../public/nadyavalin.jpg";
-import katika from "../../../../public/ifbfirst.jpg";
-import larry from "../../../../public/LarryDavidd.jpg";
+import { Locale } from "@config/i18n-config";
+import { getDictionary } from "@app/[lang]/dictionaries";
+import nadyavalin from "@public/nadyavalin.jpg";
+import katika from "@public/ifbfirst.jpg";
+import larry from "@public/LarryDavidd.jpg";
 
 export const WelcomePage = async ({ params: { lang } }: { params: { lang: Locale } }) => {
   const dictionary = await getDictionary(lang);

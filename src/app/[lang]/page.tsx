@@ -1,5 +1,5 @@
 import { Languages } from "@shared/types/types";
-import { Locale } from "../../../i18n-config";
+import { Locale } from "@config/i18n-config";
 import { WelcomePage } from "./welcome/page";
 
 export default async function Home({ params }: { params: { lang?: string } }) {
