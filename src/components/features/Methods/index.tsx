@@ -1,14 +1,19 @@
 import styles from "./styles.module.css";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
-const methods = ["GET", "POST", "PUT", "DELETE"];
+enum Methods {
+  get = "GET",
+  post = "POST",
+  put = "PUT",
+  delete = "DELETE",
+}
 
-export const Methods = () => {
+export const MethodsBlock = () => {
   return (
     <FormControl sx={{ minWidth: "100px" }}>
       <InputLabel>Method</InputLabel>
       <Select className={styles.input}>
-        {methods.map((method) => {
+        {Object.values(Methods).map((method) => {
           return (
             <MenuItem key={method} value={method}>
               {method}

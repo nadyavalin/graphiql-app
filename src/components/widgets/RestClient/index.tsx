@@ -5,11 +5,11 @@ import PrettifyIcon from "@mui/icons-material/FormatIndentIncrease";
 import SendIcon from "@mui/icons-material/Send";
 import { Editor } from "@features/Editor";
 import { useState } from "react";
-import { Methods } from "@features/Methods";
 import { Field } from "@features/Field";
 import { HeadersVariablesBlock } from "@features/HeadersVariablesBlock";
 import { formatDataEditor } from "@shared/utils/formatDataEditor";
 import { ResponseBlock } from "@features/ResponseBlock";
+import { MethodsBlock } from "@features/Methods";
 
 export const RestClient = () => {
   const [body, setBody] = useState("");
@@ -25,7 +25,7 @@ export const RestClient = () => {
         <Card className={styles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
           <CardContent>
             <Box sx={{ display: "flex", gap: 1 }}>
-              <Methods />
+              <MethodsBlock />
               <Field label={"Endpoint URL"} />
               <IconButton title="Prettify query" onClick={() => setBody(formatDataEditor(body))}>
                 <PrettifyIcon className={styles["btn-prettify"]} />

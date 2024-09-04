@@ -5,17 +5,21 @@ import { Field } from "@features/Field";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
+interface Item {
+  key: string;
+  value: string;
+}
+
 interface HeadersVariablesBlockProp {
   title: string;
   itemType: string;
 }
 
 export const HeadersVariablesBlock = ({ title, itemType }: HeadersVariablesBlockProp) => {
-  const [items, setItems] = useState([{ key: "", value: "" }]);
+  const [items, setItems] = useState<Item[]>([{ key: "", value: "" }]);
 
-  const handleChange = (index: number, field: "key" | "value", value: string) => {
-    const newItems = [...items];
-    newItems[index][field] = value;
+  const handleChange = (key: string, field: "key" | "value", value: string) => {
+    const newItems = items.map((item) => (item.key === key ? { ...item, [field]: value } : item));
     setItems(newItems);
   };
 
@@ -24,8 +28,8 @@ export const HeadersVariablesBlock = ({ title, itemType }: HeadersVariablesBlock
     setItems(newItems);
   };
 
-  const removeItem = (index: number) => {
-    const newItems = items.filter((_, i) => i !== index);
+  const removeItem = (key: string) => {
+    const newItems = items.filter((item) => item.key !== key);
     setItems(newItems);
   };
 
@@ -37,19 +41,19 @@ export const HeadersVariablesBlock = ({ title, itemType }: HeadersVariablesBlock
           <AddIcon className={styles.icon} />
         </IconButton>
       </h3>
-      {items.map((item, index) => (
-        <Box mb={1} display="flex" alignItems="center" key={index}>
+      {items.map((item) => (
+        <Box mb={1} display="flex" alignItems="center" key={item.key}>
           <Field
             label={`${itemType} Key`}
             value={item.key}
-            onChange={(e) => handleChange(index, "key", e.target.value)}
+            onChange={(e) => handleChange(item.key, "key", e.target.value)}
           />
           <Field
             label={`${itemType} Value`}
             value={item.value}
-            onChange={(e) => handleChange(index, "value", e.target.value)}
+            onChange={(e) => handleChange(item.key, "value", e.target.value)}
           />
-          <IconButton onClick={() => removeItem(index)}>
+          <IconButton onClick={() => removeItem(item.key)}>
             <RemoveIcon className={styles.icon} />
           </IconButton>
         </Box>
