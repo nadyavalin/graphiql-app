@@ -10,12 +10,24 @@ import { HeadersVariablesBlock } from "@features/HeadersVariablesBlock";
 import { formatDataEditor } from "@shared/utils/formatDataEditor";
 import { ResponseBlock } from "@features/ResponseBlock";
 import { MethodsBlock } from "@features/Methods";
+import { Item } from "@shared/store/model";
+import useAppSelector from "@shared/hooks/useAppSelector";
+import useAppDispatch from "@shared/hooks/useAppDispatch";
+import { updateHeaders } from "@src/components/shared/store/slices/headersSlice";
 
 export const RestClient = () => {
   const [body, setBody] = useState("");
 
+  const dispatch = useAppDispatch();
+
+  const headers = useAppSelector((state) => state.headers.headers);
+
   const handleBodyChange = (newValue: string) => {
     setBody(newValue);
+  };
+
+  const handleHeadersChange = (items: Item[]) => {
+    dispatch(updateHeaders(items));
   };
 
   return (
@@ -36,7 +48,12 @@ export const RestClient = () => {
             </Box>
             <h3>Body:</h3>
             <Editor value={body} onChange={handleBodyChange} />
-            <HeadersVariablesBlock title="Add Header" itemType="Header" />
+            <HeadersVariablesBlock
+              title="Add Header"
+              itemType="Header"
+              onChange={handleHeadersChange}
+              value={headers}
+            />
             <HeadersVariablesBlock title="Add Variable" itemType="Variable" />
           </CardContent>
         </Card>

@@ -4,23 +4,27 @@ import { Box, IconButton } from "@mui/material";
 import { Field } from "@features/Field";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-
-interface Item {
-  key: string;
-  value: string;
-}
+import { Item } from "@src/components/shared/store/model";
 
 interface HeadersVariablesBlockProp {
   title: string;
   itemType: string;
+  value: Item[];
+  onChange: (value: Item[]) => void;
 }
 
-export const HeadersVariablesBlock = ({ title, itemType }: HeadersVariablesBlockProp) => {
-  const [items, setItems] = useState<Item[]>([{ key: "", value: "" }]);
+export const HeadersVariablesBlock = ({
+  title,
+  itemType,
+  onChange,
+  value,
+}: HeadersVariablesBlockProp) => {
+  const [items, setItems] = useState<Item[]>(value);
 
   const handleChange = (key: string, field: "key" | "value", value: string) => {
     const newItems = items.map((item) => (item.key === key ? { ...item, [field]: value } : item));
     setItems(newItems);
+    onChange(newItems);
   };
 
   const addItem = () => {
@@ -31,6 +35,7 @@ export const HeadersVariablesBlock = ({ title, itemType }: HeadersVariablesBlock
   const removeItem = (key: string) => {
     const newItems = items.filter((item) => item.key !== key);
     setItems(newItems);
+    onChange(newItems);
   };
 
   return (
