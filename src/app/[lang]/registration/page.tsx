@@ -1,7 +1,11 @@
+"use client";
 import { SubmitHandler, useForm } from "react-hook-form";
 import styles from "./styles.module.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import { auth } from "../../../../firebaseConfig";
 
 interface FormData {
   email: string;
@@ -18,7 +22,6 @@ export const schema = yup.object({
     .matches(/(?=.*[0-9])/, "*** Password must contain at least one number")
     .matches(/(?=.*[A-Za-z])/, "*** Password must contain at least one letter")
     .matches(/(?=.*[!@#$%^&*])/, "*** Password must contain at least one special character"),
-
   confPassword: yup
     .string()
     .oneOf([yup.ref("password")], "*** Passwords must match")
@@ -26,6 +29,7 @@ export const schema = yup.object({
 });
 
 const RegistrationPage = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -35,39 +39,42 @@ const RegistrationPage = () => {
     mode: "onChange",
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
+    try {
+      await createUserWithEmailAndPassword(auth, data.email, data.password);
+      router.push("/");
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
   };
 
   return (
-    <>
-      <main>
-        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-          <h1>Sign UP</h1>
-          <label>Enter your email</label>
-          <input {...register("email")} />
-          {errors.email && <p>{errors.email.message}</p>}
+    <main>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <h1>Sign Up</h1>
+        <label>Enter your email</label>
+        <input {...register("email")} />
+        {errors.email && <p>{errors.email.message}</p>}
 
-          <label>Enter password</label>
-          <input {...register("password")} type="password" />
-          {errors.password && <p>{errors.password.message}</p>}
+        <label>Enter password</label>
+        <input {...register("password")} type="password" />
+        {errors.password && <p>{errors.password.message}</p>}
 
-          <label>Confirm password</label>
-          <input {...register("confPassword")} type="password" />
-          {errors.confPassword && <p>{errors.confPassword.message}</p>}
+        <label>Confirm password</label>
+        <input {...register("confPassword")} type="password" />
+        {errors.confPassword && <p>{errors.confPassword.message}</p>}
 
-          <button
-            type="submit"
-            disabled={!isValid || isSubmitting}
-            className={
-              !isValid || isSubmitting ? `${styles["send-btn"]} disabled}` : styles["send-btn"]
-            }
-          >
-            Submit
-          </button>
-        </form>
-      </main>
-    </>
+        <button
+          type="submit"
+          disabled={!isValid || isSubmitting}
+          className={
+            !isValid || isSubmitting ? `${styles["send-btn"]} disabled` : styles["send-btn"]
+          }
+        >
+          Submit
+        </button>
+      </form>
+    </main>
   );
 };
 

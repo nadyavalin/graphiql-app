@@ -1,7 +1,11 @@
+"use client";
 import { SubmitHandler, useForm } from "react-hook-form";
 import styles from "./styles.module.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import router from "next/router";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../../firebaseConfig";
 
 interface FormData {
   email: string;
@@ -29,8 +33,13 @@ const LoginPage = () => {
     mode: "onChange",
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
+    try {
+      await signInWithEmailAndPassword(auth, data.email, data.password); // Use the function
+      router.push("/");
+    } catch (error) {
+      console.error("Ошибка входа:", error);
+    }
   };
 
   return (
