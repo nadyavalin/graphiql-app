@@ -20,6 +20,14 @@
       "name": "Eugene ...",
       "position": "Front-end developer",
       "desc": "..."
+    },
+    "labels": {
+      "method": "Method",
+      "endpoint": "Endpoint URL",
+      "headerKey": "Header Key",
+      "headerValue": "Header Value",
+      "variableKey": "Variable Key",
+      "variableValue": "Variable Value"
     }
   }
 }

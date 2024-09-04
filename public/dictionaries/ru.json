@@ -20,6 +20,14 @@
       "name": "Евгений ...",
       "position": "Front-end разработчик",
       "desc": "..."
+    },
+    "labels": {
+      "method": "Метод",
+      "endpoint": "URL конечной точки",
+      "headerKey": "Ключ заголовка",
+      "headerValue": "Значение заголовка",
+      "variableKey": "Ключ переменной",
+      "variableValue": "Значение переменной"
     }
   }
 }
