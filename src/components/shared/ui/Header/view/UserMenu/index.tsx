@@ -14,7 +14,7 @@ export const UserMenu = ({ lang }: MenuProps) => {
   const dictionary = useDictionary();
 
   return (
-    <nav className={styles.nav}>
+    <nav className={styles.userNav}>
       <Link
         href={`/${lang}/login`}
         className={styles.userMenuLink}

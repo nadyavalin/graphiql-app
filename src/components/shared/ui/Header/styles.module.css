@@ -14,10 +14,10 @@
 }
 
 .sticky {
+  position: sticky;
+  top: -1px;
   background-color: var(--bg-middle-color);
   height: 60px;
-  position: sticky;
-  top: 0;
 }
 
 .nav {
@@ -37,6 +37,11 @@
     color 0.3s ease;
 }
 
+.userNav {
+  display: flex;
+  gap: 5px;
+}
+
 .userMenu {
   position: absolute;
   right: 5px;
@@ -44,8 +49,6 @@
 }
 
 .userMenuLink {
-  display: flex;
-  gap: 20px;
   background-color: var(--main-color);
   color: var(--text-color);
   border-radius: 5px;
