@@ -1,21 +1,22 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Languages } from "@shared/types/types";
 import { loadDictionary } from "@shared/utils/loadDictionary";
 
 interface LanguageState {
-  lang: string;
+  lang: Languages;
   dictionary: Record<string, unknown>;
 }
 
 const initialState: LanguageState = {
-  lang: "en",
-  dictionary: loadDictionary("en"),
+  lang: Languages.EN,
+  dictionary: loadDictionary(Languages.EN),
 };
 
-const languageSlice = createSlice({
+export const languageSlice = createSlice({
   name: "language",
   initialState,
   reducers: {
-    setLanguage(state, action: PayloadAction<string>) {
+    setLanguage(state, action: PayloadAction<Languages>) {
       state.lang = action.payload;
       state.dictionary = loadDictionary(action.payload);
     },

@@ -10,31 +10,36 @@ interface MenuProps {
   lang: Locale;
 }
 
-export const Menu = ({ lang }: MenuProps) => {
+export const UserMenu = ({ lang }: MenuProps) => {
   const dictionary = useDictionary();
 
   return (
-    <nav className={styles.nav}>
+    <nav className={styles.userNav}>
       <Link
-        href={`/${lang}/rest-client`}
-        className={styles.menuLink}
+        href={`/${lang}/login`}
+        className={styles.userMenuLink}
         underline="none"
         component={NextLink}
       >
-        {dictionary.buttons.restClient}
+        {dictionary.buttons.login}
       </Link>
 
       <Link
-        href={`/${lang}/graph-ql`}
-        className={styles.menuLink}
+        href={`/${lang}/registration`}
+        className={styles.userMenuLink}
         underline="none"
         component={NextLink}
       >
-        {dictionary.buttons.graphQL}
+        {dictionary.buttons.registration}
       </Link>
 
-      <Link href={`/${lang}/`} className={styles.menuLink} underline="none" component={NextLink}>
-        {dictionary.buttons.welcome}
+      <Link
+        href={`/${lang}/`}
+        className={styles.userMenuLink}
+        underline="none"
+        component={NextLink}
+      >
+        {dictionary.buttons.logout}
       </Link>
     </nav>
   );
