@@ -1,0 +1,38 @@
+.btn-send {
+  background-color: var(--main-color);
+  padding: 5px;
+  border-radius: 8px;
+  color: var(--text-color);
+  border: none;
+}
+.btn-prettify {
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.btn-send:hover {
+  background-color: var(--color-hover);
+  transition: 1s all;
+}
+
+.rest-client-container {
+  margin: 0 auto 20px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.rest-client-container h3 {
+  text-align: left;
+  font-weight: 500;
+}
+.card {
+  min-height: 630px;
+  max-width: 550px;
+}
+
+@media screen and (max-width: 800px) {
+  .rest-client-container {
+    flex-direction: column;
+  }
+}
