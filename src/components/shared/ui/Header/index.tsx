@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, ReactNode } from "react";
 import styles from "./styles.module.css";
+import classNames from "classnames";
 import { Menu } from "./view/Menu";
 import { LangSwitcher } from "./view/LangSwitcher";
 import { Locale } from "@config/i18n-config";
@@ -11,7 +12,7 @@ interface HeaderProps {
   params: {
     lang: Locale;
   };
-  children: ReactNode;
+  children?: ReactNode;
   [key: string]: unknown;
 }
 
@@ -41,9 +42,12 @@ function useDetectSticky() {
 
 export const Header = ({ params: { lang }, children, ...rest }: HeaderProps) => {
   const { isSticky, ref } = useDetectSticky();
+  const headerClass = classNames(styles.header, {
+    [styles.sticky]: isSticky,
+  });
 
   return (
-    <header className={`${styles.header} ${isSticky ? styles.sticky : ""}`} ref={ref} {...rest}>
+    <header className={headerClass} ref={ref} {...rest}>
       {children}
       <Menu lang={lang} />
       <LangSwitcher />
