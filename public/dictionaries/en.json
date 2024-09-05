@@ -22,14 +22,25 @@
       "name": "Eugene ...",
       "position": "Front-end developer",
       "desc": "..."
-    },
-    "labels": {
-      "method": "Method",
-      "endpoint": "Endpoint URL",
-      "headerKey": "Header Key",
-      "headerValue": "Header Value",
-      "variableKey": "Variable Key",
-      "variableValue": "Variable Value"
     }
+  },
+  "labels": {
+    "method": "Method",
+    "endpoint": "Endpoint URL",
+    "headerKey": "Header Key",
+    "headerValue": "Header Value",
+    "variableKey": "Variable Key",
+    "variableValue": "Variable Value"
+  },
+  "titles": {
+    "query": "Prettify query",
+    "sendRequest": "Send request",
+    "body": "Body",
+    "addHeader": "Add Header",
+    "header": "Header",
+    "addVariable": "Add Variable",
+    "variable": "Variable",
+    "response": "Response",
+    "status": "Status"
   }
 }

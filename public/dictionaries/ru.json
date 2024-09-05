@@ -22,14 +22,25 @@
       "name": "Евгений ...",
       "position": "Front-end разработчик",
       "desc": "..."
-    },
-    "labels": {
-      "method": "Метод",
-      "endpoint": "URL конечной точки",
-      "headerKey": "Ключ заголовка",
-      "headerValue": "Значение заголовка",
-      "variableKey": "Ключ переменной",
-      "variableValue": "Значение переменной"
     }
+  },
+  "labels": {
+    "method": "Метод",
+    "endpoint": "URL конечной точки",
+    "headerKey": "Ключ заголовка",
+    "headerValue": "Значение заголовка",
+    "variableKey": "Ключ переменной",
+    "variableValue": "Значение переменной"
+  },
+  "titles": {
+    "query": "Уточнение запроса",
+    "sendRequest": "Отправить запрос",
+    "body": "Тело",
+    "addHeader": "Добавить заголовок",
+    "header": "Заголовок",
+    "addVariable": "Добавить переменную",
+    "variable": "Переменная",
+    "response": "Ответ",
+    "status": "Статус"
   }
 }
