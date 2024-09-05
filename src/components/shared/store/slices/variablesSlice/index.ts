@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { variablesState, Item } from "../../model";
+import { VariablesState, Item } from "../../model";
 
-const initialState: variablesState = {
+const initialState: VariablesState = {
   variables: [],
 };
 

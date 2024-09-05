@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { Methods, methodState } from "../../model";
+import { Methods, MethodState } from "../../model";
 
-const initialState: methodState = {
+const initialState: MethodState = {
   method: Methods["get"],
 };
 

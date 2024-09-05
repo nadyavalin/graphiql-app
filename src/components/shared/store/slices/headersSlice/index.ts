@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { headersState, Item } from "../../model";
+import { HeadersState, Item } from "../../model";
 
-const initialState: headersState = {
+const initialState: HeadersState = {
   headers: [],
 };
 

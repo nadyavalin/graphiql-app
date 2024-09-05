@@ -1,9 +1,9 @@
 // Headers variables
-export type headersState = {
+export type HeadersState = {
   headers: Item[];
 };
 
-export type variablesState = {
+export type VariablesState = {
   variables: Item[];
 };
 
@@ -13,7 +13,7 @@ export interface Item {
 }
 
 // Methods
-export type methodState = {
+export type MethodState = {
   method: Methods;
 };
 
@@ -27,4 +27,10 @@ export enum Methods {
 // Endpont
 export type EndpointState = {
   endpoint: string;
+};
+
+// Body
+
+export type BodyState = {
+  body: string;
 };

@@ -4,7 +4,6 @@ import { Box, Card, CardContent, IconButton } from "@mui/material";
 import PrettifyIcon from "@mui/icons-material/FormatIndentIncrease";
 import SendIcon from "@mui/icons-material/Send";
 import { Editor } from "@features/Editor";
-import { useState } from "react";
 import { Field } from "@features/Field";
 import { HeadersVariablesBlock } from "@features/HeadersVariablesBlock";
 import { formatDataEditor } from "@shared/utils/formatDataEditor";
@@ -16,10 +15,11 @@ import useAppDispatch from "@shared/hooks/useAppDispatch";
 import { updateHeaders } from "@shared/store/slices/headersSlice";
 import { updateVariables } from "@shared/store/slices/variablesSlice";
 import { updateEndpoint } from "@shared/store/slices/endpointSlice";
+import isValidJson from "@src/components/shared/utils/checkIsValidJson";
+import { updateBody } from "@src/components/shared/store/slices/bodySlice";
+import fixInvalidJson from "@src/components/shared/utils/formatToValidJson";
 
 export const RestClient = () => {
-  const [body, setBody] = useState("");
-
   const dispatch = useAppDispatch();
 
   // Headers
@@ -39,9 +39,15 @@ export const RestClient = () => {
   };
 
   // Body
+  const body = useAppSelector((state) => state.body.body);
+
   const handleBodyChange = (newValue: string) => {
-    console.log(newValue);
-    setBody(newValue);
+    if (isValidJson(newValue)) {
+      dispatch(updateBody(newValue));
+    } else {
+      const body = fixInvalidJson(newValue);
+      dispatch(updateBody(body));
+    }
   };
 
   // Endponts
@@ -61,7 +67,10 @@ export const RestClient = () => {
             <Box sx={{ display: "flex", gap: 1 }}>
               <MethodsBlock />
               <Field label={"Endpoint URL"} onChange={onEndpointChange} value={endpoint} />
-              <IconButton title="Prettify query" onClick={() => setBody(formatDataEditor(body))}>
+              <IconButton
+                title="Prettify query"
+                onClick={() => dispatch(updateBody(formatDataEditor(body)))}
+              >
                 <PrettifyIcon className={styles["btn-prettify"]} />
               </IconButton>
               <IconButton title="Send request">
