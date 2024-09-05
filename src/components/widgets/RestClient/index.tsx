@@ -13,7 +13,8 @@ import { MethodsBlock } from "@features/Methods";
 import { Item } from "@shared/store/model";
 import useAppSelector from "@shared/hooks/useAppSelector";
 import useAppDispatch from "@shared/hooks/useAppDispatch";
-import { updateHeaders } from "@src/components/shared/store/slices/headersSlice";
+import { updateHeaders } from "@shared/store/slices/headersSlice";
+import { updateVariables } from "@shared/store/slices/variablesSlice";
 
 export const RestClient = () => {
   const [body, setBody] = useState("");
@@ -22,12 +23,20 @@ export const RestClient = () => {
 
   const headers = useAppSelector((state) => state.headers.headers);
 
+  const variables = useAppSelector((state) => state.variables.variables);
+
   const handleBodyChange = (newValue: string) => {
     setBody(newValue);
   };
 
   const handleHeadersChange = (items: Item[]) => {
+    console.log(headers);
     dispatch(updateHeaders(items));
+  };
+
+  const handleVariablesChange = (items: Item[]) => {
+    console.log(variables);
+    dispatch(updateVariables(items));
   };
 
   return (
@@ -54,7 +63,12 @@ export const RestClient = () => {
               onChange={handleHeadersChange}
               value={headers}
             />
-            <HeadersVariablesBlock title="Add Variable" itemType="Variable" />
+            <HeadersVariablesBlock
+              title="Add Variable"
+              itemType="Variable"
+              onChange={handleVariablesChange}
+              value={variables}
+            />
           </CardContent>
         </Card>
       </section>

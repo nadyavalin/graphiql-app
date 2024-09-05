@@ -46,7 +46,7 @@ export const HeadersVariablesBlock = ({
           <AddIcon className={styles.icon} />
         </IconButton>
       </h3>
-      {items.map((item) => (
+      {(items ?? []).map((item) => (
         <Box mb={1} display="flex" alignItems="center" key={item.key}>
           <Field
             label={`${itemType} Key`}
