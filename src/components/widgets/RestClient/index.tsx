@@ -15,6 +15,7 @@ import useAppSelector from "@shared/hooks/useAppSelector";
 import useAppDispatch from "@shared/hooks/useAppDispatch";
 import { updateHeaders } from "@shared/store/slices/headersSlice";
 import { updateVariables } from "@shared/store/slices/variablesSlice";
+import { updateEndpoint } from "@shared/store/slices/endpointSlice";
 
 export const RestClient = () => {
   const [body, setBody] = useState("");
@@ -43,6 +44,14 @@ export const RestClient = () => {
     setBody(newValue);
   };
 
+  // Endponts
+  const endpoint = useAppSelector((state) => state.endpoint.endpoint);
+
+  const onEndpointChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const endpont = e.target.value;
+    dispatch(updateEndpoint(endpont));
+  };
+
   return (
     <main className={styles["rest-client-container"]}>
       <section>
@@ -51,7 +60,7 @@ export const RestClient = () => {
           <CardContent>
             <Box sx={{ display: "flex", gap: 1 }}>
               <MethodsBlock />
-              <Field label={"Endpoint URL"} />
+              <Field label={"Endpoint URL"} onChange={onEndpointChange} value={endpoint} />
               <IconButton title="Prettify query" onClick={() => setBody(formatDataEditor(body))}>
                 <PrettifyIcon className={styles["btn-prettify"]} />
               </IconButton>

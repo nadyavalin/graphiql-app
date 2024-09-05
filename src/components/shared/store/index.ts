@@ -3,6 +3,7 @@ import languageReducer from "@shared/store/slices/languageSlice";
 import { headersReducer } from "./slices/headersSlice";
 import { variablesReducer } from "./slices/variablesSlice";
 import { methodReducer } from "./slices/methodSlice";
+import { endpointReducer } from "./slices/endpointSlice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     headers: headersReducer,
     variables: variablesReducer,
     method: methodReducer,
+    endpoint: endpointReducer,
   },
 });
 

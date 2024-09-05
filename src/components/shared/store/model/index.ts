@@ -23,3 +23,8 @@ export enum Methods {
   put = "PUT",
   delete = "DELETE",
 }
+
+// Endpont
+export type EndpointState = {
+  endpoint: string;
+};
