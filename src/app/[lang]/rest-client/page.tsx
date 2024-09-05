@@ -1,10 +1,5 @@
-import ProtectedRoute from "@shared/protected";
+import { RestClient } from "@widgets/RestClient";
 
-const RestClient = () => {
-  return (
-    <ProtectedRoute>
-      <h1>This is protected route</h1>
-    </ProtectedRoute>
-  );
-};
-export default RestClient;
+export default function RestClientPage() {
+  return <RestClient />;
+}

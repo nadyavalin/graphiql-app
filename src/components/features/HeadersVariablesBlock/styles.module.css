@@ -1,0 +1,11 @@
+.icon {
+  background-color: var(--main-color);
+  border-radius: 8px;
+  color: var(--text-color);
+  border: none;
+}
+
+.icon:hover {
+  background-color: var(--color-hover);
+  transition: 1s all;
+}

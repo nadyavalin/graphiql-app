@@ -1,13 +1,34 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
   align-items: center;
+  max-width: 350px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: var(--bg-light-color);
+  border-radius: 10px;
 }
 .form label {
   display: flex;
   gap: 10px;
 }
+.form p {
+  color: red;
+  font-size: 0.9em;
+}
 .send-btn {
   width: 100px;
+}
+.field-block {
+  width: 100%;
+  border-radius: 5px;
+}
+.input {
+  width: 100%;
+  border-radius: 5px;
+  background-color: white;
+}
+.disabled {
+  pointer-events: none;
 }

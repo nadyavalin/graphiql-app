@@ -6,6 +6,10 @@ import * as yup from "yup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "../../../../firebaseConfig";
+import { Box, TextField } from "@mui/material";
+import useSnackbar from "@shared/hooks/useSnackBar";
+import CustomSnackbar from "@features/CustomSnackBar";
+import { FirebaseError } from "firebase/app";
 
 interface FormData {
   email: string;
@@ -29,6 +33,8 @@ export const schema = yup.object({
 });
 
 const RegistrationPage = () => {
+  const { snackbarOpen, snackbarMessage, snackbarSeverity, showSnackbar, handleSnackbarClose } =
+    useSnackbar();
   const router = useRouter();
   const {
     register,
@@ -42,38 +48,62 @@ const RegistrationPage = () => {
   const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
-      router.push("/");
+      showSnackbar("Registration successful!", "success");
+      setTimeout(() => router.push("/en"), 1000);
     } catch (error) {
       console.error("Error during registration:", error);
+      let errorMessage = "Registration failed. Please try again.";
+
+      if (error instanceof FirebaseError) {
+        if (error.code === "auth/email-already-in-use") {
+          errorMessage = "The email address is already in use.";
+        }
+      }
+
+      showSnackbar(errorMessage, "error");
     }
   };
 
   return (
     <main>
+      <h1>Sign Up</h1>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <h1>Sign Up</h1>
-        <label>Enter your email</label>
-        <input {...register("email")} />
-        {errors.email && <p>{errors.email.message}</p>}
-
-        <label>Enter password</label>
-        <input {...register("password")} type="password" />
-        {errors.password && <p>{errors.password.message}</p>}
-
-        <label>Confirm password</label>
-        <input {...register("confPassword")} type="password" />
-        {errors.confPassword && <p>{errors.confPassword.message}</p>}
-
+        <Box className={styles["field-block"]}>
+          <TextField label="Enter your email" {...register("email")} className={styles.input} />
+          {errors.email && <p>{errors.email.message}</p>}{" "}
+        </Box>
+        <Box className={styles["field-block"]}>
+          <TextField
+            label="Enter password"
+            {...register("password")}
+            type="password"
+            className={styles.input}
+          />
+          {errors.password && <p>{errors.password.message}</p>}
+        </Box>
+        <Box className={styles["field-block"]}>
+          <TextField
+            label="Confirm password"
+            {...register("confPassword")}
+            type="password"
+            className={styles.input}
+          />
+          {errors.confPassword && <p>{errors.confPassword.message}</p>}
+        </Box>
         <button
           type="submit"
           disabled={!isValid || isSubmitting}
-          className={
-            !isValid || isSubmitting ? `${styles["send-btn"]} disabled` : styles["send-btn"]
-          }
+          className={!isValid || isSubmitting ? styles["disabled"] : styles["send-btn"]}
         >
           Submit
         </button>
       </form>
+      <CustomSnackbar
+        open={snackbarOpen}
+        onClose={handleSnackbarClose}
+        message={snackbarMessage}
+        severity={snackbarSeverity}
+      />
     </main>
   );
 };
