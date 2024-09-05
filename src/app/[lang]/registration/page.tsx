@@ -62,7 +62,7 @@ const RegistrationPage = (lang: Locale) => {
         }
       }
 
-      toast.success(errorMessage);
+      toast.error(errorMessage);
     }
   };
 

@@ -17,7 +17,7 @@ export const Logout = () => {
       router.push("/en");
     } catch (error) {
       if (error instanceof FirebaseError) {
-        toast.success("Logout error");
+        toast.error("Logout error");
       }
     }
   };
