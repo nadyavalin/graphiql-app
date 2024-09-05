@@ -6,9 +6,9 @@ import * as yup from "yup";
 import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../../firebaseConfig";
-import useSnackbar from "@shared/hooks/useSnackBar";
 import { Box, TextField } from "@mui/material";
-import CustomSnackbar from "@features/CustomSnackBar";
+import { toast } from "react-hot-toast";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 interface FormData {
   email: string;
@@ -27,9 +27,8 @@ export const schema = yup.object({
 });
 
 const LoginPage = () => {
-  const { snackbarOpen, snackbarMessage, snackbarSeverity, showSnackbar, handleSnackbarClose } =
-    useSnackbar();
   const router = useRouter();
+  const [user, loading] = useAuthState(auth);
   const {
     register,
     handleSubmit,
@@ -39,14 +38,20 @@ const LoginPage = () => {
     mode: "onChange",
   });
 
+  if (loading) {
+    return;
+  }
+  if (user) {
+    router.push("/en");
+  }
+
   const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
-      showSnackbar("User logged in!", "success");
-      setTimeout(() => router.push("/en"), 1000);
+      toast.success("Successful login!");
+      router.push("/en");
     } catch (error) {
-      console.error("Error during login:", error);
-      showSnackbar("Login failed. Please try again.", "error");
+      toast.error("Login failed. Please try again.");
     }
   };
 
@@ -76,12 +81,6 @@ const LoginPage = () => {
           Submit
         </button>
       </form>
-      <CustomSnackbar
-        open={snackbarOpen}
-        onClose={handleSnackbarClose}
-        message={snackbarMessage}
-        severity={snackbarSeverity}
-      />
     </main>
   );
 };

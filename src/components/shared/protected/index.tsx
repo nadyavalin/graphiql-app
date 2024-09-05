@@ -15,11 +15,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
   useEffect(() => {
     if (!user) {
-      router.push("/login");
+      router.push("/en");
     }
   }, [user, router]);
 
-  return children;
+  return <>{user ? children : null}</>;
 };
 
 export default ProtectedRoute;

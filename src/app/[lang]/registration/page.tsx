@@ -7,9 +7,10 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "../../../../firebaseConfig";
 import { Box, TextField } from "@mui/material";
-import useSnackbar from "@shared/hooks/useSnackBar";
-import CustomSnackbar from "@features/CustomSnackBar";
 import { FirebaseError } from "firebase/app";
+import toast from "react-hot-toast";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Locale } from "@config/i18n-config";
 
 interface FormData {
   email: string;
@@ -32,10 +33,9 @@ export const schema = yup.object({
     .required("*** Password confirmation is required"),
 });
 
-const RegistrationPage = () => {
-  const { snackbarOpen, snackbarMessage, snackbarSeverity, showSnackbar, handleSnackbarClose } =
-    useSnackbar();
+const RegistrationPage = (lang: Locale) => {
   const router = useRouter();
+  const [user, loading] = useAuthState(auth);
   const {
     register,
     handleSubmit,
@@ -44,23 +44,25 @@ const RegistrationPage = () => {
     resolver: yupResolver(schema),
     mode: "onChange",
   });
+  if (loading) return;
+  if (user) {
+    router.push("/en");
+  }
 
   const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
-      showSnackbar("Registration successful!", "success");
-      setTimeout(() => router.push("/en"), 1000);
+      toast.success("Registration successful!");
+      router.push(`/${lang}`);
     } catch (error) {
-      console.error("Error during registration:", error);
       let errorMessage = "Registration failed. Please try again.";
-
       if (error instanceof FirebaseError) {
         if (error.code === "auth/email-already-in-use") {
           errorMessage = "The email address is already in use.";
         }
       }
 
-      showSnackbar(errorMessage, "error");
+      toast.success(errorMessage);
     }
   };
 
@@ -98,12 +100,6 @@ const RegistrationPage = () => {
           Submit
         </button>
       </form>
-      <CustomSnackbar
-        open={snackbarOpen}
-        onClose={handleSnackbarClose}
-        message={snackbarMessage}
-        severity={snackbarSeverity}
-      />
     </main>
   );
 };

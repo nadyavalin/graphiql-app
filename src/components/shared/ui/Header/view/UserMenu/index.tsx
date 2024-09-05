@@ -5,56 +5,49 @@ import { Link } from "@mui/material";
 import styles from "../../styles.module.css";
 import { Locale } from "@config/i18n-config";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
-
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "firebaseConfig";
+import { Logout } from "@src/components/features/Logout";
 
 interface MenuProps {
   lang: Locale;
 }
 
-export const Menu = ({ lang }: MenuProps) => {
+export const UserMenu = ({ lang }: MenuProps) => {
   const dictionary = useDictionary();
   const [user, loading] = useAuthState(auth);
 
   if (loading) {
     return <div>Loading...</div>;
   }
+
   return (
-    <nav className={styles.nav}>
+    <nav className={styles.userNav}>
       {user ? (
+        <Logout />
+      ) : (
         <>
           <Link
-            href={`/${lang}/rest-client`}
-            className={styles.menuLink}
+            href={`/${lang}/login`}
+            className={styles.userMenuLink}
             underline="none"
             component={NextLink}
             sx={{ color: "var(--text-color)" }}
           >
-            {dictionary.buttons.restClient}
+            {dictionary.buttons.login}
           </Link>
 
           <Link
-            href={`/${lang}/graph-ql`}
-            className={styles.menuLink}
+            href={`/${lang}/registration`}
+            className={styles.userMenuLink}
             underline="none"
             component={NextLink}
             sx={{ color: "var(--text-color)" }}
           >
-            {dictionary.buttons.graphQL}
+            {dictionary.buttons.registration}
           </Link>
         </>
-      ) : null}
-
-      <Link
-        href={`/${lang}/`}
-        className={styles.menuLink}
-        underline="none"
-        component={NextLink}
-        sx={{ color: "var(--text-color)" }}
-      >
-        {dictionary.buttons.welcome}
-      </Link>
+      )}
     </nav>
   );
 };
