@@ -9,35 +9,34 @@ import { Field } from "@features/Field";
 import { HeadersVariablesBlock } from "@features/HeadersVariablesBlock";
 import { formatDataEditor } from "@shared/utils/formatDataEditor";
 import { ResponseBlock } from "@features/ResponseBlock";
-import { MethodsBlock } from "@features/Methods";
 
-export const RestClient = () => {
-  const [body, setBody] = useState("");
+export const GraphQL = () => {
+  const [query, setQuery] = useState("");
 
-  const handleBodyChange = (newValue: string) => {
-    setBody(newValue);
+  const handleQueryChange = (newValue: string) => {
+    setQuery(newValue);
   };
 
   return (
-    <main className={styles["rest-client-container"]}>
+    <main className={styles["graphQL-container"]}>
       <section>
-        <h2> REST Client</h2>
-        <Box className={styles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
+        <h2> Graph QL</h2>
+        <div className={styles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
           <Box sx={{ display: "flex", gap: 1 }}>
-            <MethodsBlock />
             <Field label={"Endpoint URL"} />
-            <IconButton title="Prettify query" onClick={() => setBody(formatDataEditor(body))}>
+            <IconButton title="Prettify query" onClick={() => setQuery(formatDataEditor(query))}>
               <PrettifyIcon className={styles["btn-prettify"]} />
             </IconButton>
             <IconButton title="Send request">
               <SendIcon className={styles["btn-send"]} />
             </IconButton>
           </Box>
-          <h3>Body:</h3>
-          <Editor value={body} onChange={handleBodyChange} />
+          <Field label={"SDL URL"} />
+          <h3>Query:</h3>
+          <Editor value={query} onChange={handleQueryChange} />
           <HeadersVariablesBlock title="Add Header" itemType="Header" />
           <HeadersVariablesBlock title="Add Variable" itemType="Variable" />
-        </Box>
+        </div>
       </section>
       <ResponseBlock />
     </main>
