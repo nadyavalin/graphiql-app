@@ -21,22 +21,26 @@ export const RestClient = () => {
 
   const dispatch = useAppDispatch();
 
+  // Headers
   const headers = useAppSelector((state) => state.headers.headers);
-
-  const variables = useAppSelector((state) => state.variables.variables);
-
-  const handleBodyChange = (newValue: string) => {
-    setBody(newValue);
-  };
 
   const handleHeadersChange = (items: Item[]) => {
     console.log(headers);
     dispatch(updateHeaders(items));
   };
 
+  // Variables
+  const variables = useAppSelector((state) => state.variables.variables);
+
   const handleVariablesChange = (items: Item[]) => {
     console.log(variables);
     dispatch(updateVariables(items));
+  };
+
+  // Body
+  const handleBodyChange = (newValue: string) => {
+    console.log(newValue);
+    setBody(newValue);
   };
 
   return (
