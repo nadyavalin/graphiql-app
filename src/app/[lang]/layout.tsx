@@ -1,9 +1,10 @@
+import { Metadata } from "next";
+import { Toaster } from "react-hot-toast";
 import "../globals.css";
-import { Footer, Header } from "@shared/ui";
-import type { Metadata } from "next";
 import { i18n, Locale } from "@config/i18n-config";
 import { ClientProvider } from "@shared/providers/ClientProvider";
 import DictionaryProvider from "@shared/providers/DictionaryProvider";
+import { Footer, Header } from "@src/components/shared/ui";
 import { getDictionary } from "./dictionaries";
 
 export const metadata: Metadata = {
@@ -29,6 +30,7 @@ export default async function RootLayout({
     <html lang={language}>
       <body>
         <ClientProvider>
+          <Toaster position="bottom-center" />
           <DictionaryProvider dictionary={dictionary}>
             <Header params={{ lang: language }} />
             {children}

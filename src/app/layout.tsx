@@ -1,7 +1,7 @@
 import "./globals.css";
 import { ClientProvider } from "@shared/providers/ClientProvider";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html>
       <body>

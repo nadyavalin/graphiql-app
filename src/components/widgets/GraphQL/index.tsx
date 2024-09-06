@@ -3,14 +3,14 @@
 import { useState } from "react";
 import styles from "./styles.module.css";
 import commonStyles from "../commonStyles.module.css";
-import { Box, IconButton } from "@mui/material";
 import PrettifyIcon from "@mui/icons-material/FormatIndentIncrease";
 import SendIcon from "@mui/icons-material/Send";
-import { Editor } from "@features/Editor";
-import { Field } from "@features/Field";
+import { Box, IconButton } from "@mui/material";
 import { HeadersVariablesBlock } from "@features/HeadersVariablesBlock";
 import { formatDataEditor } from "@shared/utils/formatDataEditor";
 import { ResponseBlock } from "@features/ResponseBlock";
+import { Editor } from "@features/Editor";
+import { Field } from "@features/Field";
 import { useDictionary } from "@src/components/shared/providers/DictionaryProvider";
 
 export const GraphQL = () => {
