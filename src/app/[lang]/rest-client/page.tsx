@@ -1,5 +1,10 @@
+import ProtectedRoute from "@src/components/shared/protected";
 import { RestClient } from "@widgets/RestClient";
 
 export default function RestClientPage() {
-  return <RestClient />;
+  return (
+    <ProtectedRoute>
+      <RestClient />
+    </ProtectedRoute>
+  );
 }

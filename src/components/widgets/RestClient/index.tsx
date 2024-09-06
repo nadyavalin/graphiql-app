@@ -5,11 +5,12 @@ import PrettifyIcon from "@mui/icons-material/FormatIndentIncrease";
 import SendIcon from "@mui/icons-material/Send";
 import { Editor } from "@features/Editor";
 import { useState } from "react";
-import { Field } from "@features/Field";
+
 import { HeadersVariablesBlock } from "@features/HeadersVariablesBlock";
 import { formatDataEditor } from "@shared/utils/formatDataEditor";
 import { ResponseBlock } from "@features/ResponseBlock";
 import { MethodsBlock } from "@features/Methods";
+import Field from "@features/Field";
 
 export const RestClient = () => {
   const [body, setBody] = useState("");

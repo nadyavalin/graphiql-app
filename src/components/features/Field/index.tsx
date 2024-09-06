@@ -1,5 +1,5 @@
-import styles from "./styles.module.css";
 import { TextField } from "@mui/material";
+import styles from "./styles.module.css";
 
 interface FieldProps {
   label: string;
@@ -7,7 +7,7 @@ interface FieldProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Field = ({ label, value, onChange }: FieldProps) => {
+const Field = ({ label, value, onChange }: FieldProps) => {
   return (
     <TextField
       fullWidth
@@ -24,3 +24,4 @@ export const Field = ({ label, value, onChange }: FieldProps) => {
     />
   );
 };
+export default Field;

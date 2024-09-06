@@ -5,6 +5,7 @@ import { i18n, Locale } from "@config/i18n-config";
 import { ClientProvider } from "@shared/providers/ClientProvider";
 import DictionaryProvider from "@shared/providers/DictionaryProvider";
 import { getDictionary } from "./[lang]/dictionaries";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Moon GraphQL",
@@ -29,6 +30,7 @@ export default async function RootLayout({
     <html lang={language}>
       <body>
         <ClientProvider>
+          <Toaster position="bottom-center" />
           <DictionaryProvider dictionary={dictionary}>
             <Header params={{ lang: language }} />
             {children}
