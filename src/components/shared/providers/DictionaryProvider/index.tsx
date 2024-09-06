@@ -1,9 +1,7 @@
 "use client";
 
 import React from "react";
-import { getDictionary } from "@app/[lang]/dictionaries";
-
-type Dictionary = Awaited<ReturnType<typeof getDictionary>>;
+import { Dictionary } from "@shared/types/types";
 
 const DictionaryContext = React.createContext<Dictionary | null>(null);
 

@@ -2,7 +2,7 @@
 
 import NextLink from "next/link";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "firebaseConfig";
+import { auth } from "@config/firebaseConfig";
 import styles from "../../styles.module.css";
 import { Link } from "@mui/material";
 import { Locale } from "@config/i18n-config";

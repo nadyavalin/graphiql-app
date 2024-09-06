@@ -1,32 +1,42 @@
 "use client";
+
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import { useAuthState } from "react-firebase-hooks/auth";
 import styles from "./styles.module.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../../firebaseConfig";
+import { auth } from "@config/firebaseConfig";
 import { Box, TextField } from "@mui/material";
-import { toast } from "react-hot-toast";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { Dictionary } from "@shared/types/types";
+import { useDictionary } from "@shared/providers/DictionaryProvider";
 
 interface FormData {
   email: string;
   password: string;
 }
 
-export const schema = yup.object({
-  email: yup.string().email("*** Invalid email format").required("*** Field required"),
-  password: yup
-    .string()
-    .min(8, "*** The password must be at least 8 characters long")
-    .required("*** Field required")
-    .matches(/(?=.*[0-9])/, "*** Password must contain at least one number")
-    .matches(/(?=.*[A-Za-z])/, "*** Password must contain at least one letter")
-    .matches(/(?=.*[!@#$%^&*])/, "*** Password must contain at least one special character"),
-});
+export const createValidationLoginFormSchema = (dictionary: Dictionary) => {
+  return yup.object({
+    email: yup
+      .string()
+      .email(`${dictionary.yup.emailInvalidFormat}`)
+      .required(`${dictionary.yup.required}`),
+    password: yup
+      .string()
+      .min(8, `${dictionary.yup.passwordLength}`)
+      .required(`${dictionary.yup.required}`)
+      .matches(/(?=.*[0-9])/, `${dictionary.yup.passwordOneNumber}`)
+      .matches(/(?=.*[A-Za-z])/, `${dictionary.yup.passwordOneLetter}`)
+      .matches(/(?=.*[!@#$%^&*])/, `${dictionary.yup.passwordOneSpecChar}`),
+  });
+};
 
 const LoginPage = () => {
+  const dictionary = useDictionary();
+  const schema = createValidationLoginFormSchema(dictionary);
   const router = useRouter();
   const [user, loading] = useAuthState(auth);
   const {
@@ -48,24 +58,28 @@ const LoginPage = () => {
   const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
-      toast.success("Successful login!");
+      toast.success(`${dictionary.LoginFrom.success}`);
       router.push("/en");
     } catch (error) {
-      toast.error("Login failed. Please try again.");
+      toast.error(`${dictionary.LoginFrom.faild}`);
     }
   };
 
   return (
     <main>
-      <h1>Sign Up</h1>
+      <h1>{dictionary.titles.signIn}</h1>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <Box className={styles["field-block"]}>
-          <TextField label="Enter your email" {...register("email")} className={styles.input} />
+          <TextField
+            label={dictionary.LoginFrom.emailEnter}
+            {...register("email")}
+            className={styles.input}
+          />
           {errors.email && <p>{errors.email.message}</p>}{" "}
         </Box>
         <Box className={styles["field-block"]}>
           <TextField
-            label="Enter password"
+            label={dictionary.LoginFrom.passwordEnter}
             {...register("password")}
             type="password"
             className={styles.input}
@@ -78,7 +92,7 @@ const LoginPage = () => {
           disabled={!isValid || isSubmitting}
           className={!isValid || isSubmitting ? styles["disabled"] : styles["send-btn"]}
         >
-          Submit
+          {dictionary.LoginFrom.submit}
         </button>
       </form>
     </main>

@@ -41,6 +41,34 @@
     "addVariable": "Add Variable",
     "variable": "Variable",
     "response": "Response",
-    "status": "Status"
+    "status": "Status",
+    "signUp": "Sign Up",
+    "signIn": "Sign In"
+  },
+  "yup": {
+    "emailInvalidFormat": "*** Invalid email format",
+    "required": "*** Field required",
+    "passwordLength": "*** The password must be at least 8 characters long",
+    "passwordOneNumber": "*** Password must contain at least one number",
+    "passwordOneLetter": "*** Password must contain at least one letter",
+    "passwordOneSpecChar": "*** Password must contain at least one special character",
+    "passwordMatch": "*** Passwords must match",
+    "passwordConfirmRequired": "*** Password confirmation is required"
+  },
+  "registartionForm": {
+    "success": "Registration successful!",
+    "faild": "Registration failed. Please try again",
+    "emailUsed": "The email address is already in use",
+    "emailEnter": "Enter your email",
+    "passwordEnter": "Enter password",
+    "passwordConfirm": "Confirm password",
+    "submit": "Submit"
+  },
+  "LoginFrom": {
+    "success": "Successful login!",
+    "faild": "Login failed. Please try again",
+    "emailEnter": "Enter your email",
+    "passwordEnter": "Enter password",
+    "submit": "Submit"
   }
 }

@@ -6,7 +6,7 @@ import styles from "../../styles.module.css";
 import { Locale } from "@config/i18n-config";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "firebaseConfig";
+import { auth } from "@config/firebaseConfig";
 import { Logout } from "@src/components/features/Logout";
 
 interface MenuProps {

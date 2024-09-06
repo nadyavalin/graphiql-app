@@ -3,7 +3,7 @@ import { IconButton } from "@mui/material";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { FirebaseError } from "firebase/app";
-import { auth } from "../../../../firebaseConfig";
+import { auth } from "@config/firebaseConfig";
 import LogoutIcon from "@mui/icons-material/Logout";
 import toast from "react-hot-toast";
 

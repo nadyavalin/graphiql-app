@@ -1,16 +1,19 @@
 "use client";
-import { SubmitHandler, useForm } from "react-hook-form";
-import styles from "./styles.module.css";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+
 import { useRouter } from "next/navigation";
-import { auth } from "../../../../firebaseConfig";
-import { Box, TextField } from "@mui/material";
-import { FirebaseError } from "firebase/app";
-import toast from "react-hot-toast";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
+import styles from "./styles.module.css";
+import { Box, TextField } from "@mui/material";
+import { auth } from "@config/firebaseConfig";
 import { Locale } from "@config/i18n-config";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useDictionary } from "@shared/providers/DictionaryProvider";
+import { Dictionary } from "@shared/types/types";
 
 interface FormData {
   email: string;
@@ -18,22 +21,29 @@ interface FormData {
   confPassword: string;
 }
 
-export const schema = yup.object({
-  email: yup.string().email("*** Invalid email format").required("*** Field required"),
-  password: yup
-    .string()
-    .min(8, "*** The password must be at least 8 characters long")
-    .required("*** Field required")
-    .matches(/(?=.*[0-9])/, "*** Password must contain at least one number")
-    .matches(/(?=.*[A-Za-z])/, "*** Password must contain at least one letter")
-    .matches(/(?=.*[!@#$%^&*])/, "*** Password must contain at least one special character"),
-  confPassword: yup
-    .string()
-    .oneOf([yup.ref("password")], "*** Passwords must match")
-    .required("*** Password confirmation is required"),
-});
+export const createValidationRegFormSchema = (dictionary: Dictionary) => {
+  return yup.object({
+    email: yup
+      .string()
+      .email(`${dictionary.yup.emailInvalidFormat}`)
+      .required(`${dictionary.yup.required}`),
+    password: yup
+      .string()
+      .min(8, `${dictionary.yup.passwordLength}`)
+      .required(`${dictionary.yup.required}`)
+      .matches(/(?=.*[0-9])/, `${dictionary.yup.passwordOneNumber}`)
+      .matches(/(?=.*[A-Za-z])/, `${dictionary.yup.passwordOneLetter}`)
+      .matches(/(?=.*[!@#$%^&*])/, `${dictionary.yup.passwordOneSpecChar}`),
+    confPassword: yup
+      .string()
+      .oneOf([yup.ref("password")], `${dictionary.yup.passwordMatch}`)
+      .required(`${dictionary.yup.passwordConfirmRequired}`),
+  });
+};
 
 const RegistrationPage = (lang: Locale) => {
+  const dictionary = useDictionary();
+  const schema = createValidationRegFormSchema(dictionary);
   const router = useRouter();
   const [user, loading] = useAuthState(auth);
   const {
@@ -52,31 +62,34 @@ const RegistrationPage = (lang: Locale) => {
   const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
-      toast.success("Registration successful!");
+      toast.success(`${dictionary.registartionForm.success}`);
       router.push(`/${lang}`);
     } catch (error) {
-      let errorMessage = "Registration failed. Please try again.";
+      let errorMessage = `${dictionary.registartionForm.faild}`;
       if (error instanceof FirebaseError) {
         if (error.code === "auth/email-already-in-use") {
-          errorMessage = "The email address is already in use.";
+          errorMessage = `${dictionary.registartionForm.emailUsed}`;
         }
       }
-
       toast.error(errorMessage);
     }
   };
 
   return (
     <main>
-      <h1>Sign Up</h1>
+      <h1>{dictionary.titles.signUp}</h1>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <Box className={styles["field-block"]}>
-          <TextField label="Enter your email" {...register("email")} className={styles.input} />
+          <TextField
+            label={dictionary.registartionForm.emailEnter}
+            {...register("email")}
+            className={styles.input}
+          />
           {errors.email && <p>{errors.email.message}</p>}{" "}
         </Box>
         <Box className={styles["field-block"]}>
           <TextField
-            label="Enter password"
+            label={dictionary.registartionForm.passwordEnter}
             {...register("password")}
             type="password"
             className={styles.input}
@@ -85,7 +98,7 @@ const RegistrationPage = (lang: Locale) => {
         </Box>
         <Box className={styles["field-block"]}>
           <TextField
-            label="Confirm password"
+            label={dictionary.registartionForm.passwordConfirm}
             {...register("confPassword")}
             type="password"
             className={styles.input}
@@ -97,7 +110,7 @@ const RegistrationPage = (lang: Locale) => {
           disabled={!isValid || isSubmitting}
           className={!isValid || isSubmitting ? styles["disabled"] : styles["send-btn"]}
         >
-          Submit
+          {dictionary.registartionForm.submit}
         </button>
       </form>
     </main>
