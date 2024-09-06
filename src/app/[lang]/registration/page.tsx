@@ -13,7 +13,7 @@ import { Locale } from "@config/i18n-config";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
-import { Dictionary } from "@shared/types/types";
+import { Dictionary } from "@shared/types";
 
 interface FormData {
   email: string;

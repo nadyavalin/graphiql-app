@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./styles.module.css";
-import { useDictionary } from "@src/components/shared/providers/DictionaryProvider";
+import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { formatDataEditor } from "@shared/utils/formatDataEditor";
 import { Editor } from "@features/Editor";
 import { Box } from "@mui/material";

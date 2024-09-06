@@ -11,7 +11,7 @@ import { formatDataEditor } from "@shared/utils/formatDataEditor";
 import { ResponseBlock } from "@features/ResponseBlock";
 import { Editor } from "@features/Editor";
 import { Field } from "@features/Field";
-import { useDictionary } from "@src/components/shared/providers/DictionaryProvider";
+import { useDictionary } from "@shared/providers/DictionaryProvider";
 
 export const GraphQL = () => {
   const [query, setQuery] = useState("");

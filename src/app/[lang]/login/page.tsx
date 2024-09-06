@@ -1,17 +1,22 @@
 "use client";
 
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import styles from "./styles.module.css";
+import { Box, TextField } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@config/firebaseConfig";
-import { Box, TextField } from "@mui/material";
-import { Dictionary } from "@shared/types/types";
+import { RootState } from "@shared/store";
+import { Dictionary, Languages } from "@shared/types";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
+import { useDispatch } from "react-redux";
+import { setLanguage } from "@src/components/shared/store/slices/languageSlice";
 
 interface FormData {
   email: string;
@@ -35,10 +40,13 @@ export const createValidationLoginFormSchema = (dictionary: Dictionary) => {
 };
 
 const LoginPage = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const dictionary = useDictionary();
   const schema = createValidationLoginFormSchema(dictionary);
-  const router = useRouter();
+  const currentLanguage: Languages = useSelector((state: RootState) => state.language.lang);
   const [user, loading] = useAuthState(auth);
+
   const {
     register,
     handleSubmit,
@@ -48,18 +56,27 @@ const LoginPage = () => {
     mode: "onChange",
   });
 
+  useEffect(() => {
+    if (user && !loading) {
+      dispatch(setLanguage(currentLanguage));
+      router.push(`/${currentLanguage}`);
+    }
+  }, [user, loading, router, currentLanguage, dispatch]);
+
   if (loading) {
-    return;
+    return null; // TODO добавить Loader
   }
   if (user) {
-    router.push("/en");
+    dispatch(setLanguage(currentLanguage));
+    router.push(`/${currentLanguage}`);
   }
 
   const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
       toast.success(`${dictionary.LoginFrom.success}`);
-      router.push("/en");
+      dispatch(setLanguage(currentLanguage));
+      router.push(`/${currentLanguage}`);
     } catch (error) {
       toast.error(`${dictionary.LoginFrom.faild}`);
     }

@@ -4,7 +4,7 @@ import "../globals.css";
 import { i18n, Locale } from "@config/i18n-config";
 import { ClientProvider } from "@shared/providers/ClientProvider";
 import DictionaryProvider from "@shared/providers/DictionaryProvider";
-import { Footer, Header } from "@src/components/shared/ui";
+import { Footer, Header } from "@shared/ui";
 import { getDictionary } from "./dictionaries";
 
 export const metadata: Metadata = {

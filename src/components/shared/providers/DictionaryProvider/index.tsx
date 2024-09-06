@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Dictionary } from "@shared/types/types";
+import { Dictionary } from "@shared/types";
 
 const DictionaryContext = React.createContext<Dictionary | null>(null);
 

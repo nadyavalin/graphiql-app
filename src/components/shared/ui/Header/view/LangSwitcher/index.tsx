@@ -1,12 +1,12 @@
 "use client";
 
 import NextLink from "next/link";
+import { usePathname } from "next/navigation";
 import styles from "./styles.module.css";
 import { setLanguage } from "@shared/store/slices/languageSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@shared/store";
-import { Languages } from "@shared/types/types";
-import { usePathname } from "next/navigation";
+import { Languages } from "@shared/types";
 
 export const LangSwitcher = () => {
   const dispatch = useDispatch();

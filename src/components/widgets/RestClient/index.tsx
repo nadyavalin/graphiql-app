@@ -11,7 +11,7 @@ import { ResponseBlock } from "@features/ResponseBlock";
 import { MethodsBlock } from "@features/Methods";
 import { Editor } from "@features/Editor";
 import { Field } from "@features/Field";
-import { useDictionary } from "@src/components/shared/providers/DictionaryProvider";
+import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { formatDataEditor } from "@shared/utils/formatDataEditor";
 
 export const RestClient = () => {

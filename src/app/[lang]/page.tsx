@@ -1,4 +1,4 @@
-import { Languages } from "@shared/types/types";
+import { Languages } from "@shared/types";
 import { Locale } from "@config/i18n-config";
 import { WelcomePage } from "./welcome/page";
 

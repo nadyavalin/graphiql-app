@@ -1,6 +1,6 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import styles from "./styles.module.css";
-import { useDictionary } from "@src/components/shared/providers/DictionaryProvider";
+import { useDictionary } from "@shared/providers/DictionaryProvider";
 
 enum Methods {
   get = "GET",
