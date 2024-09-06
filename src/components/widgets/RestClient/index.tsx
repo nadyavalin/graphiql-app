@@ -1,6 +1,5 @@
 "use client";
 import styles from "./styles.module.css";
-import { useRouter } from "next/navigation";
 import { Box, Card, CardContent, IconButton } from "@mui/material";
 import PrettifyIcon from "@mui/icons-material/FormatIndentIncrease";
 import SendIcon from "@mui/icons-material/Send";
@@ -28,8 +27,6 @@ export const RestClient = () => {
   // Shared
   const dispatch = useAppDispatch();
 
-  const router = useRouter();
-
   const onPlay = () => {
     if (!endpoint.trim()) return;
 
@@ -39,13 +36,12 @@ export const RestClient = () => {
     const encodedBody = encodeBase64(body);
     const encodedHeaders = encodeQueryParams(headersObj);
 
-    let requestUrl = "";
-    if (method !== Methods.get) {
-      requestUrl += `${method}/${encodedEndpoint}${encodedBody ? "/" + encodedBody : ""}${encodedHeaders ? "?" + encodedHeaders : ""}`;
-    } else {
-      requestUrl += `${method}/${encodedEndpoint}?${encodedHeaders}`;
-    }
-    router.replace(requestUrl);
+    const requestUrl = `${method}/${encodedEndpoint}${encodedBody ? "/" + encodedBody : ""}${encodedHeaders ? "?" + encodedHeaders : ""}`;
+
+    fetch(`/api?request=${encodeURIComponent(requestUrl)}`)
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
   };
 
   // Headers
