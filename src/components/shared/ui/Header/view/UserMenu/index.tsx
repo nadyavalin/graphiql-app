@@ -1,25 +1,20 @@
 "use client";
 
 import NextLink from "next/link";
-import { Link } from "@mui/material";
-import styles from "../../styles.module.css";
-import { Locale } from "@config/i18n-config";
-import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { useAuthState } from "react-firebase-hooks/auth";
+import styles from "./styles.module.css";
+import { Link } from "@mui/material";
+import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { auth } from "@config/firebaseConfig";
 import { Logout } from "@features/Logout";
+import { Languages } from "@shared/types";
+import { useSelector } from "react-redux";
+import { RootState } from "@shared/store";
 
-interface MenuProps {
-  lang: Locale;
-}
-
-export const UserMenu = ({ lang }: MenuProps) => {
+export const UserMenu = () => {
   const dictionary = useDictionary();
-  const [user, loading] = useAuthState(auth);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const currentLanguage: Languages = useSelector((state: RootState) => state.language.lang);
+  const [user] = useAuthState(auth);
 
   return (
     <nav className={styles.userNav}>
@@ -28,8 +23,8 @@ export const UserMenu = ({ lang }: MenuProps) => {
       ) : (
         <>
           <Link
-            href={`/${lang}/login`}
-            className={styles.userMenuLink}
+            href={`/${currentLanguage}/login`}
+            className={styles.userNavLink}
             underline="none"
             component={NextLink}
             sx={{ color: "var(--text-color)" }}
@@ -38,8 +33,8 @@ export const UserMenu = ({ lang }: MenuProps) => {
           </Link>
 
           <Link
-            href={`/${lang}/registration`}
-            className={styles.userMenuLink}
+            href={`/${currentLanguage}/registration`}
+            className={styles.userNavLink}
             underline="none"
             component={NextLink}
             sx={{ color: "var(--text-color)" }}

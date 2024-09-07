@@ -1,25 +1,41 @@
+.info {
+  display: flex;
+  justify-content: space-around;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin: 20px;
+}
+
+.infoItem {
+  width: 200px;
+  border: 1px solid var(--bg-light-color);
+  border-radius: 8px;
+  padding: 10px;
+}
+
 .sectionDevelopers {
   display: flex;
   flex-direction: column;
+  margin: 20px;
 }
 
 .developers {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 20px;
 }
 
 .developer {
   width: 30%;
-  min-height: 350px;
+  min-height: 600px;
   border: 1px solid var(--bg-light-color);
   border-radius: 8px;
   padding: 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -35,4 +51,28 @@
 
 .developerPosition {
   font-style: italic;
+}
+
+.userNav {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin: 20px;
+}
+
+.userNavLink {
+  background-color: var(--main-color);
+  color: var(--text-color);
+  border-radius: 5px;
+  padding: 5px;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+@media (hover: hover) {
+  .userNavLink:hover {
+    background-color: var(--color-hover);
+    color: var(--text-color);
+  }
 }

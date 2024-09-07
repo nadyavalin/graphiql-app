@@ -41,7 +41,6 @@ body {
 main {
   flex-grow: 1;
   font-size: 16px;
-  height: 900px; /* TODO */
 }
 
 a {

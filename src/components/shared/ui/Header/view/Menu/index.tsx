@@ -3,7 +3,7 @@
 import NextLink from "next/link";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@config/firebaseConfig";
-import styles from "../../styles.module.css";
+import styles from "./styles.module.css";
 import { Link } from "@mui/material";
 import { Locale } from "@config/i18n-config";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
@@ -14,18 +14,15 @@ interface MenuProps {
 
 export const Menu = ({ lang }: MenuProps) => {
   const dictionary = useDictionary();
-  const [user, loading] = useAuthState(auth);
+  const [user] = useAuthState(auth);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
   return (
     <nav className={styles.nav}>
       {user ? (
         <>
           <Link
             href={`/${lang}/rest-client`}
-            className={styles.menuLink}
+            className={styles.navLink}
             underline="none"
             component={NextLink}
             sx={{ color: "var(--text-color)" }}
@@ -35,7 +32,7 @@ export const Menu = ({ lang }: MenuProps) => {
 
           <Link
             href={`/${lang}/graph-ql`}
-            className={styles.menuLink}
+            className={styles.navLink}
             underline="none"
             component={NextLink}
             sx={{ color: "var(--text-color)" }}
@@ -47,7 +44,7 @@ export const Menu = ({ lang }: MenuProps) => {
 
       <Link
         href={`/${lang}/`}
-        className={styles.menuLink}
+        className={styles.navLink}
         underline="none"
         component={NextLink}
         sx={{ color: "var(--text-color)" }}
