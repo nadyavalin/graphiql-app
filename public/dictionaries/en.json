@@ -55,9 +55,9 @@
     "passwordMatch": "*** Passwords must match",
     "passwordConfirmRequired": "*** Password confirmation is required"
   },
-  "registartionForm": {
+  "registrationForm": {
     "success": "Registration successful!",
-    "faild": "Registration failed. Please try again",
+    "failed": "Registration failed. Please try again",
     "emailUsed": "The email address is already in use",
     "emailEnter": "Enter your email",
     "passwordEnter": "Enter password",
@@ -66,7 +66,7 @@
   },
   "LoginFrom": {
     "success": "Successful login!",
-    "faild": "Login failed. Please try again",
+    "failed": "Login failed. Please try again",
     "emailEnter": "Enter your email",
     "passwordEnter": "Enter password",
     "submit": "Submit"

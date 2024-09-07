@@ -1,19 +1,23 @@
 "use client";
 
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSelector, useDispatch } from "react-redux";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
-import styles from "./styles.module.css";
+import styles from "../formStyles.module.css";
 import { Box, TextField } from "@mui/material";
 import { auth } from "@config/firebaseConfig";
-import { Locale } from "@config/i18n-config";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
-import { Dictionary } from "@shared/types";
+import { Dictionary, Languages } from "@shared/types";
+import { Loader } from "@features/Loader";
+import { RootState } from "@shared/store";
+import { setLanguage } from "@shared/store/slices/languageSlice";
 
 interface FormData {
   email: string;
@@ -41,11 +45,14 @@ export const createValidationRegFormSchema = (dictionary: Dictionary) => {
   });
 };
 
-const RegistrationPage = (lang: Locale) => {
+const RegistrationPage = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const dictionary = useDictionary();
   const schema = createValidationRegFormSchema(dictionary);
-  const router = useRouter();
+  const currentLanguage: Languages = useSelector((state: RootState) => state.language.lang);
   const [user, loading] = useAuthState(auth);
+
   const {
     register,
     handleSubmit,
@@ -54,21 +61,34 @@ const RegistrationPage = (lang: Locale) => {
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-  if (loading) return;
+
+  useEffect(() => {
+    if (user && !loading) {
+      dispatch(setLanguage(currentLanguage));
+      router.push(`/${currentLanguage}`);
+    }
+  }, [user, loading, router, currentLanguage, dispatch]);
+
+  if (loading) {
+    return <Loader />;
+  }
+
   if (user) {
-    router.push("/en");
+    dispatch(setLanguage(currentLanguage));
+    router.push(`/${currentLanguage}`);
   }
 
   const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
-      toast.success(`${dictionary.registartionForm.success}`);
-      router.push(`/${lang}`);
+      toast.success(`${dictionary.registrationForm.success}`);
+      dispatch(setLanguage(currentLanguage));
+      router.push(`/${currentLanguage}`);
     } catch (error) {
-      let errorMessage = `${dictionary.registartionForm.faild}`;
+      let errorMessage = `${dictionary.registrationForm.failed}`;
       if (error instanceof FirebaseError) {
         if (error.code === "auth/email-already-in-use") {
-          errorMessage = `${dictionary.registartionForm.emailUsed}`;
+          errorMessage = `${dictionary.registrationForm.emailUsed}`;
         }
       }
       toast.error(errorMessage);
@@ -79,38 +99,40 @@ const RegistrationPage = (lang: Locale) => {
     <main>
       <h1>{dictionary.titles.signUp}</h1>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <Box className={styles["field-block"]}>
+        <Box className={styles.field}>
           <TextField
-            label={dictionary.registartionForm.emailEnter}
+            label={dictionary.registrationForm.emailEnter}
             {...register("email")}
             className={styles.input}
           />
-          {errors.email && <p>{errors.email.message}</p>}{" "}
+          {errors.email && <p className={styles.validationMessage}>{errors.email.message}</p>}
         </Box>
-        <Box className={styles["field-block"]}>
+        <Box className={styles.field}>
           <TextField
-            label={dictionary.registartionForm.passwordEnter}
+            label={dictionary.registrationForm.passwordEnter}
             {...register("password")}
             type="password"
             className={styles.input}
           />
-          {errors.password && <p>{errors.password.message}</p>}
+          {errors.password && <p className={styles.validationMessage}>{errors.password.message}</p>}
         </Box>
-        <Box className={styles["field-block"]}>
+        <Box className={styles.field}>
           <TextField
-            label={dictionary.registartionForm.passwordConfirm}
+            label={dictionary.registrationForm.passwordConfirm}
             {...register("confPassword")}
             type="password"
             className={styles.input}
           />
-          {errors.confPassword && <p>{errors.confPassword.message}</p>}
+          {errors.confPassword && (
+            <p className={styles.validationMessage}>{errors.confPassword.message}</p>
+          )}
         </Box>
         <button
           type="submit"
           disabled={!isValid || isSubmitting}
-          className={!isValid || isSubmitting ? styles["disabled"] : styles["send-btn"]}
+          className={!isValid || isSubmitting ? styles.disabled : styles.sendBtn}
         >
-          {dictionary.registartionForm.submit}
+          {dictionary.registrationForm.submit}
         </button>
       </form>
     </main>

@@ -2,12 +2,12 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import styles from "./styles.module.css";
+import styles from "../formStyles.module.css";
 import { Box, TextField } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -15,8 +15,8 @@ import { auth } from "@config/firebaseConfig";
 import { RootState } from "@shared/store";
 import { Dictionary, Languages } from "@shared/types";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
-import { useDispatch } from "react-redux";
-import { setLanguage } from "@src/components/shared/store/slices/languageSlice";
+import { setLanguage } from "@shared/store/slices/languageSlice";
+import { Loader } from "@features/Loader";
 
 interface FormData {
   email: string;
@@ -64,8 +64,9 @@ const LoginPage = () => {
   }, [user, loading, router, currentLanguage, dispatch]);
 
   if (loading) {
-    return null; // TODO добавить Loader
+    return <Loader />;
   }
+
   if (user) {
     dispatch(setLanguage(currentLanguage));
     router.push(`/${currentLanguage}`);
@@ -78,7 +79,7 @@ const LoginPage = () => {
       dispatch(setLanguage(currentLanguage));
       router.push(`/${currentLanguage}`);
     } catch (error) {
-      toast.error(`${dictionary.LoginFrom.faild}`);
+      toast.error(`${dictionary.LoginFrom.failed}`);
     }
   };
 
@@ -86,28 +87,28 @@ const LoginPage = () => {
     <main>
       <h1>{dictionary.titles.signIn}</h1>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <Box className={styles["field-block"]}>
+        <Box className={styles.field}>
           <TextField
             label={dictionary.LoginFrom.emailEnter}
             {...register("email")}
             className={styles.input}
           />
-          {errors.email && <p>{errors.email.message}</p>}{" "}
+          {errors.email && <p className={styles.validationMessage}>{errors.email.message}</p>}
         </Box>
-        <Box className={styles["field-block"]}>
+        <Box className={styles.field}>
           <TextField
             label={dictionary.LoginFrom.passwordEnter}
             {...register("password")}
             type="password"
             className={styles.input}
           />
-          {errors.password && <p>{errors.password.message}</p>}
+          {errors.password && <p className={styles.validationMessage}>{errors.password.message}</p>}
         </Box>
 
         <button
           type="submit"
           disabled={!isValid || isSubmitting}
-          className={!isValid || isSubmitting ? styles["disabled"] : styles["send-btn"]}
+          className={!isValid || isSubmitting ? styles.disabled : styles.sendBtn}
         >
           {dictionary.LoginFrom.submit}
         </button>
