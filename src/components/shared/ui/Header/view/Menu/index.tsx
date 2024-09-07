@@ -27,7 +27,7 @@ export const Menu = ({ lang }: MenuProps) => {
             component={NextLink}
             sx={{ color: "var(--text-color)" }}
           >
-            {dictionary.buttons.restClient}
+            {dictionary?.buttons.restClient}
           </Link>
 
           <Link
@@ -37,7 +37,7 @@ export const Menu = ({ lang }: MenuProps) => {
             component={NextLink}
             sx={{ color: "var(--text-color)" }}
           >
-            {dictionary.buttons.graphQL}
+            {dictionary?.buttons.graphQL}
           </Link>
         </>
       ) : null}
@@ -49,7 +49,7 @@ export const Menu = ({ lang }: MenuProps) => {
         component={NextLink}
         sx={{ color: "var(--text-color)" }}
       >
-        {dictionary.buttons.welcome}
+        {dictionary?.buttons.welcome}
       </Link>
     </nav>
   );

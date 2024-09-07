@@ -47,7 +47,7 @@ a {
   font-weight: 500;
   color: var(--text-color);
   text-decoration: inherit;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 ul {

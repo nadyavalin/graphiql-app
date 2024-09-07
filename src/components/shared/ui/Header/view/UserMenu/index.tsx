@@ -29,7 +29,7 @@ export const UserMenu = () => {
             component={NextLink}
             sx={{ color: "var(--text-color)" }}
           >
-            {dictionary.buttons.login}
+            {dictionary?.buttons.login}
           </Link>
 
           <Link
@@ -39,7 +39,7 @@ export const UserMenu = () => {
             component={NextLink}
             sx={{ color: "var(--text-color)" }}
           >
-            {dictionary.buttons.registration}
+            {dictionary?.buttons.registration}
           </Link>
         </>
       )}

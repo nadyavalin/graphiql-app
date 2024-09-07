@@ -1,8 +1,10 @@
-import { ClientProvider } from "@shared/providers/ClientProvider";
+import { Toaster } from "react-hot-toast";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import "../globals.css";
 import { i18n, Locale } from "@config/i18n-config";
-import { Toaster } from "react-hot-toast";
 import DictionaryProvider from "@shared/providers/DictionaryProvider";
+import { ClientProvider } from "@shared/providers/ClientProvider";
 import { Footer, Header } from "@shared/ui";
 import { getDictionary } from "./dictionaries";
 
@@ -19,14 +21,17 @@ export default async function RootLayout({
 }) {
   const language = params.lang || "en";
   const dictionary = await getDictionary(language);
+  const messages = await getMessages();
   return (
-    <ClientProvider>
-      <Toaster position="bottom-center" />
+    <NextIntlClientProvider messages={messages}>
       <DictionaryProvider dictionary={dictionary}>
-        <Header params={{ lang: language }} />
-        {children}
-        <Footer />
+        <ClientProvider>
+          <Toaster position="bottom-center" />
+          <Header params={{ lang: language }} />
+          {children}
+          <Footer />
+        </ClientProvider>
       </DictionaryProvider>
-    </ClientProvider>
+    </NextIntlClientProvider>
   );
 }
