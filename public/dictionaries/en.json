@@ -70,5 +70,14 @@
     "emailEnter": "Enter your email",
     "passwordEnter": "Enter password",
     "submit": "Submit"
+  },
+  "logout": {
+    "success": "You have logged out!",
+    "failed": "Logout error"
+  },
+  "notFound": {
+    "miss": "Somethings missing.",
+    "sorry": "Sorry, we cannot find that page. You will find lots to explore on the Home Page.",
+    "back": "Back to Home Page"
   }
 }

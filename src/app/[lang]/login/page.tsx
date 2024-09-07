@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -15,7 +15,6 @@ import { auth } from "@config/firebaseConfig";
 import { RootState } from "@shared/store";
 import { Dictionary, Languages } from "@shared/types";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
-import { setLanguage } from "@shared/store/slices/languageSlice";
 import { Loader } from "@features/Loader";
 import { emailFormatSchema, passwordSchema } from "@shared/validationSchemas";
 
@@ -33,7 +32,6 @@ export const createValidationLoginFormSchema = (dictionary: Dictionary) => {
 
 const LoginPage = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
   const dictionary = useDictionary();
   const schema = createValidationLoginFormSchema(dictionary);
   const currentLanguage: Languages = useSelector((state: RootState) => state.language.lang);
@@ -50,17 +48,15 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (user && !loading) {
-      dispatch(setLanguage(currentLanguage));
       router.push(`/${currentLanguage}`);
     }
-  }, [user, loading, router, currentLanguage, dispatch]);
+  }, [user, loading, router, currentLanguage]);
 
   if (loading) {
     return <Loader />;
   }
 
   if (user) {
-    dispatch(setLanguage(currentLanguage));
     router.push(`/${currentLanguage}`);
   }
 
@@ -68,7 +64,6 @@ const LoginPage = () => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
       toast.success(`${dictionary.LoginFrom.success}`);
-      dispatch(setLanguage(currentLanguage));
       router.push(`/${currentLanguage}`);
     } catch (error) {
       toast.error(`${dictionary.LoginFrom.failed}`);

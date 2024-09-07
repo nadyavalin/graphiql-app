@@ -41,7 +41,7 @@ body {
 main {
   flex-grow: 1;
   font-size: 16px;
-  height: 1000px; /* TODO */
+  height: 900px; /* TODO */
 }
 
 a {
@@ -83,6 +83,10 @@ button:focus-visible {
 
 p {
   margin: 2px;
+}
+
+.text404 {
+  font-size: 100px;
 }
 
 @media (hover: hover) {

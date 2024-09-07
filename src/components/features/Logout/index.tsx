@@ -10,28 +10,29 @@ import { auth } from "@config/firebaseConfig";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Languages } from "@shared/types";
 import { RootState } from "@shared/store";
+import { useDictionary } from "@shared/providers/DictionaryProvider";
 
 export const Logout = () => {
   const router = useRouter();
-
+  const dictionary = useDictionary();
   const currentLanguage: Languages = useSelector((state: RootState) => state.language.lang);
 
   const logout = async () => {
     try {
       await signOut(auth);
-      toast.success("You have logged out!");
+      toast.success(dictionary.logout.success);
 
       router.push(`/${currentLanguage}`);
     } catch (error) {
       if (error instanceof FirebaseError) {
-        toast.error("Logout error");
+        toast.error(`${dictionary.logout.failed}`);
       }
     }
   };
 
   return (
     <>
-      <IconButton title="Send request">
+      <IconButton title={dictionary.titles.sendRequest}>
         <LogoutIcon onClick={logout} />
       </IconButton>
     </>
