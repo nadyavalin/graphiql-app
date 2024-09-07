@@ -18,30 +18,19 @@ import { Dictionary, Languages } from "@shared/types";
 import { Loader } from "@features/Loader";
 import { RootState } from "@shared/store";
 import { setLanguage } from "@shared/store/slices/languageSlice";
+import { emailFormatSchema, passwordMatchSchema, passwordSchema } from "@shared/validationSchemas";
 
 interface FormData {
   email: string;
   password: string;
-  confPassword: string;
+  passwordMatch: string;
 }
 
 export const createValidationRegFormSchema = (dictionary: Dictionary) => {
   return yup.object({
-    email: yup
-      .string()
-      .email(`${dictionary.yup.emailInvalidFormat}`)
-      .required(`${dictionary.yup.required}`),
-    password: yup
-      .string()
-      .min(8, `${dictionary.yup.passwordLength}`)
-      .required(`${dictionary.yup.required}`)
-      .matches(/(?=.*[0-9])/, `${dictionary.yup.passwordOneNumber}`)
-      .matches(/(?=.*[A-Za-z])/, `${dictionary.yup.passwordOneLetter}`)
-      .matches(/(?=.*[!@#$%^&*])/, `${dictionary.yup.passwordOneSpecChar}`),
-    confPassword: yup
-      .string()
-      .oneOf([yup.ref("password")], `${dictionary.yup.passwordMatch}`)
-      .required(`${dictionary.yup.passwordConfirmRequired}`),
+    email: emailFormatSchema(dictionary),
+    password: passwordSchema(dictionary),
+    passwordMatch: passwordMatchSchema(dictionary),
   });
 };
 
@@ -119,12 +108,12 @@ const RegistrationPage = () => {
         <Box className={styles.field}>
           <TextField
             label={dictionary.registrationForm.passwordConfirm}
-            {...register("confPassword")}
+            {...register("passwordMatch")}
             type="password"
             className={styles.input}
           />
-          {errors.confPassword && (
-            <p className={styles.validationMessage}>{errors.confPassword.message}</p>
+          {errors.passwordMatch && (
+            <p className={styles.validationMessage}>{errors.passwordMatch.message}</p>
           )}
         </Box>
         <button

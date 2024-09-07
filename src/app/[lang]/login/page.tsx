@@ -17,6 +17,7 @@ import { Dictionary, Languages } from "@shared/types";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { setLanguage } from "@shared/store/slices/languageSlice";
 import { Loader } from "@features/Loader";
+import { emailFormatSchema, passwordSchema } from "@shared/validationSchemas";
 
 interface FormData {
   email: string;
@@ -25,17 +26,8 @@ interface FormData {
 
 export const createValidationLoginFormSchema = (dictionary: Dictionary) => {
   return yup.object({
-    email: yup
-      .string()
-      .email(`${dictionary.yup.emailInvalidFormat}`)
-      .required(`${dictionary.yup.required}`),
-    password: yup
-      .string()
-      .min(8, `${dictionary.yup.passwordLength}`)
-      .required(`${dictionary.yup.required}`)
-      .matches(/(?=.*[0-9])/, `${dictionary.yup.passwordOneNumber}`)
-      .matches(/(?=.*[A-Za-z])/, `${dictionary.yup.passwordOneLetter}`)
-      .matches(/(?=.*[!@#$%^&*])/, `${dictionary.yup.passwordOneSpecChar}`),
+    email: emailFormatSchema(dictionary),
+    password: passwordSchema(dictionary),
   });
 };
 

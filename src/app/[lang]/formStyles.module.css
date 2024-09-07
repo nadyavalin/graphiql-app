@@ -36,5 +36,6 @@
 }
 
 .disabled {
+  width: 100px;
   pointer-events: none;
 }
