@@ -8,19 +8,9 @@ export const Footer = (): ReactElement => {
   return (
     <footer className={styles.footer}>
       <div>
-        <Link href="https://rs.school" target="_blank" rel="noreferrer">
-          <Image src={logo} alt="RSSchool Logo" width="50" height="50" className={styles.logo} />
-        </Link>
+        <div>2024</div>
       </div>
       <div className={styles.developers}>
-        <Link
-          href="https://github.com/nadyavalin"
-          target="_blank"
-          rel="noreferrer"
-          className={styles.devLink}
-        >
-          nadyavalin
-        </Link>
         <Link
           href="https://github.com/ifbfirst"
           target="_blank"
@@ -37,8 +27,18 @@ export const Footer = (): ReactElement => {
         >
           LarryDavidd
         </Link>
+        <Link
+          href="https://github.com/nadyavalin"
+          target="_blank"
+          rel="noreferrer"
+          className={styles.devLink}
+        >
+          nadyavalin
+        </Link>
       </div>
-      <div>2024</div>
+      <Link href="https://rs.school" target="_blank" rel="noreferrer">
+        <Image src={logo} alt="RSSchool Logo" width="50" height="50" className={styles.logo} />
+      </Link>
     </footer>
   );
 };

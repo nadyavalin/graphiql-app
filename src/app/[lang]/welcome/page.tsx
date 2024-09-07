@@ -99,6 +99,9 @@ export const WelcomePage = () => {
               />
               <p className={styles.developerName}>{dictionary.developers.katika.name}</p>
               <p className={styles.developerPosition}>{dictionary.developers.katika.position}</p>
+              <Link href="https://github.com/ifbfirst" target="_blank" rel="noreferrer">
+                katika&lsquo;s GitHub
+              </Link>
               <p>{dictionary.developers.katika.desc}</p>
             </div>
 
@@ -114,9 +117,11 @@ export const WelcomePage = () => {
               <p className={styles.developerPosition}>
                 {dictionary.developers.LarryDavidd.position}
               </p>
+              <Link href="https://github.com/LarryDavidd" target="_blank" rel="noreferrer">
+                LarryDavidd&lsquo;s GitHub
+              </Link>
               <p>{dictionary.developers.LarryDavidd.desc}</p>
             </div>
-
             <div className={styles.developer}>
               <Image
                 src={nadyavalin}
@@ -129,6 +134,9 @@ export const WelcomePage = () => {
               <p className={styles.developerPosition}>
                 {dictionary.developers.nadyavalin.position}
               </p>
+              <Link href="https://github.com/nadyavalin" target="_blank" rel="noreferrer">
+                nadyavalin&lsquo;s GitHub
+              </Link>
               <p>{dictionary.developers.nadyavalin.desc}</p>
             </div>
           </div>
