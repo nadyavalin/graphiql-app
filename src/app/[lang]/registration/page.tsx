@@ -53,14 +53,10 @@ const RegistrationPage = () => {
     if (!loading && user) {
       router.push(`/${currentLanguage}`);
     }
-  }, [user, loading, router, currentLanguage]);
+  }, [loading, user, router, currentLanguage]);
 
   if (loading) {
     return <Loader />;
-  }
-
-  if (user) {
-    router.push(`/${currentLanguage}`);
   }
 
   const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {

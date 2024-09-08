@@ -1,7 +1,10 @@
 "use client";
 
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import NextLink from "next/link";
+import { useSelector } from "react-redux";
 import { useAuthState } from "react-firebase-hooks/auth";
 import styles from "./styles.module.css";
 import { Link } from "@mui/material";
@@ -9,12 +12,9 @@ import { auth } from "@config/firebaseConfig";
 import nadyavalin from "@public/nadyavalin.jpg";
 import katika from "@public/ifbfirst.jpg";
 import larry from "@public/LarryDavidd.jpg";
-import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { Loader } from "@features/Loader";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { Languages } from "@shared/types";
-import { useSelector } from "react-redux";
 import { RootState } from "@shared/store";
 
 export const WelcomePage = () => {
@@ -27,7 +27,7 @@ export const WelcomePage = () => {
     if (!loading && user) {
       router.push(`/${currentLanguage}`);
     }
-  }, [user, loading, router, currentLanguage]);
+  }, [loading, user, router, currentLanguage]);
 
   if (loading) {
     return <Loader />;

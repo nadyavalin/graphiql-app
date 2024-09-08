@@ -2,7 +2,6 @@
 
 import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { useEffect } from "react";
-import "../globals.css";
 
 export default function Error({
   error,

@@ -88,10 +88,6 @@ p {
   margin: 2px;
 }
 
-.text404 {
-  font-size: 100px;
-}
-
 @media (hover: hover) {
   a:hover {
     color: var(--color-hover);

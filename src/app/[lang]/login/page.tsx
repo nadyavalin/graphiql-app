@@ -50,7 +50,7 @@ export const LoginPage = () => {
     if (!loading && user) {
       router.push(`/${currentLanguage}`);
     }
-  }, [user, loading, router, currentLanguage]);
+  }, [loading, user, router, currentLanguage]);
 
   if (loading) {
     return <Loader />;

@@ -1,5 +1,4 @@
 import { Toaster } from "react-hot-toast";
-import "../globals.css";
 import { i18n, Locale } from "@config/i18n-config";
 import DictionaryProvider from "@shared/providers/DictionaryProvider";
 import { ClientProvider } from "@shared/providers/ClientProvider";

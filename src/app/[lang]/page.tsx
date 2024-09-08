@@ -1,4 +1,4 @@
-import { WelcomePage } from "./welcome/page";
+import { WelcomePage } from "@widgets/WelcomePage";
 
 export default function Home() {
   return <WelcomePage />;
