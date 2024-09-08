@@ -1,19 +1,25 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { MouseEventHandler } from "react";
+import { useDictionary } from "@shared/providers/DictionaryProvider";
+import { useEffect } from "react";
 
-interface ErrorProps {
-  reset: MouseEventHandler<HTMLButtonElement>;
-}
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
+  const dictionary = useDictionary();
 
-export default function Error({ reset }: ErrorProps) {
-  const t = useTranslations("Error");
+  useEffect(() => {
+    console.error(error);
+  }, [error]);
 
   return (
     <div>
-      <h1>{t("title")}</h1>
-      <button onClick={reset}>{t("retry")}</button>
+      <h2>{dictionary.error.smtWentWrong}!</h2>
+      <button onClick={() => reset()}>{dictionary.error.try}</button>
     </div>
   );
 }
