@@ -30,7 +30,7 @@ const createValidationLoginFormSchema = (dictionary: Dictionary) => {
   });
 };
 
-export const LoginPage = () => {
+const LoginPage = () => {
   const router = useRouter();
   const dictionary = useDictionary();
   const schema = createValidationLoginFormSchema(dictionary);
