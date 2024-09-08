@@ -1,6 +1,4 @@
 import { Toaster } from "react-hot-toast";
-import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
 import "../globals.css";
 import { i18n, Locale } from "@config/i18n-config";
 import DictionaryProvider from "@shared/providers/DictionaryProvider";
@@ -21,17 +19,15 @@ export default async function RootLayout({
 }) {
   const language = params.lang || "en";
   const dictionary = await getDictionary(language);
-  const messages = await getMessages();
+
   return (
-    <NextIntlClientProvider messages={messages}>
+    <ClientProvider>
+      <Toaster position="bottom-center" />
       <DictionaryProvider dictionary={dictionary}>
-        <ClientProvider>
-          <Toaster position="bottom-center" />
-          <Header params={{ lang: language }} />
-          {children}
-          <Footer />
-        </ClientProvider>
+        <Header params={{ lang: language }} />
+        {children}
+        <Footer />
       </DictionaryProvider>
-    </NextIntlClientProvider>
+    </ClientProvider>
   );
 }

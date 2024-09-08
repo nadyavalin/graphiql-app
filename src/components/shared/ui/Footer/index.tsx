@@ -37,7 +37,14 @@ export const Footer = (): ReactElement => {
         </Link>
       </div>
       <Link href="https://rs.school" target="_blank" rel="noreferrer">
-        <Image src={logo} alt="RSSchool Logo" width="50" height="50" className={styles.logo} />
+        <Image
+          src={logo}
+          priority
+          alt="RSSchool Logo"
+          width="50"
+          height="50"
+          className={styles.logo}
+        />
       </Link>
     </footer>
   );

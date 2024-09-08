@@ -50,7 +50,7 @@ const RegistrationPage = () => {
   });
 
   useEffect(() => {
-    if (user && !loading) {
+    if (!loading && user) {
       router.push(`/${currentLanguage}`);
     }
   }, [user, loading, router, currentLanguage]);

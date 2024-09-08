@@ -47,17 +47,13 @@ const LoginPage = () => {
   });
 
   useEffect(() => {
-    if (user && !loading) {
+    if (!loading && user) {
       router.push(`/${currentLanguage}`);
     }
   }, [user, loading, router, currentLanguage]);
 
   if (loading) {
     return <Loader />;
-  }
-
-  if (user) {
-    router.push(`/${currentLanguage}`);
   }
 
   const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {

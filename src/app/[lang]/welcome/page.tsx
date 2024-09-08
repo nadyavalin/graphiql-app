@@ -24,17 +24,13 @@ export const WelcomePage = () => {
   const currentLanguage: Languages = useSelector((state: RootState) => state.language.lang);
 
   useEffect(() => {
-    if (user && !loading) {
+    if (!loading && user) {
       router.push(`/${currentLanguage}`);
     }
   }, [user, loading, router, currentLanguage]);
 
   if (loading) {
     return <Loader />;
-  }
-
-  if (user) {
-    router.push(`/${currentLanguage}`);
   }
 
   return (
