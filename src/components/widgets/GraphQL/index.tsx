@@ -1,41 +1,54 @@
 "use client";
+
+import { useState } from "react";
 import styles from "./styles.module.css";
-import { Box, IconButton } from "@mui/material";
+import commonStyles from "../commonStyles.module.css";
 import PrettifyIcon from "@mui/icons-material/FormatIndentIncrease";
 import SendIcon from "@mui/icons-material/Send";
-import { Editor } from "@features/Editor";
-import { useState } from "react";
+import { Box, IconButton } from "@mui/material";
 import { HeadersVariablesBlock } from "@features/HeadersVariablesBlock";
 import { formatDataEditor } from "@shared/utils/formatDataEditor";
 import { ResponseBlock } from "@features/ResponseBlock";
-import Field from "@src/components/features/Field";
+import { Editor } from "@features/Editor";
+import { Field } from "@features/Field";
+import { useDictionary } from "@shared/providers/DictionaryProvider";
 
 export const GraphQL = () => {
   const [query, setQuery] = useState("");
+  const dictionary = useDictionary();
 
   const handleQueryChange = (newValue: string) => {
     setQuery(newValue);
   };
 
   return (
-    <main className={styles["graphQL-container"]}>
+    <main className={styles.graphQLContainer}>
       <section>
-        <h2> Graph QL</h2>
-        <div className={styles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
+        <h2>Graph QL</h2>
+        <div className={commonStyles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
           <Box sx={{ display: "flex", gap: 1 }}>
-            <Field label={"Endpoint URL"} />
-            <IconButton title="Prettify query" onClick={() => setQuery(formatDataEditor(query))}>
-              <PrettifyIcon className={styles["btn-prettify"]} />
+            <Field label={dictionary.labels.endpoint} />
+            <IconButton
+              title={dictionary.titles.query}
+              onClick={() => setQuery(formatDataEditor(query))}
+            >
+              <PrettifyIcon className={commonStyles.btnPrettify} />
             </IconButton>
-            <IconButton title="Send request">
-              <SendIcon className={styles["btn-send"]} />
+            <IconButton title={dictionary.titles.sendRequest}>
+              <SendIcon className={commonStyles.btnSend} />
             </IconButton>
           </Box>
           <Field label={"SDL URL"} />
           <h3>Query:</h3>
           <Editor value={query} onChange={handleQueryChange} />
-          <HeadersVariablesBlock title="Add Header" itemType="Header" />
-          <HeadersVariablesBlock title="Add Variable" itemType="Variable" />
+          <HeadersVariablesBlock
+            title={dictionary.titles.addHeader}
+            itemType={dictionary.titles.header}
+          />
+          <HeadersVariablesBlock
+            title={dictionary.titles.addVariable}
+            itemType={dictionary.titles.variable}
+          />
         </div>
       </section>
       <ResponseBlock />

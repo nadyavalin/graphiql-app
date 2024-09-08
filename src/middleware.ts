@@ -1,23 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { chain } from "./middlewares/chain";
+// import { withAuthMiddleware } from "./middlewares/withAuthMiddleware";
+import { withI18nMiddleware } from "./middlewares/withI18nMiddleware";
 
-const locales = ["en", "ru"];
-const defaultLocale = "en";
-
-function getLocale() {
-  return defaultLocale;
-}
-
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-  const pathnameHasLocale = locales.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
-  );
-  if (pathnameHasLocale) return;
-  const locale = getLocale();
-  request.nextUrl.pathname = `/${locale}${pathname}`;
-  return NextResponse.redirect(request.nextUrl);
-}
+export default chain([withI18nMiddleware]);
 
 export const config = {
-  matcher: ["/((?!_next).*)"],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|images).*)"],
 };

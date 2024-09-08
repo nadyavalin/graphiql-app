@@ -41,14 +41,13 @@ body {
 main {
   flex-grow: 1;
   font-size: 16px;
-  height: 1000px; /* TODO */
 }
 
 a {
   font-weight: 500;
   color: var(--text-color);
   text-decoration: inherit;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 ul {
@@ -79,6 +78,10 @@ button {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+h2 {
+  margin: 5px;
 }
 
 p {

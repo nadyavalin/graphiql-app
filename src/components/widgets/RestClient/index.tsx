@@ -1,18 +1,21 @@
 "use client";
+
+import { useState } from "react";
 import styles from "./styles.module.css";
-import { Box, IconButton } from "@mui/material";
+import commonStyles from "../commonStyles.module.css";
 import PrettifyIcon from "@mui/icons-material/FormatIndentIncrease";
 import SendIcon from "@mui/icons-material/Send";
-import { Editor } from "@features/Editor";
-import { useState } from "react";
-
+import { Box, IconButton } from "@mui/material";
 import { HeadersVariablesBlock } from "@features/HeadersVariablesBlock";
-import { formatDataEditor } from "@shared/utils/formatDataEditor";
 import { ResponseBlock } from "@features/ResponseBlock";
 import { MethodsBlock } from "@features/Methods";
-import Field from "@features/Field";
+import { Editor } from "@features/Editor";
+import { Field } from "@features/Field";
+import { useDictionary } from "@shared/providers/DictionaryProvider";
+import { formatDataEditor } from "@shared/utils/formatDataEditor";
 
 export const RestClient = () => {
+  const dictionary = useDictionary();
   const [body, setBody] = useState("");
 
   const handleBodyChange = (newValue: string) => {
@@ -20,24 +23,33 @@ export const RestClient = () => {
   };
 
   return (
-    <main className={styles["rest-client-container"]}>
+    <main className={styles.restClientContainer}>
       <section>
-        <h2> REST Client</h2>
-        <Box className={styles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
+        <h2>REST Client</h2>
+        <Box className={commonStyles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
           <Box sx={{ display: "flex", gap: 1 }}>
             <MethodsBlock />
-            <Field label={"Endpoint URL"} />
-            <IconButton title="Prettify query" onClick={() => setBody(formatDataEditor(body))}>
-              <PrettifyIcon className={styles["btn-prettify"]} />
+            <Field label={dictionary.labels.endpoint} />
+            <IconButton
+              title={dictionary.titles.query}
+              onClick={() => setBody(formatDataEditor(body))}
+            >
+              <PrettifyIcon className={commonStyles.btnPrettify} />
             </IconButton>
-            <IconButton title="Send request">
-              <SendIcon className={styles["btn-send"]} />
+            <IconButton title={dictionary.titles.sendRequest}>
+              <SendIcon className={commonStyles.btnSend} />
             </IconButton>
           </Box>
-          <h3>Body:</h3>
+          <h3>{dictionary.titles.body}:</h3>
           <Editor value={body} onChange={handleBodyChange} />
-          <HeadersVariablesBlock title="Add Header" itemType="Header" />
-          <HeadersVariablesBlock title="Add Variable" itemType="Variable" />
+          <HeadersVariablesBlock
+            title={dictionary.titles.addHeader}
+            itemType={dictionary.titles.header}
+          />
+          <HeadersVariablesBlock
+            title={dictionary.titles.addVariable}
+            itemType={dictionary.titles.variable}
+          />
         </Box>
       </section>
       <ResponseBlock />

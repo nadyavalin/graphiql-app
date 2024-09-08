@@ -1,15 +1,16 @@
 "use client";
 
 import NextLink from "next/link";
+import { usePathname } from "next/navigation";
 import styles from "./styles.module.css";
 import { setLanguage } from "@shared/store/slices/languageSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@shared/store";
-import { Languages } from "@shared/types/types";
+import { Languages } from "@shared/types";
 
 export const LangSwitcher = () => {
   const dispatch = useDispatch();
-
+  const pathname = usePathname();
   const currentLanguage: Languages = useSelector((state: RootState) => state.language.lang);
 
   const handleLanguageChange = (newLang: Languages) => {
@@ -18,10 +19,14 @@ export const LangSwitcher = () => {
     }
   };
 
+  const getNewPath = (lang: Languages) => {
+    return pathname.replace(/\/(en|ru)(\/|$)/, `/${lang}/`);
+  };
+
   return (
     <div className={styles.lang}>
       <NextLink
-        href={`/${Languages.EN}`}
+        href={getNewPath(Languages.EN)}
         className={styles.lang}
         onClick={() => handleLanguageChange(Languages.EN)}
         passHref
@@ -32,7 +37,7 @@ export const LangSwitcher = () => {
       <span> | </span>
 
       <NextLink
-        href={`/${Languages.RU}`}
+        href={getNewPath(Languages.RU)}
         className={styles.lang}
         onClick={() => handleLanguageChange(Languages.RU)}
         passHref

@@ -7,7 +7,7 @@ interface FieldProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Field = ({ label, value, onChange }: FieldProps) => {
+export const Field = ({ label, value, onChange }: FieldProps) => {
   return (
     <TextField
       fullWidth
@@ -24,4 +24,3 @@ const Field = ({ label, value, onChange }: FieldProps) => {
     />
   );
 };
-export default Field;

@@ -1,41 +1,45 @@
 "use client";
-import { SubmitHandler, useForm } from "react-hook-form";
-import styles from "./styles.module.css";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { auth } from "../../../../firebaseConfig";
-import { Box, TextField } from "@mui/material";
-import { FirebaseError } from "firebase/app";
-import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Locale } from "@config/i18n-config";
+import { SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
+import styles from "../formStyles.module.css";
+import { Box, TextField } from "@mui/material";
+import { auth } from "@config/firebaseConfig";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useDictionary } from "@shared/providers/DictionaryProvider";
+import { Dictionary, Languages } from "@shared/types";
+import { Loader } from "@features/Loader";
+import { RootState } from "@shared/store";
+import { emailFormatSchema, passwordMatchSchema, passwordSchema } from "@shared/validationSchemas";
 
 interface FormData {
   email: string;
   password: string;
-  confPassword: string;
+  passwordMatch: string;
 }
 
-export const schema = yup.object({
-  email: yup.string().email("*** Invalid email format").required("*** Field required"),
-  password: yup
-    .string()
-    .min(8, "*** The password must be at least 8 characters long")
-    .required("*** Field required")
-    .matches(/(?=.*[0-9])/, "*** Password must contain at least one number")
-    .matches(/(?=.*[A-Za-z])/, "*** Password must contain at least one letter")
-    .matches(/(?=.*[!@#$%^&*])/, "*** Password must contain at least one special character"),
-  confPassword: yup
-    .string()
-    .oneOf([yup.ref("password")], "*** Passwords must match")
-    .required("*** Password confirmation is required"),
-});
+const createValidationRegFormSchema = (dictionary: Dictionary) => {
+  return yup.object({
+    email: emailFormatSchema(dictionary),
+    password: passwordSchema(dictionary),
+    passwordMatch: passwordMatchSchema(dictionary),
+  });
+};
 
-const RegistrationPage = (lang: Locale) => {
+const RegistrationPage = () => {
   const router = useRouter();
+  const dictionary = useDictionary();
+  const schema = createValidationRegFormSchema(dictionary);
+  const currentLanguage: Languages = useSelector((state: RootState) => state.language.lang);
   const [user, loading] = useAuthState(auth);
+
   const {
     register,
     handleSubmit,
@@ -44,60 +48,71 @@ const RegistrationPage = (lang: Locale) => {
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-  if (loading) return;
-  if (user) {
-    router.push("/en");
+
+  useEffect(() => {
+    if (!loading && user) {
+      router.push(`/${currentLanguage}`);
+    }
+  }, [loading, user, router, currentLanguage]);
+
+  if (loading) {
+    return <Loader />;
   }
 
   const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
-      toast.success("Registration successful!");
-      router.push(`/${lang}`);
+      toast.success(`${dictionary.registrationForm.success}`);
+      router.push(`/${currentLanguage}`);
     } catch (error) {
-      let errorMessage = "Registration failed. Please try again.";
+      let errorMessage = `${dictionary.registrationForm.failed}`;
       if (error instanceof FirebaseError) {
         if (error.code === "auth/email-already-in-use") {
-          errorMessage = "The email address is already in use.";
+          errorMessage = `${dictionary.registrationForm.emailUsed}`;
         }
       }
-
       toast.error(errorMessage);
     }
   };
 
   return (
     <main>
-      <h1>Sign Up</h1>
+      <h1>{dictionary.titles.signUp}</h1>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <Box className={styles["field-block"]}>
-          <TextField label="Enter your email" {...register("email")} className={styles.input} />
-          {errors.email && <p>{errors.email.message}</p>}{" "}
-        </Box>
-        <Box className={styles["field-block"]}>
+        <Box className={styles.field}>
           <TextField
-            label="Enter password"
+            label={dictionary.registrationForm.emailEnter}
+            {...register("email")}
+            className={styles.input}
+          />
+          {errors.email && <p className={styles.validationMessage}>{errors.email.message}</p>}
+        </Box>
+        <Box className={styles.field}>
+          <TextField
+            label={dictionary.registrationForm.passwordEnter}
             {...register("password")}
             type="password"
             className={styles.input}
           />
-          {errors.password && <p>{errors.password.message}</p>}
+          {errors.password && <p className={styles.validationMessage}>{errors.password.message}</p>}
         </Box>
-        <Box className={styles["field-block"]}>
+        <Box className={styles.field}>
           <TextField
-            label="Confirm password"
-            {...register("confPassword")}
+            label={dictionary.registrationForm.passwordConfirm}
+            {...register("passwordMatch")}
             type="password"
             className={styles.input}
           />
-          {errors.confPassword && <p>{errors.confPassword.message}</p>}
+          {errors.passwordMatch && (
+            <p className={styles.validationMessage}>{errors.passwordMatch.message}</p>
+          )}
         </Box>
         <button
           type="submit"
           disabled={!isValid || isSubmitting}
-          className={!isValid || isSubmitting ? styles["disabled"] : styles["send-btn"]}
+          className={!isValid || isSubmitting ? styles.disabled : styles.sendBtn}
         >
-          Submit
+          {dictionary.registrationForm.submit}
         </button>
       </form>
     </main>
