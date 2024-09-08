@@ -91,6 +91,7 @@
   "error": {
     "smtWentWrong": "Somethings went wrong",
     "sorry": "Sorry, we cannot find that page. You will find lots to explore on the Home Page.",
-    "back": "Back to Home Page"
+    "back": "Back to Home Page",
+    "try": "Try again"
   }
 }

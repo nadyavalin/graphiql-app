@@ -1,4 +1,4 @@
-import { getDictionary } from "@src/app/[lang]/dictionaries";
+import { getDictionary } from "@app/[lang]/dictionaries";
 
 export enum Languages {
   EN = "en",

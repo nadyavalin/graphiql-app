@@ -25,7 +25,7 @@ interface FormData {
   passwordMatch: string;
 }
 
-export const createValidationRegFormSchema = (dictionary: Dictionary) => {
+const createValidationRegFormSchema = (dictionary: Dictionary) => {
   return yup.object({
     email: emailFormatSchema(dictionary),
     password: passwordSchema(dictionary),

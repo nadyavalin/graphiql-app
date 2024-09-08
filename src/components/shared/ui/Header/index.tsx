@@ -52,7 +52,7 @@ export const Header = ({ params: { lang }, children, ...rest }: HeaderProps) => 
       <Menu lang={lang} />
       <LangSwitcher />
       <section className={styles.userMenu}>
-        <UserMenu lang={lang} />
+        <UserMenu />
       </section>
     </header>
   );

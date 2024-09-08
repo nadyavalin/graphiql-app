@@ -13,9 +13,9 @@ export default function NotFoundTranslate() {
         <section>
           <p className="text404">404</p>
           <Image src={page404} alt="404" width="441" height="509" />
-          <p>{dictionary.notFound.miss}</p>
-          <p>{dictionary.notFound.sorry}</p>
-          <Link href="/">{dictionary.notFound.back}</Link>
+          <p>{dictionary.error.smtWentWrong}</p>
+          <p>{dictionary.error.sorry}</p>
+          <Link href="/">{dictionary.error.back}</Link>
         </section>
       </main>
     </>

@@ -23,14 +23,14 @@ interface FormData {
   password: string;
 }
 
-export const createValidationLoginFormSchema = (dictionary: Dictionary) => {
+const createValidationLoginFormSchema = (dictionary: Dictionary) => {
   return yup.object({
     email: emailFormatSchema(dictionary),
     password: passwordSchema(dictionary),
   });
 };
 
-const LoginPage = () => {
+export const LoginPage = () => {
   const router = useRouter();
   const dictionary = useDictionary();
   const schema = createValidationLoginFormSchema(dictionary);

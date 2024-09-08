@@ -31,10 +31,8 @@ export const Logout = () => {
   };
 
   return (
-    <>
-      <IconButton title={dictionary.titles.sendRequest}>
-        <LogoutIcon onClick={logout} />
-      </IconButton>
-    </>
+    <IconButton title={dictionary.titles.sendRequest}>
+      <LogoutIcon onClick={logout} />
+    </IconButton>
   );
 };

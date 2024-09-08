@@ -8,11 +8,7 @@ import { Link } from "@mui/material";
 import { Locale } from "@config/i18n-config";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
 
-interface MenuProps {
-  lang: Locale;
-}
-
-export const Menu = ({ lang }: MenuProps) => {
+export const Menu = ({ lang }: { lang: Locale }) => {
   const dictionary = useDictionary();
   const [user] = useAuthState(auth);
 
