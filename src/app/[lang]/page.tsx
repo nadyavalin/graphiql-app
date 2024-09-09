@@ -1,12 +1,5 @@
-import { Languages } from "@shared/types/types";
-import { Locale } from "@config/i18n-config";
-import { WelcomePage } from "./welcome/page";
+import { WelcomePage } from "@widgets/WelcomePage";
 
-export default async function Home({ params }: { params: { lang?: string } }) {
-  const language: Locale =
-    params.lang === Languages.EN || params.lang === Languages.RU
-      ? (params.lang as Locale)
-      : Languages.EN;
-
-  return <WelcomePage params={{ lang: language }} />;
+export default function Home() {
+  return <WelcomePage />;
 }

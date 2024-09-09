@@ -5,7 +5,19 @@
     "logout": "Sing Out",
     "restClient": "RestClient",
     "graphQL": "GraphQL",
-    "welcome": "Welcome"
+    "welcome": "Main"
+  },
+  "info": {
+    "title_team": "About team",
+    "title_nadyavalin": "Nadya's contribution",
+    "title_LarryDavidd": "Eugene's contribution",
+    "title_katika": "Katya's contribution",
+    "title_course": "About course",
+    "team": "Our team was recreated almost in the same form as in the final task of stage2 of the course, Ekaterina and Nadezhda were already in the team and worked well together. We met Eugene at one of the cross-checks and since Eugene already had experience working with React, he fit in perfectly with our team.",
+    "project_katika": "Katya made registration and login pages, set up user authentication, created private routes and UI for pages.",
+    "project_LarryDavidd": "Eugene set up the project structure at the very beginning fsd. Made all the functionality of RestFull Client and Graph QL.",
+    "project_nadyavalin": "Nadezhda is a team leader, organized work on the github board, made basic settings for configuration files in the first sprint, configured redux (store) / layout, made sticky header and footer, creates design, wrote a Welcome page, completely translated the entire application, implementing i18n and ensuring internalization in two languages ​​(English and Russian), added the 404 page.",
+    "course": "We are grateful to this course for the opportunity to learn React/Nextjs in such a short time. The practice gave us an understanding of what we still need to learn after the course, what gaps to fill. We hope that after gaining sufficient experience, we will return to this course as mentors!"
   },
   "developers": {
     "nadyavalin": {
@@ -19,17 +31,67 @@
       "desc": "I graduated from BSU with a degree in biotechnology and worked in the pharmaceutical industry for many years. My interest in technology, beautiful and user-friendly interfaces, and the desire to learn led me to the world of programming. Studying at school allowed me to acquire the necessary skills, the ability to work independently and in a team, and to develop according to technical specifications. My dream is to work on a project related to biotechnology, science, education, or medicine."
     },
     "LarryDavidd": {
-      "name": "Eugene ...",
+      "name": "Eugene Gerasimov",
       "position": "Front-end developer",
       "desc": "..."
-    },
-    "labels": {
-      "method": "Method",
-      "endpoint": "Endpoint URL",
-      "headerKey": "Header Key",
-      "headerValue": "Header Value",
-      "variableKey": "Variable Key",
-      "variableValue": "Variable Value"
     }
+  },
+  "labels": {
+    "method": "Method",
+    "endpoint": "Endpoint URL",
+    "headerKey": "Header Key",
+    "headerValue": "Header Value",
+    "variableKey": "Variable Key",
+    "variableValue": "Variable Value"
+  },
+  "titles": {
+    "query": "Prettify query",
+    "sendRequest": "Send request",
+    "body": "Body",
+    "addHeader": "Add Header",
+    "header": "Header",
+    "addVariable": "Add Variable",
+    "variable": "Variable",
+    "response": "Response",
+    "status": "Status",
+    "signUp": "Sign Up",
+    "signIn": "Sign In",
+    "welcomeUser": "Welcome"
+  },
+  "yup": {
+    "emailInvalidFormat": "*** Invalid email format",
+    "required": "*** Field required",
+    "passwordLength": "*** The password must be at least 8 characters long",
+    "passwordOneNumber": "*** Password must contain at least one number",
+    "passwordOneLetter": "*** Password must contain at least one letter",
+    "passwordOneSpecChar": "*** Password must contain at least one special character",
+    "passwordMatch": "*** Passwords must match",
+    "passwordConfirmRequired": "*** Password confirmation is required"
+  },
+  "registrationForm": {
+    "success": "Registration successful!",
+    "failed": "Registration failed. Please try again",
+    "emailUsed": "The email address is already in use",
+    "emailEnter": "Enter your email",
+    "passwordEnter": "Enter password",
+    "passwordConfirm": "Confirm password",
+    "submit": "Submit"
+  },
+  "LoginFrom": {
+    "success": "Successful login!",
+    "failed": "Login failed. Please try again",
+    "emailEnter": "Enter your email",
+    "passwordEnter": "Enter password",
+    "submit": "Submit"
+  },
+  "logout": {
+    "success": "You have logged out!",
+    "failed": "Logout error"
+  },
+  "error": {
+    "smtWentWrong": "Somethings went wrong",
+    "sorry": "Sorry, we cannot find that page. You will find lots to explore on the Home Page.",
+    "back": "Back to Home Page",
+    "try": "Try again"
   }
 }

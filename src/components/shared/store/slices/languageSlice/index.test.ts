@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import languageReducer, { setLanguage } from "./";
 import { loadDictionary } from "@shared/utils/loadDictionary";
+import { Languages } from "@shared/types";
 
 const initialState = {
   lang: "en",
@@ -16,7 +17,7 @@ describe("languageSlice", () => {
 
   it("should handle setLanguage - switching to 'ru'", () => {
     const previousState = { ...initialState };
-    const nextState = languageReducer(previousState, setLanguage("ru"));
+    const nextState = languageReducer(previousState, setLanguage(Languages.RU));
 
     const expectedDictionary = loadDictionary("ru");
     const expectedState = {
@@ -32,7 +33,7 @@ describe("languageSlice", () => {
       lang: "ru",
       dictionary: loadDictionary("ru"),
     };
-    const nextState = languageReducer(previousState, setLanguage("en"));
+    const nextState = languageReducer(previousState, setLanguage(Languages.EN));
 
     const expectedDictionary = loadDictionary("en");
     const expectedState = {

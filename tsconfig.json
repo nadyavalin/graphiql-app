@@ -20,7 +20,6 @@
     ],
     "paths": {
       "@config/*": ["./config/*"],
-      "@src/*": ["./src/*"],
       "@public/*": ["./public/*"],
       "@app/*": ["./src/app/*"],
       "@pages/*": ["./src/components/pages/*"],
@@ -35,7 +34,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/[lang]/dictionaries.ts"
+    "src/app/[lang]/dictionaries.ts",
+    "next.config.mjs"
   ],
   "exclude": ["node_modules"]
 }
