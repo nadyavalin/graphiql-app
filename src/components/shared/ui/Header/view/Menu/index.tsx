@@ -9,9 +9,11 @@ import useFirebaseAuth from "@shared/hooks/useFirebaseAuth";
 export const Menu = ({ lang }: { lang: Locale }) => {
   const dictionary = useDictionary();
   const { user, loading } = useFirebaseAuth();
+
   if (loading) {
     return;
   }
+
   return (
     <nav className={styles.nav}>
       {user ? (

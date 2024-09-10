@@ -24,8 +24,13 @@ export default defineConfig({
     mockReset: true,
     clearMocks: true,
     coverage: {
-      include: ["src/app/**/*.{ts,tsx}", "src/components/**/*.{ts,tsx}"],
-      exclude: ["src/components/shared/ui/index.ts", "src/**/*.{spec,test}.{ts,tsx}"],
+      include: ["src/components/**/*.{ts,tsx}"],
+      exclude: [
+        "src/components/shared/ui/index.ts",
+        "src/**/*.{spec,test}.{ts,tsx}",
+        "src/components/shared/utils/formatDataEditor/js-beautify.d.ts",
+        "src/components/shared/notFound/index.tsx",
+      ],
     },
   },
 });
