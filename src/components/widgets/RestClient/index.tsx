@@ -20,45 +20,22 @@ import { updateMethod } from "@shared/store/slices/methodSlice";
 import isValidJson from "@shared/utils/checkIsValidJson";
 import fixInvalidJson from "@shared/utils/formatToValidJson";
 import arrayToObj from "@shared/utils/arrayToObj";
-import encodeBase64 from "@shared/utils/encodeBase64";
+import { encodeBase64, decodeBase64 } from "@shared/utils/encodeBase64";
 import encodeQueryParams from "@shared/utils/encodeQueryParams";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { updateUser } from "@src/components/shared/actions/restfulAction";
+import { useEffect } from "react";
 
 export const RestClient = () => {
-  // Shared
-  const dispatch = useAppDispatch();
-
-  const onPlay = () => {
-    if (!endpoint.trim()) return;
-
-    const headersObj = arrayToObj(headers);
-
-    const encodedEndpoint = encodeBase64(endpoint);
-    const encodedBody = encodeBase64(body);
-    const encodedHeaders = encodeQueryParams(headersObj);
-
-    const requestUrl = `${method}/${encodedEndpoint}${encodedBody ? "/" + encodedBody : ""}${encodedHeaders ? "?" + encodedHeaders : ""}`;
-
-    fetch(`/api?request=${encodeURIComponent(requestUrl)}`)
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error(error));
-  };
-
   // Headers
   const headers = useAppSelector((state) => state.headers.headers);
 
-  const handleHeadersChange = (items: Item[]) => {
-    console.log(headers);
-    dispatch(updateHeaders(items));
-  };
+  const handleHeadersChange = (items: Item[]) => dispatch(updateHeaders(items));
 
   // Variables
   const variables = useAppSelector((state) => state.variables.variables);
 
-  const handleVariablesChange = (items: Item[]) => {
-    console.log(variables);
-    dispatch(updateVariables(items));
-  };
+  const handleVariablesChange = (items: Item[]) => dispatch(updateVariables(items));
 
   // Body
   const body = useAppSelector((state) => state.body.body);
@@ -75,10 +52,7 @@ export const RestClient = () => {
   // Endponts
   const endpoint = useAppSelector((state) => state.endpoint.endpoint);
 
-  const onEndpointChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const endpont = e.target.value;
-    dispatch(updateEndpoint(endpont));
-  };
+  const onEndpointChange = (newEndpoint: string) => dispatch(updateEndpoint(newEndpoint));
 
   // Method
   const method = useAppSelector((state) => state.method.method);
@@ -87,43 +61,101 @@ export const RestClient = () => {
     dispatch(updateMethod(newMethod));
   };
 
+  // Shared
+  const dispatch = useAppDispatch();
+
+  const router = useRouter();
+
+  const pathname = usePathname();
+
+  const searchParams = useSearchParams();
+
+  const onUrlChange = () => {
+    const headersObj = arrayToObj(headers);
+
+    const encodedEndpoint = encodeBase64(endpoint);
+    const encodedBody = encodeBase64(body);
+    const encodedHeaders = encodeQueryParams(headersObj);
+
+    const requestUrl = `${method}/${encodedEndpoint}${encodedBody ? "/" + encodedBody : ""}${encodedHeaders ? "?" + encodedHeaders : ""}`;
+    const paths = pathname.split("/").filter((value) => value !== "");
+    console.log("/" + paths[0] + "/" + requestUrl);
+    router.replace("/" + requestUrl);
+  };
+
+  const update = updateUser.bind(null);
+
+  useEffect(() => {
+    if (endpoint || method || body || headers) onUrlChange();
+  }, [endpoint, method, body, headers]);
+
+  useEffect(() => {
+    const paths = pathname.split("/").filter((value) => value !== "");
+
+    const params = new URLSearchParams(searchParams.toString());
+
+    console.log(paths);
+    onMethodChange(paths[1] as Methods);
+
+    if (paths.length > 2) {
+      onEndpointChange(decodeBase64(paths[2]));
+    }
+
+    if (paths.length > 3) {
+      handleBodyChange(decodeBase64(paths[3]));
+    }
+
+    console.log(params);
+    if (params.size > 0) {
+      const newItems: Item[] = Array.from(params.entries()).map(([key, value]) => ({
+        key: key,
+        value: value,
+      }));
+
+      handleHeadersChange(newItems);
+    }
+  }, []);
+
   return (
     <main className={styles["rest-client-container"]}>
       <section>
         <h2> REST Client</h2>
         <Card className={styles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
           <CardContent>
-            <Box sx={{ display: "flex", gap: 1 }}>
-              <MethodsBlock method={method} onChange={onMethodChange} />
-              <Field label={"Endpoint URL"} onChange={onEndpointChange} value={endpoint} />
-              <IconButton
-                title="Prettify query"
-                onClick={() => dispatch(updateBody(formatDataEditor(body)))}
-              >
-                <PrettifyIcon className={styles["btn-prettify"]} />
-              </IconButton>
-              <IconButton title="Send request" onClick={onPlay}>
-                <SendIcon className={styles["btn-send"]} />
-              </IconButton>
-            </Box>
-            {method !== Methods.get ? (
-              <>
-                <h3>Body:</h3>
-                <Editor value={body} onChange={handleBodyChange} />
-                <HeadersVariablesBlock
-                  title="Add Variable"
-                  itemType="Variable"
-                  onChange={handleVariablesChange}
-                  value={variables}
-                />
-              </>
-            ) : null}
-            <HeadersVariablesBlock
-              title="Add Header"
-              itemType="Header"
-              onChange={handleHeadersChange}
-              value={headers}
-            />
+            <form action={update}>
+              <Box sx={{ display: "flex", gap: 1 }}>
+                <MethodsBlock method={method} onChange={onMethodChange} />
+                <Field label={"Endpoint URL"} onChange={onEndpointChange} value={endpoint} />
+                <IconButton
+                  title="Prettify query"
+                  onClick={() => dispatch(updateBody(formatDataEditor(body)))}
+                >
+                  <PrettifyIcon className={styles["btn-prettify"]} />
+                </IconButton>
+                <IconButton title="Send request" onClick={onUrlChange}>
+                  <SendIcon className={styles["btn-send"]} />
+                </IconButton>
+              </Box>
+              {method !== Methods.get ? (
+                <>
+                  <h3>Body:</h3>
+                  <Editor value={body} onChange={handleBodyChange} />
+                  <HeadersVariablesBlock
+                    title="Add Variable"
+                    itemType="Variable"
+                    onChange={handleVariablesChange}
+                    value={variables}
+                  />
+                </>
+              ) : null}
+              <HeadersVariablesBlock
+                title="Add Header"
+                itemType="Header"
+                onChange={handleHeadersChange}
+                value={headers}
+              />
+              <button>here</button>
+            </form>
           </CardContent>
         </Card>
       </section>

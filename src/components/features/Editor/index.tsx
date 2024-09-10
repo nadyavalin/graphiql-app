@@ -1,5 +1,6 @@
 import CodeMirror from "@uiw/react-codemirror";
 import styles from "./styles.module.css";
+import { useState } from "react";
 
 interface EditorProps {
   value: string;
@@ -8,13 +9,20 @@ interface EditorProps {
 }
 
 export const Editor = ({ isEditable, value, onChange }: EditorProps) => {
+  const [item, setItems] = useState<string>(value);
+
+  const onFocusOut = () => {
+    if (onChange) onChange(item);
+  };
+
   return (
     <CodeMirror
       minHeight="230px"
       editable={isEditable}
-      value={value}
+      value={item}
       className={styles.editor}
-      onChange={onChange}
+      onChange={setItems}
+      onMouseOut={onFocusOut}
     />
   );
 };

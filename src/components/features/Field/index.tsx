@@ -1,13 +1,23 @@
+import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { TextField } from "@mui/material";
 
 interface FieldProps {
   label: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value: string;
+  onChange: (value: string) => void;
 }
 
 export const Field = ({ label, value, onChange }: FieldProps) => {
+  const [item, setItems] = useState<string>(value);
+
+  const fieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setItems(value);
+  };
+
+  useEffect(() => setItems(value), [value]);
+
   return (
     <TextField
       fullWidth
@@ -19,8 +29,9 @@ export const Field = ({ label, value, onChange }: FieldProps) => {
         },
       }}
       className={styles.input}
-      value={value}
-      onChange={onChange}
+      value={item}
+      onMouseOutCapture={() => onChange(item)}
+      onChange={fieldChange}
     />
   );
 };

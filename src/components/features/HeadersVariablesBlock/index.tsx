@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { Box, IconButton } from "@mui/material";
 import { Field } from "@features/Field";
@@ -38,6 +38,8 @@ export const HeadersVariablesBlock = ({
     onChange(newItems);
   };
 
+  useEffect(() => setItems(value), [value]);
+
   return (
     <Box>
       <h3>
@@ -51,12 +53,12 @@ export const HeadersVariablesBlock = ({
           <Field
             label={`${itemType} Key`}
             value={item.key}
-            onChange={(e) => handleChange(item.key, "key", e.target.value)}
+            onChange={(value) => handleChange(item.key, "key", value)}
           />
           <Field
             label={`${itemType} Value`}
             value={item.value}
-            onChange={(e) => handleChange(item.key, "value", e.target.value)}
+            onChange={(value) => handleChange(item.key, "value", value)}
           />
           <IconButton onClick={() => removeItem(item.key)}>
             <RemoveIcon className={styles.icon} />
