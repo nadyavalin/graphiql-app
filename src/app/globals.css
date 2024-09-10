@@ -25,6 +25,7 @@ body {
   --text-dark-color: #4f4f4f;
   --color-hover: #4f5aff;
   --lang-color: #8bb0ff;
+  --accent-red: #ff0000;
 
   display: flex;
   flex-direction: column;
@@ -86,6 +87,23 @@ h2 {
 
 p {
   margin: 2px;
+}
+
+.error-box {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.error {
+  color: var(--accent-red);
+}
+
+.error-button {
+  color: var(--text-color);
 }
 
 @media (hover: hover) {

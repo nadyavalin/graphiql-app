@@ -1,7 +1,6 @@
 "use client";
 
 import { useDictionary } from "@shared/providers/DictionaryProvider";
-import { useEffect } from "react";
 
 export default function Error({
   error,
@@ -12,14 +11,15 @@ export default function Error({
 }) {
   const dictionary = useDictionary();
 
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
-
   return (
-    <div>
-      <h2>{dictionary.error.smtWentWrong}!</h2>
-      <button onClick={() => reset()}>{dictionary.error.try}</button>
-    </div>
+    <main>
+      <section className="error-box">
+        <h2>{dictionary.error.smtWentWrong}!</h2>
+        <div className="error">{error.message}</div>
+        <button onClick={() => reset()} className="error-button">
+          {dictionary.error.try}
+        </button>
+      </section>
+    </main>
   );
 }
