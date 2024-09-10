@@ -14,7 +14,7 @@ import { RootState } from "@shared/store";
 import { Dictionary, Languages } from "@shared/types";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { emailFormatSchema, passwordSchema } from "@shared/validationSchemas";
-import { setDateToken } from "@shared/store/slices/userSlice";
+import { setDateToken, setUserName } from "@shared/store/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { auth } from "@config/firebaseConfig";
 import useFirebaseAuth from "@shared/hooks/useFirebaseAuth";
@@ -59,6 +59,7 @@ const LoginPage = () => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
       dispatch(setDateToken(new Date().toString()));
+      dispatch(setUserName(data.email));
       toast.success(`${dictionary.LoginFrom.success}`);
       router.push(`/${currentLanguage}`);
     } catch (error) {

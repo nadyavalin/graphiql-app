@@ -22,7 +22,9 @@ export const WelcomePage = () => {
     <>
       <main>
         {user ? (
-          <h3>{dictionary.titles.welcomeUser}, [user]!</h3>
+          <h3>
+            {dictionary.titles.welcomeUser}, {user.userName}!
+          </h3>
         ) : (
           <nav className={styles.userNav}>
             <Link

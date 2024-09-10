@@ -2,7 +2,7 @@ import { render } from "@testing-library/react";
 import { useSelector } from "react-redux";
 import { beforeEach, describe, expect, it } from "vitest";
 import { ClientProvider } from "@shared/providers/ClientProvider";
-import store, { RootState } from "@shared/store";
+import { RootState, store } from "@shared/store";
 
 const StoreTestComponent = () => {
   const languageState = useSelector((state: RootState) => state.language);

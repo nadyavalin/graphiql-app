@@ -2,10 +2,9 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 import styles from "../formStyles.module.css";
 import { Box, TextField } from "@mui/material";
@@ -18,6 +17,8 @@ import { emailFormatSchema, passwordMatchSchema, passwordSchema } from "@shared/
 import { auth } from "@config/firebaseConfig";
 import useFirebaseAuth from "@shared/hooks/useFirebaseAuth";
 import { Loader } from "@features/Loader";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { setDateToken, setUserName } from "@shared/store/slices/userSlice";
 
 interface FormData {
   email: string;
@@ -39,6 +40,7 @@ const RegistrationPage = () => {
   const schema = createValidationRegFormSchema(dictionary);
   const currentLanguage: Languages = useSelector((state: RootState) => state.language.lang);
   const { user, loading } = useFirebaseAuth();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -58,6 +60,8 @@ const RegistrationPage = () => {
   const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
+      dispatch(setDateToken(new Date().toString()));
+      dispatch(setUserName(data.email));
       toast.success(`${dictionary.registrationForm.success}`);
       router.push(`/${currentLanguage}`);
     } catch (error) {

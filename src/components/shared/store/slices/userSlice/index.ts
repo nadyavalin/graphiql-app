@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface SessionState {
   dateToken: string;
+  userName: string;
 }
 
 const initialState: SessionState = {
   dateToken: "",
+  userName: "",
 };
 
 export const userSlice = createSlice({
@@ -15,8 +17,11 @@ export const userSlice = createSlice({
     setDateToken(state, action: PayloadAction<string>) {
       state.dateToken = action.payload;
     },
+    setUserName(state, action: PayloadAction<string>) {
+      state.userName = action.payload;
+    },
   },
 });
 
-export const { setDateToken } = userSlice.actions;
+export const { setDateToken, setUserName } = userSlice.actions;
 export default userSlice.reducer;
