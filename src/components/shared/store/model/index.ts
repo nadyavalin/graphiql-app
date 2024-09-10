@@ -1,10 +1,10 @@
-// Headers variables
-export type HeadersState = {
+export type RestClientState = {
+  method: Methods;
+  endpoint: string;
+  body: string;
   headers: Item[];
-};
-
-export type VariablesState = {
   variables: Item[];
+  response: string;
 };
 
 export interface Item {
@@ -12,31 +12,9 @@ export interface Item {
   value: string;
 }
 
-// Methods
-export type MethodState = {
-  method: Methods;
-};
-
 export enum Methods {
   get = "GET",
   post = "POST",
   put = "PUT",
   delete = "DELETE",
 }
-
-// Endpont
-export type EndpointState = {
-  endpoint: string;
-};
-
-// Body
-
-export type BodyState = {
-  body: string;
-};
-
-// Response
-
-export type ResponseState = {
-  response: string;
-};

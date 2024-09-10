@@ -12,11 +12,6 @@ import { formatDataEditor } from "@shared/utils/formatDataEditor";
 import { Item, Methods } from "@shared/store/model";
 import useAppSelector from "@shared/hooks/useAppSelector";
 import useAppDispatch from "@shared/hooks/useAppDispatch";
-import { updateHeaders } from "@shared/store/slices/headersSlice";
-import { updateVariables } from "@shared/store/slices/variablesSlice";
-import { updateEndpoint } from "@shared/store/slices/endpointSlice";
-import { updateBody } from "@shared/store/slices/bodySlice";
-import { updateMethod } from "@shared/store/slices/methodSlice";
 import isValidJson from "@shared/utils/checkIsValidJson";
 import fixInvalidJson from "@shared/utils/formatToValidJson";
 import arrayToObj from "@shared/utils/arrayToObj";
@@ -25,21 +20,28 @@ import encodeQueryParams from "@shared/utils/encodeQueryParams";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { updateUser } from "@src/components/shared/actions/restfulAction";
 import { useEffect } from "react";
-import { updateResponse } from "@src/components/shared/store/slices/responseSlice";
+import {
+  updateBody,
+  updateEndpoint,
+  updateHeaders,
+  updateMethod,
+  updateResponse,
+  updateVariables,
+} from "@shared/store/slices/restClientSlice";
 
 export const RestClient = () => {
   // Headers
-  const headers = useAppSelector((state) => state.headers.headers);
+  const headers = useAppSelector((state) => state.restClient.headers);
 
   const handleHeadersChange = (items: Item[]) => dispatch(updateHeaders(items));
 
   // Variables
-  const variables = useAppSelector((state) => state.variables.variables);
+  const variables = useAppSelector((state) => state.restClient.variables);
 
   const handleVariablesChange = (items: Item[]) => dispatch(updateVariables(items));
 
   // Body
-  const body = useAppSelector((state) => state.body.body);
+  const body = useAppSelector((state) => state.restClient.body);
 
   const handleBodyChange = (newValue: string) => {
     if (isValidJson(newValue)) {
@@ -51,12 +53,12 @@ export const RestClient = () => {
   };
 
   // Endponts
-  const endpoint = useAppSelector((state) => state.endpoint.endpoint);
+  const endpoint = useAppSelector((state) => state.restClient.endpoint);
 
   const onEndpointChange = (newEndpoint: string) => dispatch(updateEndpoint(newEndpoint));
 
   // Method
-  const method = useAppSelector((state) => state.method.method);
+  const method = useAppSelector((state) => state.restClient.method);
 
   const onMethodChange = (newMethod: Methods) => dispatch(updateMethod(newMethod));
 

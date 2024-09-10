@@ -1,11 +1,13 @@
 import { RootState } from "./";
 
-export const selectHeaders = (state: RootState) => state.headers.headers;
+export const selectHeaders = (state: RootState) => state.restClient.headers;
 
-export const selectVariables = (state: RootState) => state.variables.variables;
+export const selectVariables = (state: RootState) => state.restClient.variables;
 
-export const selectMethod = (state: RootState) => state.method.method;
+export const selectMethod = (state: RootState) => state.restClient.method;
 
-export const selectEndpoint = (state: RootState) => state.endpoint.endpoint;
+export const selectEndpoint = (state: RootState) => state.restClient.endpoint;
 
-export const selectBody = (state: RootState) => state.body.body;
+export const selectBody = (state: RootState) => state.restClient.body;
+
+export const selectResponse = (state: RootState) => state.restClient.response;

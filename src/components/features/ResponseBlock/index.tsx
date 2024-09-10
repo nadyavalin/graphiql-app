@@ -5,7 +5,7 @@ import { formatDataEditor } from "@shared/utils/formatDataEditor";
 import useAppSelector from "@shared/hooks/useAppSelector";
 
 export const ResponseBlock = () => {
-  const response = useAppSelector((state) => state.response.response);
+  const response = useAppSelector((state) => state.restClient.response);
 
   return (
     <section>
