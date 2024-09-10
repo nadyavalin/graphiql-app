@@ -5,6 +5,7 @@ import { variablesReducer } from "./slices/variablesSlice";
 import { methodReducer } from "./slices/methodSlice";
 import { endpointReducer } from "./slices/endpointSlice";
 import { bodyReducer } from "./slices/bodySlice";
+import { responseReducer } from "./slices/responseSlice";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     method: methodReducer,
     endpoint: endpointReducer,
     body: bodyReducer,
+    response: responseReducer,
   },
 });
 

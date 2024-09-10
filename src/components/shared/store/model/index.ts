@@ -34,3 +34,9 @@ export type EndpointState = {
 export type BodyState = {
   body: string;
 };
+
+// Response
+
+export type ResponseState = {
+  response: string;
+};

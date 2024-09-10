@@ -25,6 +25,7 @@ import encodeQueryParams from "@shared/utils/encodeQueryParams";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { updateUser } from "@src/components/shared/actions/restfulAction";
 import { useEffect } from "react";
+import { updateResponse } from "@src/components/shared/store/slices/responseSlice";
 
 export const RestClient = () => {
   // Headers
@@ -57,9 +58,7 @@ export const RestClient = () => {
   // Method
   const method = useAppSelector((state) => state.method.method);
 
-  const onMethodChange = (newMethod: Methods) => {
-    dispatch(updateMethod(newMethod));
-  };
+  const onMethodChange = (newMethod: Methods) => dispatch(updateMethod(newMethod));
 
   // Shared
   const dispatch = useAppDispatch();
@@ -78,12 +77,17 @@ export const RestClient = () => {
     const encodedHeaders = encodeQueryParams(headersObj);
 
     const requestUrl = `${method}/${encodedEndpoint}${encodedBody ? "/" + encodedBody : ""}${encodedHeaders ? "?" + encodedHeaders : ""}`;
-    const paths = pathname.split("/").filter((value) => value !== "");
-    console.log("/" + paths[0] + "/" + requestUrl);
+
     router.replace("/" + requestUrl);
   };
 
-  const update = updateUser.bind(null);
+  const update = updateUser.bind(null, endpoint, method, body, headers);
+
+  const onPlay = async () => {
+    const ends = await update();
+    console.log(ends);
+    dispatch(updateResponse(JSON.stringify(ends)));
+  };
 
   useEffect(() => {
     if (endpoint || method || body || headers) onUrlChange();
@@ -102,7 +106,8 @@ export const RestClient = () => {
     }
 
     if (paths.length > 3) {
-      handleBodyChange(decodeBase64(paths[3]));
+      if ((paths[1] as Methods) !== Methods.get) handleBodyChange(decodeBase64(paths[3]));
+      else handleBodyChange("");
     }
 
     console.log(params);
@@ -122,7 +127,7 @@ export const RestClient = () => {
         <h2> REST Client</h2>
         <Card className={styles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
           <CardContent>
-            <form action={update}>
+            <form action={onPlay}>
               <Box sx={{ display: "flex", gap: 1 }}>
                 <MethodsBlock method={method} onChange={onMethodChange} />
                 <Field label={"Endpoint URL"} onChange={onEndpointChange} value={endpoint} />

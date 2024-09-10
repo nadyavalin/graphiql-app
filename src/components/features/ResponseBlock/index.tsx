@@ -1,11 +1,11 @@
 import { Editor } from "@features/Editor";
 import styles from "./styles.module.css";
 import { Card, CardContent } from "@mui/material";
-import { useState } from "react";
 import { formatDataEditor } from "@shared/utils/formatDataEditor";
+import useAppSelector from "@shared/hooks/useAppSelector";
 
 export const ResponseBlock = () => {
-  const [response] = useState("");
+  const response = useAppSelector((state) => state.response.response);
 
   return (
     <section>
