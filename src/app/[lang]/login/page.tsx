@@ -5,18 +5,20 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import styles from "../formStyles.module.css";
 import { Box, TextField } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { auth } from "@config/firebaseConfig";
 import { RootState } from "@shared/store";
 import { Dictionary, Languages } from "@shared/types";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
-import { Loader } from "@features/Loader";
 import { emailFormatSchema, passwordSchema } from "@shared/validationSchemas";
+import { setDateToken } from "@shared/store/slices/userSlice";
+import { useDispatch } from "react-redux";
+import { auth } from "@config/firebaseConfig";
+import useFirebaseAuth from "@shared/hooks/useFirebaseAuth";
+import { Loader } from "@features/Loader";
 
 interface FormData {
   email: string;
@@ -32,10 +34,11 @@ const createValidationLoginFormSchema = (dictionary: Dictionary) => {
 
 const LoginPage = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const dictionary = useDictionary();
   const schema = createValidationLoginFormSchema(dictionary);
   const currentLanguage: Languages = useSelector((state: RootState) => state.language.lang);
-  const [user, loading] = useAuthState(auth);
+  const { user, loading } = useFirebaseAuth();
 
   const {
     register,
@@ -47,24 +50,23 @@ const LoginPage = () => {
   });
 
   useEffect(() => {
-    if (!loading && user) {
+    if (user) {
       router.push(`/${currentLanguage}`);
     }
-  }, [loading, user, router, currentLanguage]);
-
-  if (loading) {
-    return <Loader />;
-  }
+  }, [user, router, currentLanguage]);
 
   const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
+      dispatch(setDateToken(new Date().toString()));
       toast.success(`${dictionary.LoginFrom.success}`);
       router.push(`/${currentLanguage}`);
     } catch (error) {
       toast.error(`${dictionary.LoginFrom.failed}`);
     }
   };
+  if (loading) return <Loader />;
+  if (user) return null;
 
   return (
     <main>

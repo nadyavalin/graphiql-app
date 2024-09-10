@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD8Xy7_dyxfZiELnM23Pw6eHiQ4_sePVGc",
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
   authDomain: "graphiql-app-project-9e22e.firebaseapp.com",
   projectId: "graphiql-app-project-9e22e",
   storageBucket: "graphiql-app-project-9e22e.appspot.com",
@@ -12,5 +12,4 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
 export const auth = getAuth(app);

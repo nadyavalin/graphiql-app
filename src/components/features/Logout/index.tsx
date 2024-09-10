@@ -21,7 +21,6 @@ export const Logout = () => {
     try {
       await signOut(auth);
       toast.success(dictionary.logout.success);
-
       router.push(`/${currentLanguage}`);
     } catch (error) {
       if (error instanceof FirebaseError) {

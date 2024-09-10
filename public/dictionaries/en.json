@@ -86,7 +86,8 @@
   },
   "logout": {
     "success": "You have logged out!",
-    "failed": "Logout error"
+    "failed": "Logout error",
+    "tokenExpired": "Your session has expired. Please log in again."
   },
   "error": {
     "smtWentWrong": "Somethings went wrong",
