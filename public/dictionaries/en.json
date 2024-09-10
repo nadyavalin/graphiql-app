@@ -56,7 +56,8 @@
     "status": "Status",
     "signUp": "Sign Up",
     "signIn": "Sign In",
-    "welcomeUser": "Welcome"
+    "welcomeUser": "Welcome",
+    "guest": "guest"
   },
   "yup": {
     "emailInvalidFormat": "*** Invalid email format",

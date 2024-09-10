@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "firebase/auth";
-import { setDateToken } from "@shared/store/slices/userSlice";
+import { setDateToken, setUserName } from "@shared/store/slices/userSlice";
 import { isTokenValid } from "@shared/utils/tokenDateCheck";
 import { auth } from "@config/firebaseConfig";
 import toast from "react-hot-toast";
@@ -25,6 +25,7 @@ const useSessionCheck = () => {
       if (user.dateToken && !isTokenValid(user.dateToken)) {
         signOut(auth).then(() => {
           dispatch(setDateToken(""));
+          dispatch(setUserName(""));
           toast.error(dictionary.logout.tokenExpired);
           router.push(`/${currentLanguage}`);
           hasLoggedOutRef.current = true;

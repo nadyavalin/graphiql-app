@@ -56,7 +56,8 @@
     "status": "Статус",
     "signUp": "Регистрация",
     "signIn": "Вход",
-    "welcomeUser": "Добро пожаловать"
+    "welcomeUser": "Добро пожаловать",
+    "guest": "гость"
   },
   "yup": {
     "emailInvalidFormat": "*** Неверный формат электронной почты",
