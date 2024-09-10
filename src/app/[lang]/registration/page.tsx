@@ -2,22 +2,23 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useDispatch, useSelector } from "react-redux";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 import styles from "../formStyles.module.css";
 import { Box, TextField } from "@mui/material";
-import { auth } from "@config/firebaseConfig";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { Dictionary, Languages } from "@shared/types";
-import { Loader } from "@features/Loader";
 import { RootState } from "@shared/store";
 import { emailFormatSchema, passwordMatchSchema, passwordSchema } from "@shared/validationSchemas";
+import { auth } from "@config/firebaseConfig";
+import useFirebaseAuth from "@shared/hooks/useFirebaseAuth";
+import { Loader } from "@features/Loader";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { setDateToken, setUserName } from "@shared/store/slices/userSlice";
 
 interface FormData {
   email: string;
@@ -38,7 +39,8 @@ const RegistrationPage = () => {
   const dictionary = useDictionary();
   const schema = createValidationRegFormSchema(dictionary);
   const currentLanguage: Languages = useSelector((state: RootState) => state.language.lang);
-  const [user, loading] = useAuthState(auth);
+  const { user, loading } = useFirebaseAuth();
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -50,18 +52,16 @@ const RegistrationPage = () => {
   });
 
   useEffect(() => {
-    if (!loading && user) {
+    if (user) {
       router.push(`/${currentLanguage}`);
     }
-  }, [loading, user, router, currentLanguage]);
-
-  if (loading) {
-    return <Loader />;
-  }
+  }, [user, router, currentLanguage]);
 
   const onSubmit: SubmitHandler<FormData> = async (data: FormData) => {
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
+      dispatch(setDateToken(new Date().toString()));
+      dispatch(setUserName(data.email));
       toast.success(`${dictionary.registrationForm.success}`);
       router.push(`/${currentLanguage}`);
     } catch (error) {
@@ -74,6 +74,9 @@ const RegistrationPage = () => {
       toast.error(errorMessage);
     }
   };
+
+  if (loading) return <Loader />;
+  if (user) return null;
 
   return (
     <main>

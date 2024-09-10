@@ -11,8 +11,8 @@ export const emailFormatSchema = (dictionary: Dictionary) => {
 export const passwordSchema = (dictionary: Dictionary) => {
   return yup
     .string()
-    .min(8, `${dictionary.yup.passwordLength}`)
     .required(`${dictionary.yup.required}`)
+    .min(8, `${dictionary.yup.passwordLength}`)
     .matches(/(?=.*[0-9])/, `${dictionary.yup.passwordOneNumber}`)
     .matches(/(?=.*[A-Za-z])/, `${dictionary.yup.passwordOneLetter}`)
     .matches(/(?=.*[!@#$%^&*])/, `${dictionary.yup.passwordOneSpecChar}`);
@@ -21,6 +21,6 @@ export const passwordSchema = (dictionary: Dictionary) => {
 export const passwordMatchSchema = (dictionary: Dictionary) => {
   return yup
     .string()
-    .oneOf([yup.ref("password")], `${dictionary.yup.passwordMatch}`)
-    .required(`${dictionary.yup.passwordConfirmRequired}`);
+    .required(`${dictionary.yup.passwordConfirmRequired}`)
+    .oneOf([yup.ref("password")], `${dictionary.yup.passwordMatch}`);
 };

@@ -13,11 +13,12 @@ import { Editor } from "@features/Editor";
 import { Field } from "@features/Field";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { formatDataEditor } from "@shared/utils/formatDataEditor";
+import useSessionCheck from "@shared/hooks/useSessionCheck";
 
 export const RestClient = () => {
   const dictionary = useDictionary();
   const [body, setBody] = useState("");
-
+  useSessionCheck();
   const handleBodyChange = (newValue: string) => {
     setBody(newValue);
   };

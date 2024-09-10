@@ -1,20 +1,22 @@
 "use client";
 
 import NextLink from "next/link";
-import { useAuthState } from "react-firebase-hooks/auth";
 import styles from "./styles.module.css";
 import { Link } from "@mui/material";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
-import { auth } from "@config/firebaseConfig";
 import { Logout } from "@features/Logout";
 import { Languages } from "@shared/types";
 import { useSelector } from "react-redux";
 import { RootState } from "@shared/store";
+import useFirebaseAuth from "@shared/hooks/useFirebaseAuth";
 
 export const UserMenu = () => {
   const dictionary = useDictionary();
   const currentLanguage: Languages = useSelector((state: RootState) => state.language.lang);
-  const [user] = useAuthState(auth);
+  const { user, loading } = useFirebaseAuth();
+  if (loading) {
+    return;
+  }
 
   return (
     <nav className={styles.userNav}>

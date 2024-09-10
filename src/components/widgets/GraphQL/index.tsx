@@ -12,11 +12,12 @@ import { ResponseBlock } from "@features/ResponseBlock";
 import { Editor } from "@features/Editor";
 import { Field } from "@features/Field";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
+import useSessionCheck from "@shared/hooks/useSessionCheck";
 
 export const GraphQL = () => {
   const [query, setQuery] = useState("");
   const dictionary = useDictionary();
-
+  useSessionCheck();
   const handleQueryChange = (newValue: string) => {
     setQuery(newValue);
   };

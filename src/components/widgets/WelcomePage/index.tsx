@@ -1,43 +1,31 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import NextLink from "next/link";
 import { useSelector } from "react-redux";
-import { useAuthState } from "react-firebase-hooks/auth";
 import styles from "./styles.module.css";
 import { Link } from "@mui/material";
-import { auth } from "@config/firebaseConfig";
 import nadyavalin from "@public/nadyavalin.jpg";
 import katika from "@public/ifbfirst.jpg";
 import larry from "@public/LarryDavidd.jpg";
-import { Loader } from "@features/Loader";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { Languages } from "@shared/types";
 import { RootState } from "@shared/store";
+import useSessionCheck from "@shared/hooks/useSessionCheck";
 
 export const WelcomePage = () => {
-  const router = useRouter();
   const dictionary = useDictionary();
-  const [user, loading] = useAuthState(auth);
+  const user = useSelector((state: RootState) => state.user);
   const currentLanguage: Languages = useSelector((state: RootState) => state.language.lang);
-
-  useEffect(() => {
-    if (!loading && user) {
-      router.push(`/${currentLanguage}`);
-    }
-  }, [loading, user, router, currentLanguage]);
-
-  if (loading) {
-    return <Loader />;
-  }
-
+  useSessionCheck();
   return (
     <>
       <main>
         {user ? (
-          <h3>{dictionary.titles.welcomeUser}, [user]!</h3>
+          <h3>
+            {dictionary.titles.welcomeUser},
+            {user.userName ? user.userName : dictionary.titles.guest}!
+          </h3>
         ) : (
           <nav className={styles.userNav}>
             <Link

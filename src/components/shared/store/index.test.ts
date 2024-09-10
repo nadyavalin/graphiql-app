@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import store, { RootState, AppDispatch } from "@shared/store";
+import { RootState, AppDispatch, store } from "@shared/store";
 import { setLanguage } from "@shared/store/slices/languageSlice";
 import en from "@public/dictionaries/en.json";
 import ru from "@public/dictionaries/ru.json";

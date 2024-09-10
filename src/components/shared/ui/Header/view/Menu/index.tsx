@@ -1,17 +1,17 @@
 "use client";
 
 import NextLink from "next/link";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "@config/firebaseConfig";
 import styles from "./styles.module.css";
 import { Link } from "@mui/material";
 import { Locale } from "@config/i18n-config";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
-
+import useFirebaseAuth from "@shared/hooks/useFirebaseAuth";
 export const Menu = ({ lang }: { lang: Locale }) => {
   const dictionary = useDictionary();
-  const [user] = useAuthState(auth);
-
+  const { user, loading } = useFirebaseAuth();
+  if (loading) {
+    return;
+  }
   return (
     <nav className={styles.nav}>
       {user ? (
