@@ -1,7 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-import { setupListeners } from "@reduxjs/toolkit/query";
-
 import {
   persistStore,
   persistReducer,
@@ -15,16 +13,18 @@ import {
 import storage from "redux-persist/es/storage";
 import languageSlice from "./slices/languageSlice";
 import userSlice from "./slices/userSlice";
+import historySlice from "./slices/historySlice";
 
 const rootReducer = combineReducers({
   language: languageSlice,
   user: userSlice,
+  history: historySlice,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user"],
+  whitelist: ["user", "history"],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -37,7 +37,6 @@ const store = configureStore({
       },
     }),
 });
-setupListeners(store.dispatch);
 
 const persistor = persistStore(store);
 

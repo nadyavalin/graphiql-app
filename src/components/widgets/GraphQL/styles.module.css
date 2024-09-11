@@ -1,6 +1,6 @@
 .graphQLContainer {
   display: flex;
-  margin: 0 auto 20px auto;
+  margin: 20px auto 20px auto;
   padding: 0 20px;
   gap: 20px;
 }
