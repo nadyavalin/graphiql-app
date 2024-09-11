@@ -32,7 +32,7 @@ import useAppDispatch from "@shared/hooks/useAppDispatch";
 import useSessionCheck from "@shared/hooks/useSessionCheck";
 
 import { useDictionary } from "@shared/providers/DictionaryProvider";
-import { updateUser } from "@shared/actions/restfulAction";
+import { serverResponse } from "@shared/actions/restfulAction";
 
 import { formatDataEditor } from "@shared/utils/formatDataEditor";
 import { decodeBase64, encodeBase64 } from "@shared/utils/encodeBase64";
@@ -124,7 +124,7 @@ export const RestClient = () => {
     router.push("/" + currentLanguage + "/" + requestUrl);
   };
 
-  const update = updateUser.bind(null, endpoint, method, body, headers);
+  const update = serverResponse.bind(null, { endpoint, method, body, headers });
 
   const onPlay = async () => {
     const { status, data }: ResponseType = await update();

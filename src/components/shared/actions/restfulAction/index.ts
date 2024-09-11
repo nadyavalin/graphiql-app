@@ -4,11 +4,19 @@ import { Item } from "@shared/store/model";
 import isValidJson from "@shared/utils/checkIsValidJson";
 import fixInvalidJson from "@shared/utils/formatToValidJson";
 
-export async function updateUser(endpoint: string, method: string, body: string, headers: Item[]) {
-  const newHeaders = new Headers();
+export interface IServerResponse {
+  endpoint: string;
+  method: string;
+  body: string;
+  headers: Item[];
+}
 
+export async function serverResponse({ endpoint, method, body, headers }: IServerResponse) {
+  const newHeaders = new Headers();
   headers.forEach((item) => {
-    newHeaders.append(item.key, item.value);
+    if (item.key !== "" && item.value !== "") {
+      newHeaders.append(item.key, item.value);
+    }
   });
 
   let newBody: string | undefined = "";
@@ -26,6 +34,7 @@ export async function updateUser(endpoint: string, method: string, body: string,
       body: newBody,
       headers: newHeaders,
     });
+    console.log(response, newBody);
 
     if (!response.ok) {
       const errorMessage = `Error: ${response.status} ${response.statusText}`;

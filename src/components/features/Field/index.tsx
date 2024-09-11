@@ -12,7 +12,7 @@ export const Field = ({ label, value, onChange }: FieldProps) => {
   const [item, setItems] = useState<string>(value);
 
   const fieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const value = e.target.value.replace(/[\u0400-\u04FF]/g, "");
     setItems(value);
   };
 

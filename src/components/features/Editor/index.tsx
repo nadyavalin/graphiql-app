@@ -15,7 +15,13 @@ export const Editor = ({ isEditable, value, onChange }: EditorProps) => {
     if (onChange) onChange(item);
   };
 
-  useEffect(() => setItems(value), [value]);
+  const onValueChange = (value: string) => {
+    setItems(value.replace(/[\u0400-\u04FF]/g, ""));
+  };
+
+  useEffect(() => {
+    setItems(value);
+  }, [value]);
 
   return (
     <CodeMirror
@@ -23,7 +29,8 @@ export const Editor = ({ isEditable, value, onChange }: EditorProps) => {
       editable={isEditable}
       value={item}
       className={styles.editor}
-      onChange={setItems}
+      lang="en"
+      onChange={onValueChange}
       onBlur={onFocusOut}
     />
   );
