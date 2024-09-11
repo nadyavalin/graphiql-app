@@ -3,15 +3,23 @@
 import { Item } from "@shared/store/model";
 import isValidJson from "@shared/utils/checkIsValidJson";
 import fixInvalidJson from "@shared/utils/formatToValidJson";
+import replaceVariables from "@shared/utils/replaceVariables";
 
 export interface IServerResponse {
   endpoint: string;
   method: string;
   body: string;
   headers: Item[];
+  variables: Item[];
 }
 
-export async function serverResponse({ endpoint, method, body, headers }: IServerResponse) {
+export async function serverResponse({
+  endpoint,
+  method,
+  body,
+  headers,
+  variables,
+}: IServerResponse) {
   const newHeaders = new Headers();
   headers.forEach((item) => {
     if (item.key !== "" && item.value !== "") {
@@ -24,6 +32,9 @@ export async function serverResponse({ endpoint, method, body, headers }: IServe
     if (!isValidJson(body)) {
       newBody = fixInvalidJson(body);
     }
+    if (variables.length > 0) {
+      newBody = replaceVariables(newBody, variables);
+    }
   } else {
     newBody = undefined;
   }
@@ -34,7 +45,7 @@ export async function serverResponse({ endpoint, method, body, headers }: IServe
       body: newBody,
       headers: newHeaders,
     });
-    console.log(response, newBody);
+    console.log(response, newBody, variables);
 
     if (!response.ok) {
       const errorMessage = `Error: ${response.status} ${response.statusText}`;

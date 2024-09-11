@@ -124,7 +124,7 @@ export const RestClient = () => {
     router.push("/" + currentLanguage + "/" + requestUrl);
   };
 
-  const update = serverResponse.bind(null, { endpoint, method, body, headers });
+  const update = serverResponse.bind(null, { endpoint, method, body, headers, variables });
 
   const onPlay = async () => {
     const { status, data }: ResponseType = await update();
