@@ -1,0 +1,18 @@
+.graphQLContainer {
+  display: flex;
+  margin: 0 auto 20px auto;
+  padding: 0 20px;
+  gap: 20px;
+}
+
+.graphQLContainer h3 {
+  text-align: left;
+  font-weight: 500;
+  color: var(--text-dark-color);
+}
+
+@media screen and (max-width: 800px) {
+  .graphQLContainer {
+    flex-direction: column;
+  }
+}

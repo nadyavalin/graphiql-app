@@ -1,6 +1,7 @@
-import { Methods } from "@shared/store/model";
-import styles from "./styles.module.css";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import styles from "./styles.module.css";
+import { useDictionary } from "@shared/providers/DictionaryProvider";
+import { Methods } from "@shared/store/model";
 
 interface MethodsProps {
   method: string;
@@ -8,6 +9,8 @@ interface MethodsProps {
 }
 
 export const MethodsBlock = ({ method, onChange }: MethodsProps) => {
+  const dictionary = useDictionary();
+
   const handleChange = (event: SelectChangeEvent) => {
     const method = event.target.value as Methods;
     onChange(method);
@@ -15,7 +18,7 @@ export const MethodsBlock = ({ method, onChange }: MethodsProps) => {
 
   return (
     <FormControl sx={{ minWidth: "100px" }}>
-      <InputLabel>Method</InputLabel>
+      <InputLabel>{dictionary.labels.method}</InputLabel>
       <Select className={styles.input} onChange={handleChange} value={method}>
         {Object.values(Methods).map((method) => {
           return (

@@ -1,6 +1,7 @@
 "use client";
+
 import styles from "./styles.module.css";
-import { Box, Card, CardContent, IconButton } from "@mui/material";
+import commonStyles from "../commonStyles.module.css";
 import PrettifyIcon from "@mui/icons-material/FormatIndentIncrease";
 import SendIcon from "@mui/icons-material/Send";
 import { Editor } from "@features/Editor";
@@ -18,7 +19,6 @@ import arrayToObj from "@shared/utils/arrayToObj";
 import { encodeBase64, decodeBase64 } from "@shared/utils/encodeBase64";
 import encodeQueryParams from "@shared/utils/encodeQueryParams";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { updateUser } from "@src/components/shared/actions/restfulAction";
 import { useEffect } from "react";
 import {
   updateBody,
@@ -28,6 +28,10 @@ import {
   updateResponse,
   updateVariables,
 } from "@shared/store/slices/restClientSlice";
+import { useDictionary } from "@shared/providers/DictionaryProvider";
+import useSessionCheck from "@shared/hooks/useSessionCheck";
+import { updateUser } from "@shared/actions/restfulAction";
+import { Box, IconButton } from "@mui/material";
 
 export const RestClient = () => {
   // Headers
@@ -62,7 +66,11 @@ export const RestClient = () => {
 
   const onMethodChange = (newMethod: Methods) => dispatch(updateMethod(newMethod));
 
-  // Shared
+  // Init
+  const dictionary = useDictionary();
+
+  useSessionCheck();
+
   const dispatch = useAppDispatch();
 
   const router = useRouter();
@@ -70,30 +78,6 @@ export const RestClient = () => {
   const pathname = usePathname();
 
   const searchParams = useSearchParams();
-
-  const onUrlChange = () => {
-    const headersObj = arrayToObj(headers);
-
-    const encodedEndpoint = encodeBase64(endpoint);
-    const encodedBody = encodeBase64(body);
-    const encodedHeaders = encodeQueryParams(headersObj);
-
-    const requestUrl = `${method}/${encodedEndpoint}${encodedBody ? "/" + encodedBody : ""}${encodedHeaders ? "?" + encodedHeaders : ""}`;
-
-    router.replace("/" + requestUrl);
-  };
-
-  const update = updateUser.bind(null, endpoint, method, body, headers);
-
-  const onPlay = async () => {
-    const ends = await update();
-    console.log(ends);
-    dispatch(updateResponse(JSON.stringify(ends)));
-  };
-
-  useEffect(() => {
-    if (endpoint || method || body || headers) onUrlChange();
-  }, [endpoint, method, body, headers]);
 
   useEffect(() => {
     const paths = pathname.split("/").filter((value) => value !== "");
@@ -123,48 +107,75 @@ export const RestClient = () => {
     }
   }, []);
 
+  // Shared
+  const onUrlChange = () => {
+    const headersObj = arrayToObj(headers);
+
+    const encodedEndpoint = encodeBase64(endpoint);
+    const encodedBody = encodeBase64(body);
+    const encodedHeaders = encodeQueryParams(headersObj);
+
+    const requestUrl = `${method}/${encodedEndpoint}${encodedBody ? "/" + encodedBody : ""}${encodedHeaders ? "?" + encodedHeaders : ""}`;
+
+    router.replace("/" + requestUrl);
+  };
+
+  const update = updateUser.bind(null, endpoint, method, body, headers);
+
+  const onPlay = async () => {
+    const ends = await update();
+    console.log(ends);
+    dispatch(updateResponse(JSON.stringify(ends)));
+  };
+
+  useEffect(() => {
+    if (endpoint || method || body || headers) onUrlChange();
+  }, [endpoint, method, body, headers]);
+
   return (
-    <main className={styles["rest-client-container"]}>
+    <main className={styles.restClientContainer}>
       <section>
         <h2> REST Client</h2>
-        <Card className={styles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
-          <CardContent>
-            <form action={onPlay}>
-              <Box sx={{ display: "flex", gap: 1 }}>
-                <MethodsBlock method={method} onChange={onMethodChange} />
-                <Field label={"Endpoint URL"} onChange={onEndpointChange} value={endpoint} />
-                <IconButton
-                  title="Prettify query"
-                  onClick={() => dispatch(updateBody(formatDataEditor(body)))}
-                >
-                  <PrettifyIcon className={styles["btn-prettify"]} />
-                </IconButton>
-                <IconButton title="Send request" onClick={onUrlChange}>
-                  <SendIcon className={styles["btn-send"]} />
-                </IconButton>
-              </Box>
-              {method !== Methods.get ? (
-                <>
-                  <h3>Body:</h3>
-                  <Editor value={body} onChange={handleBodyChange} />
-                  <HeadersVariablesBlock
-                    title="Add Variable"
-                    itemType="Variable"
-                    onChange={handleVariablesChange}
-                    value={variables}
-                  />
-                </>
-              ) : null}
-              <HeadersVariablesBlock
-                title="Add Header"
-                itemType="Header"
-                onChange={handleHeadersChange}
-                value={headers}
+        <Box className={commonStyles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
+          <form action={onPlay}>
+            <Box sx={{ display: "flex", gap: 1 }}>
+              <MethodsBlock method={method} onChange={onMethodChange} />
+              <Field
+                label={dictionary.labels.endpoint}
+                onChange={onEndpointChange}
+                value={endpoint}
               />
-              <button>here</button>
-            </form>
-          </CardContent>
-        </Card>
+              <IconButton
+                title={dictionary.titles.query}
+                onClick={() => dispatch(updateBody(formatDataEditor(body)))}
+              >
+                <PrettifyIcon className={commonStyles.btnPrettify} />
+              </IconButton>
+              <IconButton title={dictionary.titles.sendRequest} onClick={onUrlChange}>
+                <SendIcon className={commonStyles.btnSend} />
+              </IconButton>
+            </Box>
+            {method !== Methods.get ? (
+              <>
+                <h3>{dictionary.titles.body}:</h3>
+                <Editor value={body} onChange={handleBodyChange} />
+                <HeadersVariablesBlock
+                  title={dictionary.titles.addVariable}
+                  itemType={dictionary.titles.variable}
+                  onChange={handleVariablesChange}
+                  value={variables}
+                />
+              </>
+            ) : null}
+            <HeadersVariablesBlock
+              title={dictionary.titles.addHeader}
+              itemType={dictionary.titles.header}
+              onChange={handleHeadersChange}
+              value={headers}
+            />
+            <button>here</button>
+          </form>
+        </Box>
       </section>
       <ResponseBlock />
     </main>

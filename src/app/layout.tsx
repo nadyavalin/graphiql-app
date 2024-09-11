@@ -1,10 +1,6 @@
+import { Metadata } from "next";
 import "./globals.css";
-import { Footer, Header } from "@shared/ui";
-import type { Metadata } from "next";
 import { i18n, Locale } from "@config/i18n-config";
-import { ClientProvider } from "@shared/providers/ClientProvider";
-import DictionaryProvider from "@shared/providers/DictionaryProvider";
-import { getDictionary } from "./[lang]/dictionaries";
 
 export const metadata: Metadata = {
   title: "Moon GraphQL",
@@ -23,19 +19,10 @@ export default async function RootLayout({
   params: { lang: Locale };
 }) {
   const language = params.lang || "en";
-  const dictionary = await getDictionary(language);
 
   return (
     <html lang={language}>
-      <body>
-        <ClientProvider>
-          <DictionaryProvider dictionary={dictionary}>
-            <Header params={{ lang: language }} />
-            {children}
-            <Footer />
-          </DictionaryProvider>
-        </ClientProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

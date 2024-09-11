@@ -1,40 +1,51 @@
 "use client";
 
 import NextLink from "next/link";
+import styles from "./styles.module.css";
 import { Link } from "@mui/material";
-import styles from "../../styles.module.css";
 import { Locale } from "@config/i18n-config";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
-
-interface MenuProps {
-  lang: Locale;
-}
-
-export const Menu = ({ lang }: MenuProps) => {
+import useFirebaseAuth from "@shared/hooks/useFirebaseAuth";
+export const Menu = ({ lang }: { lang: Locale }) => {
   const dictionary = useDictionary();
-
+  const { user, loading } = useFirebaseAuth();
+  if (loading) {
+    return;
+  }
   return (
     <nav className={styles.nav}>
-      <Link
-        href={`/${lang}/rest-client`}
-        className={styles.menuLink}
-        underline="none"
-        component={NextLink}
-      >
-        {dictionary.buttons.restClient}
-      </Link>
+      {user ? (
+        <>
+          <Link
+            href={`/${lang}/rest-client`}
+            className={styles.navLink}
+            underline="none"
+            component={NextLink}
+            sx={{ color: "var(--text-color)" }}
+          >
+            {dictionary?.buttons.restClient}
+          </Link>
+
+          <Link
+            href={`/${lang}/graph-ql`}
+            className={styles.navLink}
+            underline="none"
+            component={NextLink}
+            sx={{ color: "var(--text-color)" }}
+          >
+            {dictionary?.buttons.graphQL}
+          </Link>
+        </>
+      ) : null}
 
       <Link
-        href={`/${lang}/graph-ql`}
-        className={styles.menuLink}
+        href={`/${lang}/`}
+        className={styles.navLink}
         underline="none"
         component={NextLink}
+        sx={{ color: "var(--text-color)" }}
       >
-        {dictionary.buttons.graphQL}
-      </Link>
-
-      <Link href={`/${lang}/`} className={styles.menuLink} underline="none" component={NextLink}>
-        {dictionary.buttons.welcome}
+        {dictionary?.buttons.welcome}
       </Link>
     </nav>
   );

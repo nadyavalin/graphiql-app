@@ -1,46 +1,50 @@
 "use client";
 
 import NextLink from "next/link";
+import styles from "./styles.module.css";
 import { Link } from "@mui/material";
-import styles from "../../styles.module.css";
-import { Locale } from "@config/i18n-config";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
+import { Logout } from "@features/Logout";
+import { Languages } from "@shared/types";
+import { useSelector } from "react-redux";
+import { RootState } from "@shared/store";
+import useFirebaseAuth from "@shared/hooks/useFirebaseAuth";
 
-interface MenuProps {
-  lang: Locale;
-}
-
-export const UserMenu = ({ lang }: MenuProps) => {
+export const UserMenu = () => {
   const dictionary = useDictionary();
+  const currentLanguage: Languages = useSelector((state: RootState) => state.language.lang);
+  const { user, loading } = useFirebaseAuth();
+  if (loading) {
+    return;
+  }
 
   return (
     <nav className={styles.userNav}>
-      <Link
-        href={`/${lang}/login`}
-        className={styles.userMenuLink}
-        underline="none"
-        component={NextLink}
-      >
-        {dictionary.buttons.login}
-      </Link>
+      {user ? (
+        <Logout />
+      ) : (
+        <>
+          <Link
+            href={`/${currentLanguage}/login`}
+            className={styles.userNavLink}
+            underline="none"
+            component={NextLink}
+            sx={{ color: "var(--text-color)" }}
+          >
+            {dictionary?.buttons.login}
+          </Link>
 
-      <Link
-        href={`/${lang}/registration`}
-        className={styles.userMenuLink}
-        underline="none"
-        component={NextLink}
-      >
-        {dictionary.buttons.registration}
-      </Link>
-
-      <Link
-        href={`/${lang}/`}
-        className={styles.userMenuLink}
-        underline="none"
-        component={NextLink}
-      >
-        {dictionary.buttons.logout}
-      </Link>
+          <Link
+            href={`/${currentLanguage}/registration`}
+            className={styles.userNavLink}
+            underline="none"
+            component={NextLink}
+            sx={{ color: "var(--text-color)" }}
+          >
+            {dictionary?.buttons.registration}
+          </Link>
+        </>
+      )}
     </nav>
   );
 };
