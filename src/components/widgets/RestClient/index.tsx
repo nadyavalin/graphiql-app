@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import styles from "./styles.module.css";
 import commonStyles from "../commonStyles.module.css";
 import PrettifyIcon from "@mui/icons-material/FormatIndentIncrease";
 import SendIcon from "@mui/icons-material/Send";
@@ -24,7 +23,7 @@ export const RestClient = () => {
   };
 
   return (
-    <main className={styles.restClientContainer}>
+    <main className={commonStyles.container}>
       <section>
         <h2>REST Client</h2>
         <Box className={commonStyles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>

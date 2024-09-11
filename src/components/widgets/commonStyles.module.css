@@ -1,3 +1,20 @@
+.container {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  margin: 20px auto 20px auto;
+  padding: 0 10px;
+  gap: 20px;
+}
+.container section {
+  width: 100%;
+}
+.container h3 {
+  text-align: left;
+  font-weight: 500;
+  color: var(--text-dark-color);
+}
+
 .btnSend {
   background-color: var(--main-color);
   padding: 5px;
@@ -12,7 +29,6 @@
 }
 
 .card {
-  min-width: 500px;
   min-height: 650px;
   border-radius: 5px;
   padding: 15px;
@@ -26,7 +42,7 @@
 }
 
 @media screen and (max-width: 800px) {
-  .restClientContainer {
+  .container {
     flex-direction: column;
   }
 }
