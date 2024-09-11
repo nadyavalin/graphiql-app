@@ -11,3 +11,5 @@ export const selectEndpoint = (state: RootState) => state.restClient.endpoint;
 export const selectBody = (state: RootState) => state.restClient.body;
 
 export const selectResponse = (state: RootState) => state.restClient.response;
+
+export const selectResponseStatus = (state: RootState) => state.restClient.responseStatus;

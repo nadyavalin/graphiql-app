@@ -8,6 +8,7 @@ const initialState: RestClientState = {
   headers: [],
   variables: [],
   response: "",
+  responseStatus: null,
 };
 
 const restClientSlice = createSlice({
@@ -32,6 +33,9 @@ const restClientSlice = createSlice({
     updateResponse: (state, action: PayloadAction<string>) => {
       state.response = action.payload;
     },
+    updateResponseStatus: (state, action: PayloadAction<number | null>) => {
+      state.responseStatus = action.payload;
+    },
   },
 });
 
@@ -42,6 +46,7 @@ export const {
   updateHeaders,
   updateVariables,
   updateResponse,
+  updateResponseStatus,
 } = restClientSlice.actions;
 
 export default restClientSlice.reducer;

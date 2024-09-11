@@ -22,26 +22,22 @@ import {
   updateHeaders,
   updateMethod,
   updateResponse,
+  updateResponseStatus,
   updateVariables,
 } from "@shared/store/slices/restClientSlice";
-import { Item, Methods } from "@shared/store/model";
+import { Item, Methods, ResponseType } from "@shared/store/model";
 
 import useAppSelector from "@shared/hooks/useAppSelector";
 import useAppDispatch from "@shared/hooks/useAppDispatch";
-// import useSessionCheck from "@shared/hooks/useSessionCheck";
+import useSessionCheck from "@shared/hooks/useSessionCheck";
 
 import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { updateUser } from "@shared/actions/restfulAction";
 
-import {
-  encodeQueryParams,
-  encodeBase64,
-  decodeBase64,
-  arrayToObj,
-  fixInvalidJson,
-  isValidJson,
-  formatDataEditor,
-} from "@shared/utils";
+import { formatDataEditor } from "@shared/utils/formatDataEditor";
+import { decodeBase64, encodeBase64 } from "@shared/utils/encodeBase64";
+import encodeQueryParams from "@shared/utils/encodeQueryParams";
+import arrayToObj from "@shared/utils/arrayToObj";
 
 export const RestClient = () => {
   // Headers
@@ -57,14 +53,7 @@ export const RestClient = () => {
   // Body
   const body = useAppSelector((state) => state.restClient.body);
 
-  const handleBodyChange = (newValue: string) => {
-    if (isValidJson(newValue)) {
-      dispatch(updateBody(newValue));
-    } else {
-      const body = fixInvalidJson(newValue);
-      dispatch(updateBody(body));
-    }
-  };
+  const handleBodyChange = (newValue: string) => dispatch(updateBody(newValue));
 
   // Endponts
   const endpoint = useAppSelector((state) => state.restClient.endpoint);
@@ -77,9 +66,11 @@ export const RestClient = () => {
   const onMethodChange = (newMethod: Methods) => dispatch(updateMethod(newMethod));
 
   // Init
+  const currentLanguage = useAppSelector((state) => state.language.lang);
+
   const dictionary = useDictionary();
 
-  // useSessionCheck();
+  useSessionCheck();
 
   const dispatch = useAppDispatch();
 
@@ -94,7 +85,6 @@ export const RestClient = () => {
 
     const params = new URLSearchParams(searchParams.toString());
 
-    console.log(paths);
     onMethodChange(paths[1] as Methods);
 
     if (paths.length > 2) {
@@ -106,7 +96,6 @@ export const RestClient = () => {
       else handleBodyChange("");
     }
 
-    console.log(params);
     if (params.size > 0) {
       const newItems: Item[] = Array.from(params.entries()).map(([key, value]) => ({
         key: key,
@@ -127,15 +116,15 @@ export const RestClient = () => {
 
     const requestUrl = `${method}/${encodedEndpoint}${encodedBody ? "/" + encodedBody : ""}${encodedHeaders ? "?" + encodedHeaders : ""}`;
 
-    router.replace("/" + requestUrl);
+    router.push("/" + currentLanguage + "/" + requestUrl);
   };
 
   const update = updateUser.bind(null, endpoint, method, body, headers);
 
   const onPlay = async () => {
-    const ends = await update();
-    console.log(ends);
-    dispatch(updateResponse(JSON.stringify(ends)));
+    const { status, data }: ResponseType = await update();
+    dispatch(updateResponse(JSON.stringify(data)));
+    dispatch(updateResponseStatus(status));
   };
 
   useEffect(() => {
@@ -161,7 +150,7 @@ export const RestClient = () => {
               >
                 <PrettifyIcon className={commonStyles.btnPrettify} />
               </IconButton>
-              <IconButton title={dictionary.titles.sendRequest} onClick={onUrlChange}>
+              <IconButton title={dictionary.titles.sendRequest} onClick={onPlay}>
                 <SendIcon className={commonStyles.btnSend} />
               </IconButton>
             </Box>
@@ -183,7 +172,6 @@ export const RestClient = () => {
               onChange={handleHeadersChange}
               value={headers}
             />
-            <button>here</button>
           </form>
         </Box>
       </section>

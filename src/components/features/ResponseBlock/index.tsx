@@ -10,11 +10,15 @@ export const ResponseBlock = () => {
 
   const response = useAppSelector((state) => state.restClient.response);
 
+  const responseStatus = useAppSelector((state) => state.restClient.responseStatus);
+
   return (
     <section>
       <h2>{dictionary.titles.response}</h2>
       <Box className={styles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
-        <h3>{dictionary.titles.status}</h3>
+        <h3>
+          {dictionary.titles.status} {responseStatus !== null ? responseStatus : ""}
+        </h3>
         <Editor isEditable={false} value={formatDataEditor(response)} />
       </Box>
     </section>

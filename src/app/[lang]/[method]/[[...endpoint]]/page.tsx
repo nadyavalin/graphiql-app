@@ -1,30 +1,34 @@
-// import ProtectedRoute from "@shared/protected";
+import { notFound, redirect } from "next/navigation";
+import ProtectedRoute from "@shared/protected";
 import { Methods } from "@shared/store/model";
 import { RestClient } from "@widgets/RestClient";
-import { notFound } from "next/navigation";
 
 type SearchParams = {
   lang: string;
-  method: Methods;
+  method: Methods | "rest-client";
 };
 
 export default function RestClientPage({
   params,
-  searchParams,
 }: {
   params: SearchParams;
   searchParams: SearchParams;
 }) {
-  if (searchParams) console.log(params, searchParams, "on page");
+  if (params.method === "rest-client") {
+    redirect("/" + params.lang + "/" + Methods.get);
+  }
 
   if (
     params.method === Methods.get ||
     params.method === Methods.post ||
     params.method === Methods.delete ||
-    params.method === Methods.put ||
-    params.method === "rest-client"
+    params.method === Methods.put
   ) {
-    return <RestClient />;
+    return (
+      <ProtectedRoute>
+        <RestClient />
+      </ProtectedRoute>
+    );
   } else {
     notFound();
   }
