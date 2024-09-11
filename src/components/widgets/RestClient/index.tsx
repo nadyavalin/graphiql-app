@@ -65,6 +65,11 @@ export const RestClient = () => {
 
   const onMethodChange = (newMethod: Methods) => dispatch(updateMethod(newMethod));
 
+  // Response
+  const response = useAppSelector((state) => state.restClient.response);
+
+  const responseStatus = useAppSelector((state) => state.restClient.responseStatus);
+
   // Init
   const currentLanguage = useAppSelector((state) => state.language.lang);
 
@@ -175,7 +180,7 @@ export const RestClient = () => {
           </form>
         </Box>
       </section>
-      <ResponseBlock />
+      <ResponseBlock data={response} status={responseStatus} />
     </main>
   );
 };
