@@ -30,7 +30,7 @@ export const Field = ({ label, value, onChange }: FieldProps) => {
       }}
       className={styles.input}
       value={item}
-      onMouseOutCapture={() => onChange(item)}
+      onBlur={() => onChange(item)}
       onChange={fieldChange}
     />
   );

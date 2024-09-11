@@ -24,7 +24,7 @@ export const Editor = ({ isEditable, value, onChange }: EditorProps) => {
       value={item}
       className={styles.editor}
       onChange={setItems}
-      onMouseOut={onFocusOut}
+      onBlur={onFocusOut}
     />
   );
 };
