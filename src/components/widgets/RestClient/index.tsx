@@ -1,25 +1,21 @@
 "use client";
 
-import styles from "./styles.module.css";
-import commonStyles from "../commonStyles.module.css";
 import PrettifyIcon from "@mui/icons-material/FormatIndentIncrease";
 import SendIcon from "@mui/icons-material/Send";
+import { Box, IconButton } from "@mui/material";
+
+import { useEffect } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+import styles from "./styles.module.css";
+import commonStyles from "../commonStyles.module.css";
+
 import { Editor } from "@features/Editor";
 import { Field } from "@features/Field";
 import { HeadersVariablesBlock } from "@features/HeadersVariablesBlock";
 import { ResponseBlock } from "@features/ResponseBlock";
 import { MethodsBlock } from "@features/Methods";
-import { formatDataEditor } from "@shared/utils/formatDataEditor";
-import { Item, Methods } from "@shared/store/model";
-import useAppSelector from "@shared/hooks/useAppSelector";
-import useAppDispatch from "@shared/hooks/useAppDispatch";
-import isValidJson from "@shared/utils/checkIsValidJson";
-import fixInvalidJson from "@shared/utils/formatToValidJson";
-import arrayToObj from "@shared/utils/arrayToObj";
-import { encodeBase64, decodeBase64 } from "@shared/utils/encodeBase64";
-import encodeQueryParams from "@shared/utils/encodeQueryParams";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+
 import {
   updateBody,
   updateEndpoint,
@@ -28,10 +24,24 @@ import {
   updateResponse,
   updateVariables,
 } from "@shared/store/slices/restClientSlice";
-import { useDictionary } from "@shared/providers/DictionaryProvider";
+import { Item, Methods } from "@shared/store/model";
+
+import useAppSelector from "@shared/hooks/useAppSelector";
+import useAppDispatch from "@shared/hooks/useAppDispatch";
 import useSessionCheck from "@shared/hooks/useSessionCheck";
+
+import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { updateUser } from "@shared/actions/restfulAction";
-import { Box, IconButton } from "@mui/material";
+
+import {
+  encodeQueryParams,
+  encodeBase64,
+  decodeBase64,
+  arrayToObj,
+  fixInvalidJson,
+  isValidJson,
+  formatDataEditor,
+} from "@shared/utils";
 
 export const RestClient = () => {
   // Headers
