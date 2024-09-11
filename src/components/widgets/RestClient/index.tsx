@@ -28,7 +28,7 @@ import { Item, Methods } from "@shared/store/model";
 
 import useAppSelector from "@shared/hooks/useAppSelector";
 import useAppDispatch from "@shared/hooks/useAppDispatch";
-import useSessionCheck from "@shared/hooks/useSessionCheck";
+// import useSessionCheck from "@shared/hooks/useSessionCheck";
 
 import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { updateUser } from "@shared/actions/restfulAction";
@@ -79,7 +79,7 @@ export const RestClient = () => {
   // Init
   const dictionary = useDictionary();
 
-  useSessionCheck();
+  // useSessionCheck();
 
   const dispatch = useAppDispatch();
 

@@ -15,12 +15,12 @@ import {
 import storage from "redux-persist/es/storage";
 import languageSlice from "./slices/languageSlice";
 import userSlice from "./slices/userSlice";
-import { restClientReducer } from "./slices/restClientSlice";
+import restClientSlice from "./slices/restClientSlice";
 
 const rootReducer = combineReducers({
   language: languageSlice,
   user: userSlice,
-  restClient: restClientReducer,
+  restClient: restClientSlice,
 });
 
 const persistConfig = {

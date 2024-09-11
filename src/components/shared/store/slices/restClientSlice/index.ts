@@ -43,4 +43,5 @@ export const {
   updateVariables,
   updateResponse,
 } = restClientSlice.actions;
-export const restClientReducer = restClientSlice.reducer;
+
+export default restClientSlice.reducer;

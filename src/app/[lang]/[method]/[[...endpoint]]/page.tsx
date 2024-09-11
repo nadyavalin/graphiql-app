@@ -1,4 +1,5 @@
-import { Methods } from "@src/components/shared/store/model";
+// import ProtectedRoute from "@shared/protected";
+import { Methods } from "@shared/store/model";
 import { RestClient } from "@widgets/RestClient";
 import { notFound } from "next/navigation";
 
@@ -20,8 +21,11 @@ export default function RestClientPage({
     params.method === Methods.get ||
     params.method === Methods.post ||
     params.method === Methods.delete ||
-    params.method === Methods.put
-  )
+    params.method === Methods.put ||
+    params.method === "rest-client"
+  ) {
     return <RestClient />;
-  else notFound();
+  } else {
+    notFound();
+  }
 }
