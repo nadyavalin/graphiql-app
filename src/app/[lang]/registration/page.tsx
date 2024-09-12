@@ -7,7 +7,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FirebaseError } from "firebase/app";
 import styles from "../formStyles.module.css";
-import { Box, TextField } from "@mui/material";
+import { Box, Link, TextField } from "@mui/material";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
@@ -75,8 +75,12 @@ const RegistrationPage = () => {
     }
   };
 
-  if (loading) return <Loader />;
-  if (user) return null;
+  if (loading) {
+    return <Loader />;
+  }
+  if (user) {
+    return null;
+  }
 
   return (
     <main>
@@ -118,6 +122,10 @@ const RegistrationPage = () => {
           {dictionary.registrationForm.submit}
         </button>
       </form>
+      <Box className={styles.link}>
+        {dictionary.registrationForm.linkToLogin}
+        <Link href={`/${currentLanguage}/login`}>{dictionary.buttons.login}</Link>
+      </Box>
     </main>
   );
 };

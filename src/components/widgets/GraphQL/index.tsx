@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import styles from "./styles.module.css";
 import commonStyles from "../commonStyles.module.css";
 import PrettifyIcon from "@mui/icons-material/FormatIndentIncrease";
 import SendIcon from "@mui/icons-material/Send";
@@ -23,7 +22,7 @@ export const GraphQL = () => {
   };
 
   return (
-    <main className={styles.graphQLContainer}>
+    <main className={commonStyles.container}>
       <section>
         <h2>Graph QL</h2>
         <div className={commonStyles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>

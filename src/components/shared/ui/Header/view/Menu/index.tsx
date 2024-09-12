@@ -37,6 +37,16 @@ export const Menu = ({ lang }: { lang: Locale }) => {
           >
             {dictionary?.buttons.graphQL}
           </Link>
+
+          <Link
+            href={`/${lang}/history`}
+            className={styles.navLink}
+            underline="none"
+            component={NextLink}
+            sx={{ color: "var(--text-color)" }}
+          >
+            {dictionary?.titles.history}
+          </Link>
         </>
       ) : null}
 

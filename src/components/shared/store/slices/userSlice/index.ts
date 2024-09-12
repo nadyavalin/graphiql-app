@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface SessionState {
+interface UserState {
   dateToken: string;
   userName: string;
 }
 
-const initialState: SessionState = {
+const initialState: UserState = {
   dateToken: "",
   userName: "",
 };
