@@ -1,13 +1,23 @@
+import { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import styles from "./styles.module.css";
 
 interface FieldProps {
   label: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value: string;
+  onChange: (value: string) => void;
 }
 
 export const Field = ({ label, value, onChange }: FieldProps) => {
+  const [item, setItems] = useState<string>(value);
+
+  const fieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[\u0400-\u04FF]/g, "");
+    setItems(value);
+  };
+
+  useEffect(() => setItems(value), [value]);
+
   return (
     <TextField
       fullWidth
@@ -19,8 +29,9 @@ export const Field = ({ label, value, onChange }: FieldProps) => {
         },
       }}
       className={styles.input}
-      value={value}
-      onChange={onChange}
+      value={item}
+      onBlur={() => onChange(item)}
+      onChange={fieldChange}
     />
   );
 };
