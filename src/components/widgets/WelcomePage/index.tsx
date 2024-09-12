@@ -23,7 +23,7 @@ export const WelcomePage = () => {
       <main>
         {user ? (
           <h3>
-            {dictionary.titles.welcomeUser},
+            {dictionary.titles.welcomeUser},{" "}
             {user.userName ? user.userName : dictionary.titles.guest}!
           </h3>
         ) : (

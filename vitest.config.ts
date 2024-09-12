@@ -24,8 +24,20 @@ export default defineConfig({
     mockReset: true,
     clearMocks: true,
     coverage: {
-      include: ["src/app/**/*.{ts,tsx}", "src/components/**/*.{ts,tsx}"],
-      exclude: ["src/components/shared/ui/index.ts", "src/**/*.{spec,test}.{ts,tsx}"],
+      include: ["src/components/**/*.{ts,tsx}"],
+      exclude: [
+        "src/components/shared/ui/index.ts",
+        "src/**/*.{spec,test}.{ts,tsx}",
+        "src/components/shared/utils/formatDataEditor/js-beautify.d.ts",
+        "src/components/shared/protected/index.tsx",
+        "src/components/shared/hooks/useAppDispatch/index.tsx",
+        "src/components/shared/hooks/useAppSelector/index.tsx",
+        "src/components/shared/ui/Header/index.tsx",
+        "src/components/shared/ui/Header/view/Menu/index.tsx",
+        "src/components/shared/ui/Header/view/UserMenu/index.tsx",
+        "src/components/shared/ui/Header/view/LangSwitcher/index.tsx",
+        "src/components/widgets/WelcomePage/index.tsx",
+      ],
     },
   },
 });

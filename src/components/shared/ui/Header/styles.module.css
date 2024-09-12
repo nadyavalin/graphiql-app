@@ -19,3 +19,11 @@
   background-color: var(--bg-middle-color);
   height: 60px;
 }
+
+.logo {
+  margin: 5px;
+  position: absolute;
+  z-index: 1;
+  top: 2px;
+  left: 10px;
+}
