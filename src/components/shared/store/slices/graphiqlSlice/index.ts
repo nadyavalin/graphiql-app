@@ -8,6 +8,7 @@ const initialState: GraphiqlState = {
   variables: [],
   response: "",
   responseStatus: null,
+  sdlUrl: "",
 };
 
 const graphiqlClientSlice = createSlice({
@@ -32,6 +33,9 @@ const graphiqlClientSlice = createSlice({
     updateResponseStatus: (state, action: PayloadAction<number | null>) => {
       state.responseStatus = action.payload;
     },
+    updateSdlUrl: (state, action: PayloadAction<string>) => {
+      state.sdlUrl = action.payload;
+    },
   },
 });
 
@@ -42,6 +46,7 @@ export const {
   updateVariables,
   updateResponse,
   updateResponseStatus,
+  updateSdlUrl,
 } = graphiqlClientSlice.actions;
 
 export default graphiqlClientSlice.reducer;

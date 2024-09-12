@@ -15,6 +15,7 @@ export type GraphiqlState = {
   variables: Item[];
   response: string;
   responseStatus: number | null;
+  sdlUrl: string;
 };
 
 export interface Item {
