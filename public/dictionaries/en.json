@@ -14,8 +14,8 @@
     "title_katika": "Katya's contribution",
     "title_course": "About course",
     "team": "Our team was recreated almost in the same form as in the final task of stage2 of the course, Ekaterina and Nadezhda were already in the team and worked well together. We met Eugene at one of the cross-checks and since Eugene already had experience working with React, he fit in perfectly with our team.",
-    "project_katika": "Katya made registration and login pages, set up user authentication, created private routes and UI for pages.",
-    "project_LarryDavidd": "Eugene set up the project structure at the very beginning fsd. Made all the functionality of RestFull Client and Graph QL.",
+    "project_katika": "Katya made registration and login pages, set up user authentication, created private routes and UI for pages. She made History sections for RESTfull Client and GraphQL.",
+    "project_LarryDavidd": "Eugene set up the project structure at the very beginning fsd. Made the functionality of RestFull Client and Graph QL.",
     "project_nadyavalin": "Nadezhda is a team leader, organized work on the github board, made basic settings for configuration files in the first sprint, configured redux (store) / layout, made sticky header and footer, creates design, wrote a Welcome page, completely translated the entire application, implementing i18n and ensuring internalization in two languages ​​(English and Russian), added the 404 page.",
     "course": "We are grateful to this course for the opportunity to learn React/Nextjs in such a short time. The practice gave us an understanding of what we still need to learn after the course, what gaps to fill. We hope that after gaining sufficient experience, we will return to this course as mentors!"
   },
@@ -33,7 +33,7 @@
     "LarryDavidd": {
       "name": "Eugene Gerasimov",
       "position": "Front-end developer",
-      "desc": "..."
+      "desc": "I really enjoy front-end development. I have always dreamed of creating interactive and beautiful web applications. I studied at the Faculty of Software Engineering, where I gained in-depth knowledge in the field of software development. This knowledge base helps me cope with various tasks and apply best practices in my work. I have more than a year of experience in this field, and during this time I have worked on several interesting projects. Each of them gave me the opportunity not only to improve my technical skills, but also to develop a creative approach to problem solving."
     }
   },
   "labels": {
