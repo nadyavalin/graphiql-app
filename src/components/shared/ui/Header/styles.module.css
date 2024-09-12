@@ -21,8 +21,9 @@
 }
 
 .logo {
+  margin: 5px;
   position: absolute;
   z-index: 1;
-  top: 7px;
+  top: 2px;
   left: 10px;
 }
