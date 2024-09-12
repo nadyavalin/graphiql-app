@@ -1,5 +1,4 @@
 import { js_beautify } from "js-beautify";
-
 export const formatDataEditor = (body: string) => {
   const nonEmptyLines = body.split("\n").filter((line) => line.trim() !== "");
   const cleanedBody = nonEmptyLines.join("\n");

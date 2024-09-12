@@ -7,7 +7,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import styles from "../formStyles.module.css";
-import { Box, TextField } from "@mui/material";
+import { Box, Link, TextField } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { RootState } from "@shared/store";
@@ -66,8 +66,12 @@ const LoginPage = () => {
       toast.error(`${dictionary.LoginFrom.failed}`);
     }
   };
-  if (loading) return <Loader />;
-  if (user) return null;
+  if (loading) {
+    return <Loader />;
+  }
+  if (user) {
+    return null;
+  }
 
   return (
     <main>
@@ -99,6 +103,10 @@ const LoginPage = () => {
           {dictionary.LoginFrom.submit}
         </button>
       </form>
+      <Box className={styles.link}>
+        {dictionary.LoginFrom.linkToRegistration}
+        <Link href={`/${currentLanguage}/registration`}>{dictionary.buttons.registration}</Link>
+      </Box>
     </main>
   );
 };
