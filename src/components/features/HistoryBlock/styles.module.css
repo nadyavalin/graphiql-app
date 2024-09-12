@@ -12,13 +12,21 @@
 .listItem {
   background-color: var(--bg-light-color);
   border-radius: 3px;
-  padding: 5px 20px;
+  padding: 5px 15px;
   display: flex;
   gap: 10px;
   color: var(--text-dark-color);
   cursor: pointer;
+  text-align: left;
 }
 .listItem:hover {
   transform: translateX(-5px);
   transition: 1s all;
+}
+
+.list span {
+  color: var(--bg-middle-color);
+  display: flex;
+  gap: 10px;
+  min-width: 160px;
 }

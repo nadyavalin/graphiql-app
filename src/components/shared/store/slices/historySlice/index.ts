@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export interface HistoryRequest {
   date: string;
   url: string;
+  encodeUrl: string;
 }
 
 interface HistoryState {

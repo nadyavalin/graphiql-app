@@ -1,4 +1,7 @@
 .editor {
   text-align: left;
   color: var(--text-dark-color);
+  max-height: 580px;
+  max-width: 650px;
+  overflow-y: scroll;
 }
