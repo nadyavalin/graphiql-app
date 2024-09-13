@@ -157,14 +157,14 @@ export const GraphQL = () => {
           <HeadersVariablesBlock
             title={dictionary.titles.addHeader}
             itemType={dictionary.titles.header}
-            onChange={handleVariablesChange}
-            value={variables}
+            onChange={handleHeadersChange}
+            value={headers}
           />
           <HeadersVariablesBlock
             title={dictionary.titles.addVariable}
             itemType={dictionary.titles.variable}
-            onChange={handleHeadersChange}
-            value={headers}
+            onChange={handleVariablesChange}
+            value={variables}
           />
         </div>
       </section>

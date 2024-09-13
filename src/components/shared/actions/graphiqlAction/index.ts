@@ -1,9 +1,6 @@
 "use server";
 
-import { Item, Methods } from "@shared/store/model";
-import isValidJson from "@shared/utils/checkIsValidJson";
-import fixInvalidJson from "@shared/utils/formatToValidJson";
-import replaceVariables from "@shared/utils/replaceVariables";
+import { Item } from "@shared/store/model";
 
 export interface IServerGraphiqlResponse {
   endpoint: string;
@@ -12,38 +9,35 @@ export interface IServerGraphiqlResponse {
   variables: Item[];
 }
 
-export async function serverGraphiqlResponse({
-  endpoint,
-  body,
-  headers,
-  variables,
-}: IServerGraphiqlResponse) {
-  const newHeaders = new Headers();
-  headers.forEach((item) => {
-    if (item.key !== "" && item.value !== "") {
-      newHeaders.append(item.key, item.value);
-    }
-  });
+export async function serverGraphiqlResponse(data: IServerGraphiqlResponse) {
+  const headers = data.headers.reduce(
+    (acc, item) => {
+      acc[item.key] = item.value;
+      return acc;
+    },
+    {} as Record<string, string>,
+  );
 
-  let newBody: string | undefined = "";
-  if (body) {
-    if (!isValidJson(body)) {
-      newBody = fixInvalidJson(body);
-    }
-    if (variables.length > 0) {
-      newBody = replaceVariables(newBody, variables);
-    }
-  } else {
-    newBody = undefined;
-  }
+  const variables = data.variables.reduce(
+    (acc, item) => {
+      acc[item.key] = item.value;
+      return acc;
+    },
+    {} as Record<string, string>,
+  );
 
   try {
-    const response = await fetch(endpoint, {
-      method: Methods.post,
-      body: newBody,
-      headers: newHeaders,
+    const response = await fetch(data.endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...headers,
+      },
+      body: JSON.stringify({
+        query: data.body,
+        variables: variables,
+      }),
     });
-    console.log(response, newBody, variables);
 
     if (!response.ok) {
       const errorMessage = `Error: ${response.status} ${response.statusText}`;
@@ -51,8 +45,8 @@ export async function serverGraphiqlResponse({
       return { status: response.status, data: response.statusText };
     }
 
-    const data = await response.json();
-    return { status: response.status, data };
+    const res = await response.json();
+    return { status: response.status, data: res };
   } catch {
     return { status: null, data: "Failed to fetch" };
   }
