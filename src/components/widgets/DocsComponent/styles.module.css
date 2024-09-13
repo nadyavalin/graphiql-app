@@ -1,0 +1,23 @@
+.docsArea {
+  width: 200px;
+  height: 557px;
+  border: 1px solid var(--bg-light-color);
+  border-radius: 8px;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.titleArea {
+  margin-bottom: 20px;
+}
+
+.queryButton {
+  width: 100%;
+}
+
+.buttonsArea {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
