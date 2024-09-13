@@ -137,7 +137,7 @@ export const RestClient = () => {
                 height="30"
                 className={styles.docsIcon}
               />
-              {isDocsVisible && <h4>DOCS</h4>}
+              {isDocsVisible && <h4>{dictionary.docs.docs}</h4>}
             </div>
             <div className={`${styles.docsComponent} ${isDocsVisible ? styles.visible : ""}`}>
               <DocsComponent />
