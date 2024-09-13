@@ -7,6 +7,8 @@ import styles from "./styles.module.css";
 import { HistoryRequest } from "@shared/store/slices/historySlice";
 import { formatDate } from "@shared/utils/formatDate";
 import { sortArrayDate } from "@shared/utils/sortArray";
+import { useDispatch } from "react-redux";
+import { updateResponse } from "@shared/store/slices/restClientSlice";
 
 interface HistoryBlockProps {
   listRequests: HistoryRequest[];
@@ -15,6 +17,7 @@ interface HistoryBlockProps {
 
 export const HistoryBlock = ({ listRequests, title }: HistoryBlockProps) => {
   const currentLanguage: Languages = useSelector((state: RootState) => state.language.lang);
+  const dispatch = useDispatch();
 
   return (
     <section className={styles.list}>
@@ -25,6 +28,7 @@ export const HistoryBlock = ({ listRequests, title }: HistoryBlockProps) => {
             href={`/${currentLanguage}/${request.encodeUrl}`}
             key={request.date}
             className={styles.listItem}
+            onClick={() => dispatch(updateResponse(""))}
           >
             <span>
               <DateRangeIcon />
