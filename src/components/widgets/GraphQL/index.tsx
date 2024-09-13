@@ -113,7 +113,11 @@ export const GraphQL = () => {
     const encodedBody = encodeBase64(body);
     const encodedHeaders = encodeQueryParams(headersObj);
 
-    const requestUrl = `${encodedEndpoint}${encodedBody ? "/" + encodedBody : ""}${encodedHeaders ? "?" + encodedHeaders : ""}`;
+    let requestUrl = "";
+
+    if (encodedEndpoint !== "") {
+      requestUrl = `${encodedEndpoint}${encodedBody ? "/" + encodedBody : ""}${encodedHeaders ? "?" + encodedHeaders : ""}`;
+    }
 
     router.push("/" + currentLanguage + "/" + "GRAPHQL" + "/" + requestUrl);
   };

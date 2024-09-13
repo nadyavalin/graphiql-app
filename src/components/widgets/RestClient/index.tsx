@@ -115,7 +115,13 @@ export const RestClient = () => {
     const encodedBody = encodeBase64(body);
     const encodedHeaders = encodeQueryParams(headersObj);
 
-    const requestUrl = `${method}/${encodedEndpoint}${encodedBody ? "/" + encodedBody : ""}${encodedHeaders ? "?" + encodedHeaders : ""}`;
+    let requestUrl = "";
+
+    if (encodedEndpoint === "") {
+      requestUrl = method;
+    } else {
+      requestUrl = `${method}/${encodedEndpoint}${encodedBody !== "" ? "/" + encodedBody : ""}${encodedHeaders !== "" ? "?" + encodedHeaders : ""}`;
+    }
 
     router.push("/" + currentLanguage + "/" + requestUrl);
   };
