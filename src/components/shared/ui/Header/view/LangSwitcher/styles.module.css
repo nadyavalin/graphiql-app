@@ -5,3 +5,8 @@
   color: var(--lang-color);
   gap: 5px;
 }
+
+.active {
+  color: var(--color-hover);
+  text-decoration: underline;
+}

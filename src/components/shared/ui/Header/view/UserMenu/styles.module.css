@@ -16,6 +16,11 @@
     color 0.3s ease;
 }
 
+.active {
+  font-weight: bold;
+  background-color: var(--transparent-color);
+}
+
 @media (hover: hover) {
   .userNavLink:hover {
     background-color: var(--color-hover);
