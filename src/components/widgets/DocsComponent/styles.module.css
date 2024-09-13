@@ -7,24 +7,6 @@
   overflow-y: auto;
 }
 
-.docsArea::-webkit-scrollbar {
-  width: 10px;
-}
-
-.docsArea::-webkit-scrollbar-track {
-  background: var(--transparent-color);
-  border-radius: 10px;
-}
-
-.docsArea::-webkit-scrollbar-thumb {
-  background: var(--main-color);
-  border-radius: 10px;
-}
-
-.docsArea::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-color);
-}
-
 .titleArea {
   margin-bottom: 20px;
 }
