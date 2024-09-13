@@ -3,12 +3,12 @@ import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
-  authDomain: "graphiql-app-project-9e22e.firebaseapp.com",
-  projectId: "graphiql-app-project-9e22e",
-  storageBucket: "graphiql-app-project-9e22e.appspot.com",
-  messagingSenderId: "869269762459",
-  appId: "1:869269762459:web:9ae191fe1dfbd4985df13e",
-  measurementId: "G-4BB3FXME1V",
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDER_ID,
+  appId: process.env.APP_ID,
+  measurementId: process.env.MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
