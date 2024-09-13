@@ -1,0 +1,41 @@
+.docsArea {
+  width: 200px;
+  height: 565px;
+  border: 1px solid var(--bg-light-color);
+  border-radius: 8px;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.docsArea::-webkit-scrollbar {
+  width: 10px;
+}
+
+.docsArea::-webkit-scrollbar-track {
+  background: var(--transparent-color);
+  border-radius: 10px;
+}
+
+.docsArea::-webkit-scrollbar-thumb {
+  background: var(--main-color);
+  border-radius: 10px;
+}
+
+.docsArea::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
+}
+
+.titleArea {
+  margin-bottom: 20px;
+}
+
+.queryButton {
+  width: 100%;
+}
+
+.buttonsArea {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}

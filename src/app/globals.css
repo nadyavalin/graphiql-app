@@ -17,7 +17,7 @@ body {
   --bg-middle-color: #3f51b5;
   --bg-dark-color: #090033;
   --header-shadow: 0 5px 10px rgba(155, 168, 241, 0.8);
-  --transparent-color: rgb(9, 0, 51, 0.7);
+  --transparent-color: rgba(17, 0, 92, 0.7);
   --transparent-color-hover: rgba(119, 94, 229, 0.3);
   --transparent-color-disabled: rgba(119, 94, 229, 0.2);
   --text-main-color: #4d54da;
