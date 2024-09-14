@@ -27,7 +27,7 @@ export const LangSwitcher = () => {
     <div className={styles.lang}>
       <NextLink
         href={getNewPath(Languages.EN)}
-        className={styles.lang}
+        className={`${styles.lang} ${pathname === `/en` ? styles.active : ""}`}
         onClick={() => handleLanguageChange(Languages.EN)}
         passHref
       >
@@ -38,7 +38,7 @@ export const LangSwitcher = () => {
 
       <NextLink
         href={getNewPath(Languages.RU)}
-        className={styles.lang}
+        className={`${styles.lang} ${pathname === `/ru` ? styles.active : ""}`}
         onClick={() => handleLanguageChange(Languages.RU)}
         passHref
       >
