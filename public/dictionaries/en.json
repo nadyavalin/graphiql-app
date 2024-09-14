@@ -65,7 +65,7 @@
     "required": "*** Field required",
     "passwordLength": "*** The password must be at least 8 characters long",
     "passwordOneNumber": "*** Password must contain at least one number",
-    "passwordOneLetter": "*** Password must contain at least one letter",
+    "passwordOneLetter": "*** Password must contain at least one latin letter",
     "passwordOneSpecChar": "*** Password must contain at least one special character",
     "passwordMatch": "*** Passwords must match",
     "passwordConfirmRequired": "*** Password confirmation is required"
