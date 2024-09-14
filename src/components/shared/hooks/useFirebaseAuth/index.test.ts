@@ -1,6 +1,6 @@
 import { renderHook, cleanup } from "@testing-library/react";
 import { onAuthStateChanged } from "firebase/auth";
-import useFirebaseAuth from ".";
+import { useFirebaseAuth } from ".";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("firebase/auth", async (importOriginal) => {

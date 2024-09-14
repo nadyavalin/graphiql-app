@@ -15,7 +15,7 @@ import { Dictionary, Languages } from "@shared/types";
 import { RootState } from "@shared/store";
 import { emailFormatSchema, passwordMatchSchema, passwordSchema } from "@shared/validationSchemas";
 import { auth } from "@config/firebaseConfig";
-import useFirebaseAuth from "@shared/hooks/useFirebaseAuth";
+import { useFirebaseAuth } from "@shared/hooks/useFirebaseAuth";
 import { Loader } from "@features/Loader";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDateToken, setUserName } from "@shared/store/slices/userSlice";

@@ -2,7 +2,7 @@
 import React, { ReactNode, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Loader } from "@features/Loader";
-import useFirebaseAuth from "@shared/hooks/useFirebaseAuth";
+import { useFirebaseAuth } from "@shared/hooks/useFirebaseAuth";
 
 interface ProtectedRouteProps {
   children: ReactNode;

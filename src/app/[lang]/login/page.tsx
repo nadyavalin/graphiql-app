@@ -17,7 +17,7 @@ import { emailFormatSchema, passwordSchema } from "@shared/validationSchemas";
 import { setDateToken, setUserName } from "@shared/store/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { auth } from "@config/firebaseConfig";
-import useFirebaseAuth from "@shared/hooks/useFirebaseAuth";
+import { useFirebaseAuth } from "@shared/hooks/useFirebaseAuth";
 import { Loader } from "@features/Loader";
 
 interface FormData {

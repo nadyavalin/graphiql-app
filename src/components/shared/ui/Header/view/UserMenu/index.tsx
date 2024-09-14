@@ -8,7 +8,7 @@ import { Logout } from "@features/Logout";
 import { Languages } from "@shared/types";
 import { useSelector } from "react-redux";
 import { RootState } from "@shared/store";
-import useFirebaseAuth from "@shared/hooks/useFirebaseAuth";
+import { useFirebaseAuth } from "@shared/hooks/useFirebaseAuth";
 import { usePathname } from "next/navigation";
 
 export const UserMenu = () => {

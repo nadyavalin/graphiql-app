@@ -5,7 +5,7 @@ import styles from "./styles.module.css";
 import { Link } from "@mui/material";
 import { Locale } from "@config/i18n-config";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
-import useFirebaseAuth from "@shared/hooks/useFirebaseAuth";
+import { useFirebaseAuth } from "@shared/hooks/useFirebaseAuth";
 import { usePathname } from "next/navigation";
 
 export const Menu = ({ lang }: { lang: Locale }) => {
