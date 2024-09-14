@@ -1,15 +1,7 @@
 "use client";
 
 import commonStyles from "../commonStyles.module.css";
-import PrettifyIcon from "@mui/icons-material/FormatIndentIncrease";
-import SendIcon from "@mui/icons-material/Send";
-import { Box, IconButton } from "@mui/material";
-import { HeadersVariablesBlock } from "@features/HeadersVariablesBlock";
-import { formatDataEditor } from "@shared/utils/formatDataEditor";
 import { ResponseBlock } from "@features/ResponseBlock";
-import { Editor } from "@features/Editor";
-import { Field } from "@features/Field";
-import { useDictionary } from "@shared/providers/DictionaryProvider";
 import useSessionCheck from "@shared/hooks/useSessionCheck";
 import useAppSelector from "@shared/hooks/useAppSelector";
 
@@ -21,7 +13,6 @@ import {
   updateResponse,
   updateResponseStatus,
   updateSdlUrl,
-  updateVariables,
 } from "@shared/store/slices/graphiqlSlice";
 import { serverGraphiqlResponse } from "@shared/actions/graphiqlAction";
 import useAppDispatch from "@shared/hooks/useAppDispatch";
@@ -34,37 +25,25 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { serverGraphiqlShemaResponse } from "@shared/actions/graphqlShemaAction";
 import { DocsComponent } from "@widgets/DocsComponent";
 import { addRequestGraphQL } from "@shared/store/slices/historySlice";
+import { GHRequestSection } from "@widgets/GraphQLRequestSection";
 
 export const GraphQL = () => {
-  const headers = useAppSelector((state) => state.graphiql.headers);
-  const handleHeadersChange = (items: Item[]) => dispatch(updateHeaders(items));
-
-  const variables = useAppSelector((state) => state.graphiql.variables);
-  const handleVariablesChange = (items: Item[]) => dispatch(updateVariables(items));
-
-  const body = useAppSelector((state) => state.graphiql.body);
-  const handleBodyChange = (newValue: string) => dispatch(updateBody(newValue));
-
-  const endpoint = useAppSelector((state) => state.graphiql.endpoint);
-  const onEndpointChange = (newEndpoint: string) => dispatch(updateEndpoint(newEndpoint));
-
-  const response = useAppSelector((state) => state.graphiql.response);
-  const responseStatus = useAppSelector((state) => state.graphiql.responseStatus);
-
-  const onSdlExistsChange = (existing: boolean) => dispatch(updateIsSdlExists(existing));
-
-  const sdlUrl = useAppSelector((state) => state.graphiql.sdlUrl);
-  const onSdlUrlChange = (newEndpoint: string) => dispatch(updateSdlUrl(newEndpoint));
-
-  const currentLanguage = useAppSelector((state) => state.language.lang);
-  const dictionary = useDictionary();
-
-  useSessionCheck();
-  const [encodeURL, setEncodeURL] = useState("");
   const dispatch = useAppDispatch();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const endpoint = useAppSelector((state) => state.graphiql.endpoint);
+  const body = useAppSelector((state) => state.graphiql.body);
+  const headers = useAppSelector((state) => state.graphiql.headers);
+  const variables = useAppSelector((state) => state.graphiql.variables);
+  const response = useAppSelector((state) => state.graphiql.response);
+  const responseStatus = useAppSelector((state) => state.graphiql.responseStatus);
+  const sdlUrl = useAppSelector((state) => state.graphiql.sdlUrl);
+  const currentLanguage = useAppSelector((state) => state.language.lang);
+
+  useSessionCheck();
+  const [encodeURL, setEncodeURL] = useState("");
 
   useEffect(() => {
     const paths = pathname.split("/").filter((value) => value !== "");
@@ -72,15 +51,15 @@ export const GraphQL = () => {
     const params = new URLSearchParams(searchParams.toString());
 
     if (paths.length > 2) {
-      onEndpointChange(decodeBase64(paths[2]));
+      dispatch(updateEndpoint(decodeBase64(paths[2])));
       if (sdlUrl === "") {
-        onSdlUrlChange(decodeBase64(paths[2]) + "?sdl");
+        dispatch(updateSdlUrl(decodeBase64(paths[2]) + "?sdl"));
       }
     }
 
     if (paths.length > 3) {
-      if ((paths[1] as Methods) !== Methods.get) handleBodyChange(decodeBase64(paths[3]));
-      else handleBodyChange("");
+      if ((paths[1] as Methods) !== Methods.get) dispatch(updateBody(decodeBase64(paths[3])));
+      else dispatch(updateBody(""));
     }
 
     if (params.size > 0) {
@@ -89,7 +68,7 @@ export const GraphQL = () => {
         value: value,
       }));
 
-      handleHeadersChange(newItems);
+      dispatch(updateHeaders(newItems));
     }
   }, []);
 
@@ -132,8 +111,7 @@ export const GraphQL = () => {
   const getIsShema = serverGraphiqlShemaResponse.bind(null, sdlUrl);
 
   const onShemaResponse = async () => {
-    onSdlExistsChange(false);
-    onSdlExistsChange(await getIsShema());
+    dispatch(updateIsSdlExists(await getIsShema()));
   };
 
   useEffect(() => {
@@ -143,42 +121,7 @@ export const GraphQL = () => {
   return (
     <main className={commonStyles.container}>
       <DocsComponent />
-      <section>
-        <h2>Graph QL</h2>
-        <div className={commonStyles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
-          <Box sx={{ display: "flex", gap: 1 }}>
-            <Field
-              label={dictionary.labels.endpoint}
-              onChange={onEndpointChange}
-              value={endpoint}
-            />
-            <IconButton
-              title={dictionary.titles.query}
-              onClick={() => dispatch(updateBody(formatDataEditor(body)))}
-            >
-              <PrettifyIcon className={commonStyles.btnPrettify} />
-            </IconButton>
-            <IconButton title={dictionary.titles.sendRequest} onClick={onPlay}>
-              <SendIcon className={commonStyles.btnSend} />
-            </IconButton>
-          </Box>
-          <Field label={"SDL URL"} onChange={onSdlUrlChange} value={sdlUrl} />
-          <h3>Query:</h3>
-          <Editor value={body} onChange={handleBodyChange} />
-          <HeadersVariablesBlock
-            title={dictionary.titles.addHeader}
-            itemType={dictionary.titles.header}
-            onChange={handleHeadersChange}
-            value={headers}
-          />
-          <HeadersVariablesBlock
-            title={dictionary.titles.addVariable}
-            itemType={dictionary.titles.variable}
-            onChange={handleVariablesChange}
-            value={variables}
-          />
-        </div>
-      </section>
+      <GHRequestSection onSend={onPlay} />
       <ResponseBlock data={response} status={responseStatus} />
     </main>
   );

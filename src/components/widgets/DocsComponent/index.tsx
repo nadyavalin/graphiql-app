@@ -1,4 +1,3 @@
-"use client";
 import { DocExplorer, GraphiQLProvider } from "@graphiql/react";
 import { createGraphiQLFetcher } from "@graphiql/toolkit";
 import useAppSelector from "@shared/hooks/useAppSelector";
