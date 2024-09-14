@@ -8,6 +8,8 @@ const initialState: GraphiqlState = {
   variables: [],
   response: "",
   responseStatus: null,
+  isUserSdl: false,
+  isSdlExists: false,
   sdlUrl: "",
 };
 
@@ -33,8 +35,14 @@ const graphiqlClientSlice = createSlice({
     updateResponseStatus: (state, action: PayloadAction<number | null>) => {
       state.responseStatus = action.payload;
     },
+    updateUserSdl: (state, action: PayloadAction<boolean>) => {
+      state.isUserSdl = action.payload;
+    },
     updateSdlUrl: (state, action: PayloadAction<string>) => {
       state.sdlUrl = action.payload;
+    },
+    updateIsSdlExists: (state, action: PayloadAction<boolean>) => {
+      state.isSdlExists = action.payload;
     },
   },
 });
@@ -46,6 +54,8 @@ export const {
   updateVariables,
   updateResponse,
   updateResponseStatus,
+  updateUserSdl,
+  updateIsSdlExists,
   updateSdlUrl,
 } = graphiqlClientSlice.actions;
 

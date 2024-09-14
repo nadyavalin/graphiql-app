@@ -17,6 +17,7 @@ import {
   updateBody,
   updateEndpoint,
   updateHeaders,
+  updateIsSdlExists,
   updateResponse,
   updateResponseStatus,
   updateSdlUrl,
@@ -30,51 +31,38 @@ import arrayToObj from "@shared/utils/arrayToObj";
 import { decodeBase64, encodeBase64 } from "@shared/utils/encodeBase64";
 import encodeQueryParams from "@shared/utils/encodeQueryParams";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { DocSection } from "@shared/ui-kit/DokSection";
+import { serverGraphiqlShemaResponse } from "@shared/actions/graphqlShemaAction";
 
 export const GraphQL = () => {
-  // Headers
   const headers = useAppSelector((state) => state.graphiql.headers);
-
   const handleHeadersChange = (items: Item[]) => dispatch(updateHeaders(items));
 
-  // Variables
   const variables = useAppSelector((state) => state.graphiql.variables);
-
   const handleVariablesChange = (items: Item[]) => dispatch(updateVariables(items));
 
-  // Body
   const body = useAppSelector((state) => state.graphiql.body);
-
   const handleBodyChange = (newValue: string) => dispatch(updateBody(newValue));
 
-  // Endponts
   const endpoint = useAppSelector((state) => state.graphiql.endpoint);
-
   const onEndpointChange = (newEndpoint: string) => dispatch(updateEndpoint(newEndpoint));
 
-  // Response
   const response = useAppSelector((state) => state.graphiql.response);
-
   const responseStatus = useAppSelector((state) => state.graphiql.responseStatus);
 
-  // sdlUrl
-  const sdlUrl = useAppSelector((state) => state.graphiql.sdlUrl);
+  const onSdlExistsChange = (existing: boolean) => dispatch(updateIsSdlExists(existing));
 
+  const sdlUrl = useAppSelector((state) => state.graphiql.sdlUrl);
   const onSdlUrlChange = (newEndpoint: string) => dispatch(updateSdlUrl(newEndpoint));
 
-  // Init
   const currentLanguage = useAppSelector((state) => state.language.lang);
-
   const dictionary = useDictionary();
 
   useSessionCheck();
 
   const dispatch = useAppDispatch();
-
   const router = useRouter();
-
   const pathname = usePathname();
-
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -84,10 +72,9 @@ export const GraphQL = () => {
 
     if (paths.length > 2) {
       onEndpointChange(decodeBase64(paths[2]));
-    }
-
-    if (paths.length > 2) {
-      onEndpointChange(decodeBase64(paths[2]));
+      if (sdlUrl === "") {
+        onSdlUrlChange(decodeBase64(paths[2]) + "?sdl");
+      }
     }
 
     if (paths.length > 3) {
@@ -105,7 +92,6 @@ export const GraphQL = () => {
     }
   }, []);
 
-  // Shared
   const onUrlChange = () => {
     const headersObj = arrayToObj(headers);
 
@@ -134,8 +120,20 @@ export const GraphQL = () => {
     if (endpoint || body || headers) onUrlChange();
   }, [endpoint, body, headers]);
 
+  const getIsShema = serverGraphiqlShemaResponse.bind(null, sdlUrl);
+
+  const onShemaResponse = async () => {
+    onSdlExistsChange(false);
+    onSdlExistsChange(await getIsShema());
+  };
+
+  useEffect(() => {
+    onShemaResponse();
+  }, [sdlUrl]);
+
   return (
     <main className={commonStyles.container}>
+      <DocSection />
       <section>
         <h2>Graph QL</h2>
         <div className={commonStyles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>

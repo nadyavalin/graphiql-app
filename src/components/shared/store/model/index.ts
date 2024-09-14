@@ -15,6 +15,8 @@ export type GraphiqlState = {
   variables: Item[];
   response: string;
   responseStatus: number | null;
+  isUserSdl: boolean;
+  isSdlExists: boolean;
   sdlUrl: string;
 };
 
