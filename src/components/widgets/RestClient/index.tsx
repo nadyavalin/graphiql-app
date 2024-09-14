@@ -12,10 +12,6 @@ import { HeadersVariablesBlock } from "@features/HeadersVariablesBlock";
 import { ResponseBlock } from "@features/ResponseBlock";
 import { MethodsBlock } from "@features/Methods";
 
-// TODO перенести в graph QL
-import styles from "./styles.module.css";
-import docs from "@public/docs.png";
-
 import {
   updateBody,
   updateEndpoint,
@@ -39,8 +35,6 @@ import { decodeBase64, encodeBase64 } from "@shared/utils/encodeBase64";
 import encodeQueryParams from "@shared/utils/encodeQueryParams";
 import arrayToObj from "@shared/utils/arrayToObj";
 import { addRequestRestClient } from "@shared/store/slices/historySlice";
-import Image from "next/image";
-import { DocsComponent } from "@widgets/DocsComponent";
 
 export const RestClient = () => {
   const headers = useAppSelector((state) => state.restClient.headers);
@@ -102,7 +96,15 @@ export const RestClient = () => {
     const encodedEndpoint = encodeBase64(endpoint);
     const encodedBody = encodeBase64(body);
     const encodedHeaders = encodeQueryParams(headersObj);
-    const requestUrl = `${method}/${encodedEndpoint}${encodedBody ? "/" + encodedBody : ""}${encodedHeaders ? "?" + encodedHeaders : ""}`;
+
+    let requestUrl = "";
+
+    if (encodedEndpoint === "") {
+      requestUrl = method;
+    } else {
+      requestUrl = `${method}/${encodedEndpoint}${encodedBody !== "" ? "/" + encodedBody : ""}${encodedHeaders !== "" ? "?" + encodedHeaders : ""}`;
+    }
+
     router.push("/" + currentLanguage + "/" + requestUrl);
     setEncodeURL(requestUrl);
   };
@@ -126,73 +128,49 @@ export const RestClient = () => {
     if (endpoint || method || body || headers) onUrlChange();
   }, [endpoint, method, body, headers]);
 
-  // TODO перенести в graph QL
-  const [isDocsVisible, setDocsVisible] = useState(false);
-  const toggleDocs = () => {
-    setDocsVisible((prev) => !prev);
-  };
-
   return (
     <main className={commonStyles.container}>
       <section>
         <h2>REST Client</h2>
-        <div className={styles.docsBoxBlock}>
-          <div className={styles.docsBlock}>
-            <div className={styles.imageText} onClick={toggleDocs}>
-              <Image
-                src={docs}
-                priority
-                alt="Docs Icon"
-                width="30"
-                height="30"
-                className={styles.docsIcon}
+        <Box className={commonStyles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
+          <form action={onPlay}>
+            <Box sx={{ display: "flex", gap: 1 }}>
+              <MethodsBlock method={method} onChange={onMethodChange} />
+              <Field
+                label={dictionary.labels.endpoint}
+                onChange={onEndpointChange}
+                value={endpoint}
               />
-              {isDocsVisible && <h4>{dictionary.docs.docs}</h4>}
-            </div>
-            <div className={`${styles.docsComponent} ${isDocsVisible ? styles.visible : ""}`}>
-              <DocsComponent />
-            </div>
-          </div>
-          <Box className={commonStyles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
-            <form action={onPlay}>
-              <Box sx={{ display: "flex", gap: 1 }}>
-                <MethodsBlock method={method} onChange={onMethodChange} />
-                <Field
-                  label={dictionary.labels.endpoint}
-                  onChange={onEndpointChange}
-                  value={endpoint}
+              <IconButton
+                title={dictionary.titles.query}
+                onClick={() => dispatch(updateBody(formatDataEditor(body)))}
+              >
+                <PrettifyIcon className={commonStyles.btnPrettify} />
+              </IconButton>
+              <IconButton title={dictionary.titles.sendRequest} onClick={onPlay}>
+                <SendIcon className={commonStyles.btnSend} />
+              </IconButton>
+            </Box>
+            {method !== Methods.get ? (
+              <>
+                <h3>{dictionary.titles.body}:</h3>
+                <Editor value={body} onChange={handleBodyChange} />
+                <HeadersVariablesBlock
+                  title={dictionary.titles.addVariable}
+                  itemType={dictionary.titles.variable}
+                  onChange={handleVariablesChange}
+                  value={variables}
                 />
-                <IconButton
-                  title={dictionary.titles.query}
-                  onClick={() => dispatch(updateBody(formatDataEditor(body)))}
-                >
-                  <PrettifyIcon className={commonStyles.btnPrettify} />
-                </IconButton>
-                <IconButton title={dictionary.titles.sendRequest} onClick={onPlay}>
-                  <SendIcon className={commonStyles.btnSend} />
-                </IconButton>
-              </Box>
-              {method !== Methods.get ? (
-                <>
-                  <h3>{dictionary.titles.body}:</h3>
-                  <Editor value={body} onChange={handleBodyChange} />
-                  <HeadersVariablesBlock
-                    title={dictionary.titles.addVariable}
-                    itemType={dictionary.titles.variable}
-                    onChange={handleVariablesChange}
-                    value={variables}
-                  />
-                </>
-              ) : null}
-              <HeadersVariablesBlock
-                title={dictionary.titles.addHeader}
-                itemType={dictionary.titles.header}
-                onChange={handleHeadersChange}
-                value={headers}
-              />
-            </form>
-          </Box>
-        </div>
+              </>
+            ) : null}
+            <HeadersVariablesBlock
+              title={dictionary.titles.addHeader}
+              itemType={dictionary.titles.header}
+              onChange={handleHeadersChange}
+              value={headers}
+            />
+          </form>
+        </Box>
       </section>
       <ResponseBlock data={response} status={responseStatus} />
     </main>

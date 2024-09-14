@@ -8,6 +8,18 @@ export type RestClientState = {
   responseStatus: number | null;
 };
 
+export type GraphiqlState = {
+  endpoint: string;
+  body: string;
+  headers: Item[];
+  variables: Item[];
+  response: string;
+  responseStatus: number | null;
+  isUserSdl: boolean;
+  isSdlExists: boolean;
+  sdlUrl: string;
+};
+
 export interface Item {
   key: string;
   value: string;
