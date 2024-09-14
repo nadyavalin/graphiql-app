@@ -15,12 +15,14 @@ import languageSlice from "./slices/languageSlice";
 import userSlice from "./slices/userSlice";
 import historySlice from "./slices/historySlice";
 import restClientSlice from "./slices/restClientSlice";
+import graphiqlSlice from "./slices/graphiqlSlice";
 
 const rootReducer = combineReducers({
   language: languageSlice,
   user: userSlice,
   history: historySlice,
   restClient: restClientSlice,
+  graphiql: graphiqlSlice,
 });
 
 const persistConfig = {

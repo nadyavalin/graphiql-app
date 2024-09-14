@@ -33,7 +33,7 @@ export const Menu = ({ lang }: { lang: Locale }) => {
           </Link>
 
           <Link
-            href={`/${lang}/graph-ql`}
+            href={`/${lang}/GRAPHQL`}
             className={`${styles.navLink} ${pathname === `/${lang}/graph-ql` ? styles.active : ""}`}
             underline="none"
             component={NextLink}
