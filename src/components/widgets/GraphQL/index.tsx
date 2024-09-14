@@ -26,13 +26,14 @@ import {
 import { serverGraphiqlResponse } from "@shared/actions/graphiqlAction";
 import useAppDispatch from "@shared/hooks/useAppDispatch";
 import { Item, Methods, ResponseType } from "@shared/store/model";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import arrayToObj from "@shared/utils/arrayToObj";
 import { decodeBase64, encodeBase64 } from "@shared/utils/encodeBase64";
 import encodeQueryParams from "@shared/utils/encodeQueryParams";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { serverGraphiqlShemaResponse } from "@shared/actions/graphqlShemaAction";
 import { DocsComponent } from "@widgets/DocsComponent";
+import { addRequestGraphQL } from "@shared/store/slices/historySlice";
 
 export const GraphQL = () => {
   const headers = useAppSelector((state) => state.graphiql.headers);
@@ -59,7 +60,7 @@ export const GraphQL = () => {
   const dictionary = useDictionary();
 
   useSessionCheck();
-
+  const [encodeURL, setEncodeURL] = useState("");
   const dispatch = useAppDispatch();
   const router = useRouter();
   const pathname = usePathname();
@@ -106,6 +107,7 @@ export const GraphQL = () => {
     }
 
     router.push("/" + currentLanguage + "/" + "GRAPHQL" + "/" + requestUrl);
+    setEncodeURL(requestUrl);
   };
 
   useEffect(() => {
@@ -118,6 +120,13 @@ export const GraphQL = () => {
     const { status, data }: ResponseType = await update();
     dispatch(updateResponse(JSON.stringify(data)));
     dispatch(updateResponseStatus(status));
+    dispatch(
+      addRequestGraphQL({
+        date: new Date().toISOString(),
+        url: endpoint,
+        encodeUrl: `GRAPHQL/${encodeURL}`,
+      }),
+    );
   };
 
   const getIsShema = serverGraphiqlShemaResponse.bind(null, sdlUrl);

@@ -3,7 +3,7 @@
 import PrettifyIcon from "@mui/icons-material/FormatIndentIncrease";
 import SendIcon from "@mui/icons-material/Send";
 import { Box, IconButton } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import commonStyles from "../commonStyles.module.css";
 import { Editor } from "@features/Editor";
@@ -34,6 +34,7 @@ import { formatDataEditor } from "@shared/utils/formatDataEditor";
 import { decodeBase64, encodeBase64 } from "@shared/utils/encodeBase64";
 import encodeQueryParams from "@shared/utils/encodeQueryParams";
 import arrayToObj from "@shared/utils/arrayToObj";
+import { addRequestRestClient } from "@shared/store/slices/historySlice";
 
 export const RestClient = () => {
   const headers = useAppSelector((state) => state.restClient.headers);
@@ -63,6 +64,8 @@ export const RestClient = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const [encodeURL, setEncodeURL] = useState("");
 
   useEffect(() => {
     const paths = pathname.split("/").filter((value) => value !== "");
@@ -103,6 +106,7 @@ export const RestClient = () => {
     }
 
     router.push("/" + currentLanguage + "/" + requestUrl);
+    setEncodeURL(requestUrl);
   };
 
   const update = serverResponse.bind(null, { endpoint, method, body, headers, variables });
@@ -111,6 +115,13 @@ export const RestClient = () => {
     const { status, data }: ResponseType = await update();
     dispatch(updateResponse(JSON.stringify(data)));
     dispatch(updateResponseStatus(status));
+    dispatch(
+      addRequestRestClient({
+        date: new Date().toISOString(),
+        url: `${method} ${endpoint}`,
+        encodeUrl: encodeURL,
+      }),
+    );
   };
 
   useEffect(() => {
