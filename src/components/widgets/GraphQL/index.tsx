@@ -31,8 +31,8 @@ import arrayToObj from "@shared/utils/arrayToObj";
 import { decodeBase64, encodeBase64 } from "@shared/utils/encodeBase64";
 import encodeQueryParams from "@shared/utils/encodeQueryParams";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { DocSection } from "@shared/ui-kit/DokSection";
 import { serverGraphiqlShemaResponse } from "@shared/actions/graphqlShemaAction";
+import { DocsComponent } from "@widgets/DocsComponent";
 
 export const GraphQL = () => {
   const headers = useAppSelector((state) => state.graphiql.headers);
@@ -108,6 +108,10 @@ export const GraphQL = () => {
     router.push("/" + currentLanguage + "/" + "GRAPHQL" + "/" + requestUrl);
   };
 
+  useEffect(() => {
+    if (endpoint || body || headers) onUrlChange();
+  }, [endpoint, body, headers]);
+
   const update = serverGraphiqlResponse.bind(null, { endpoint, body, headers, variables });
 
   const onPlay = async () => {
@@ -115,10 +119,6 @@ export const GraphQL = () => {
     dispatch(updateResponse(JSON.stringify(data)));
     dispatch(updateResponseStatus(status));
   };
-
-  useEffect(() => {
-    if (endpoint || body || headers) onUrlChange();
-  }, [endpoint, body, headers]);
 
   const getIsShema = serverGraphiqlShemaResponse.bind(null, sdlUrl);
 
@@ -133,7 +133,7 @@ export const GraphQL = () => {
 
   return (
     <main className={commonStyles.container}>
-      <DocSection />
+      <DocsComponent />
       <section>
         <h2>Graph QL</h2>
         <div className={commonStyles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
