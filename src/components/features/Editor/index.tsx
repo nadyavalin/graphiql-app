@@ -1,6 +1,8 @@
 import CodeMirror from "@uiw/react-codemirror";
 import styles from "./styles.module.css";
 import { useEffect, useState } from "react";
+import { langs } from "@uiw/codemirror-extensions-langs";
+import { tokyoNight } from "@uiw/codemirror-theme-tokyo-night";
 
 interface EditorProps {
   value: string;
@@ -29,7 +31,8 @@ export const Editor = ({ isEditable, value, onChange }: EditorProps) => {
       editable={isEditable}
       value={item}
       className={styles.editor}
-      lang="en"
+      extensions={[langs.json()]}
+      theme={tokyoNight}
       onChange={onValueChange}
       onBlur={onFocusOut}
     />

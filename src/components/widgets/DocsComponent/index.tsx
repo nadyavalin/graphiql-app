@@ -1,33 +1,45 @@
 "use client";
-
+import { DocExplorer, GraphiQLProvider } from "@graphiql/react";
+import { createGraphiQLFetcher } from "@graphiql/toolkit";
+import useAppSelector from "@shared/hooks/useAppSelector";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
+import { useState } from "react";
+import Image from "next/image";
+import docs from "@public/docs.png";
 import styles from "./styles.module.css";
 
 export const DocsComponent = () => {
   const dictionary = useDictionary();
-  return (
-    <section>
-      <div className={styles.docsArea}>
-        <div className={styles.titleArea}>
-          <h2>{dictionary.docs.root}</h2>
-          <button className={styles.queryButton}>query: Query</button>
-        </div>
-        <p>{dictionary.docs.types}</p>
-        <div className={styles.buttonsArea}>
-          <button>Query</button>
-          <button>ID</button>
-          <button>Int</button>
-          <button>String</button>
-          <button>...</button>
-          <button>...</button>
-          <button>...</button>
-          <button>...</button>
-          <button>...</button>
-          <button>...</button>
-          <button>...</button>
-          <button>...</button>
+
+  const [isDocsVisible, setDocsVisible] = useState(false);
+  const toggleDocs = () => {
+    setDocsVisible((prev) => !prev);
+  };
+
+  const isSdlExists = useAppSelector((state) => state.graphiql.isSdlExists);
+
+  const sdlUrl = useAppSelector((state) => state.graphiql.sdlUrl);
+
+  return isSdlExists ? (
+    <div className={styles.docsBlock}>
+      <div className={styles.imageText} onClick={toggleDocs}>
+        <Image
+          src={docs}
+          priority
+          alt="Docs Icon"
+          width="30"
+          height="30"
+          className={styles.docsIcon}
+        />
+        {isDocsVisible && <h4>{dictionary.docs.docs}</h4>}
+      </div>
+      <div className={`${styles.docsComponent} ${isDocsVisible ? styles.visible : ""}`}>
+        <div className={styles.docsArea}>
+          <GraphiQLProvider fetcher={createGraphiQLFetcher({ url: sdlUrl })}>
+            <DocExplorer />
+          </GraphiQLProvider>
         </div>
       </div>
-    </section>
-  );
+    </div>
+  ) : null;
 };
