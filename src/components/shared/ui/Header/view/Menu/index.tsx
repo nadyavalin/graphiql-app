@@ -12,7 +12,8 @@ export const Menu = ({ lang }: { lang: Locale }) => {
   const dictionary = useDictionary();
   const { user, loading } = useFirebaseAuth();
   const pathname = usePathname();
-  const isActive = pathname.startsWith(`/${lang}/`) && /\/(GET|POST|PUT|DELETE)(\/.*)?$/;
+  const isActive =
+    pathname.startsWith(`/${lang}/`) && /(GET|POST|PUT|DELETE)(\/.*)?$/.test(pathname);
 
   if (loading) {
     return null;
