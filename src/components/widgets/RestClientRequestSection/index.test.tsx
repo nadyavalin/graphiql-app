@@ -1,11 +1,11 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { RestfullRequestSection } from ".";
 import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { updateBody } from "@shared/store/slices/restClientSlice";
 import { Methods } from "@shared/store/model";
+import { RestFullRequestSection } from ".";
 
 vi.mock("@shared/providers/DictionaryProvider", () => ({
   useDictionary: vi.fn(),
@@ -46,7 +46,7 @@ describe("RestfullRequestSection", () => {
   it("renders correctly", () => {
     render(
       <Provider store={store}>
-        <RestfullRequestSection onPlay={mockOnPlay} onUrlChange={mockOnUrlChange} />
+        <RestFullRequestSection onPlay={mockOnPlay} onUrlChange={mockOnUrlChange} />
       </Provider>,
     );
 
@@ -59,7 +59,7 @@ describe("RestfullRequestSection", () => {
   it("calls onUrlChange when endpoint, method, or body changes", () => {
     render(
       <Provider store={store}>
-        <RestfullRequestSection onPlay={mockOnPlay} onUrlChange={mockOnUrlChange} />
+        <RestFullRequestSection onPlay={mockOnPlay} onUrlChange={mockOnUrlChange} />
       </Provider>,
     );
 
@@ -71,7 +71,7 @@ describe("RestfullRequestSection", () => {
   it("prettifies body when Prettify button is clicked", () => {
     render(
       <Provider store={store}>
-        <RestfullRequestSection onPlay={mockOnPlay} onUrlChange={mockOnUrlChange} />
+        <RestFullRequestSection onPlay={mockOnPlay} onUrlChange={mockOnUrlChange} />
       </Provider>,
     );
 
@@ -84,7 +84,7 @@ describe("RestfullRequestSection", () => {
   it("calls onPlay when Send Request button is clicked", () => {
     render(
       <Provider store={store}>
-        <RestfullRequestSection onPlay={mockOnPlay} onUrlChange={mockOnUrlChange} />
+        <RestFullRequestSection onPlay={mockOnPlay} onUrlChange={mockOnUrlChange} />
       </Provider>,
     );
 

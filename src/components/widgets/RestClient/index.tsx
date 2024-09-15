@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import commonStyles from "../commonStyles.module.css";
 import { ResponseBlock } from "@features/ResponseBlock";
-
+import { RestFullRequestSection } from "@widgets/RestClientRequestSection";
 import {
   updateBody,
   updateEndpoint,
@@ -14,23 +14,20 @@ import {
   updateResponseStatus,
 } from "@shared/store/slices/restClientSlice";
 import { Item, Methods, ResponseType } from "@shared/store/model";
-
-import useAppSelector from "@shared/hooks/useAppSelector";
 import useAppDispatch from "@shared/hooks/useAppDispatch";
 import useSessionCheck from "@shared/hooks/useSessionCheck";
-
 import { IServerResponse, serverResponse } from "@shared/actions/restfulAction";
-
 import { decodeBase64, encodeBase64 } from "@shared/utils/encodeBase64";
 import encodeQueryParams from "@shared/utils/encodeQueryParams";
 import arrayToObj from "@shared/utils/arrayToObj";
 import { addRequestRestClient } from "@shared/store/slices/historySlice";
-import { RestfullRequestSection } from "@widgets/RestClientRequestSection";
+import useAppSelector from "@shared/hooks/useAppSelector";
+import { useFirebaseAuth } from "@shared/hooks/useFirebaseAuth";
+import { Loader } from "@features/Loader";
 
 export const RestClient = () => {
   const response = useAppSelector((state) => state.restClient.response);
   const responseStatus = useAppSelector((state) => state.restClient.responseStatus);
-
   const currentLanguage = useAppSelector((state) => state.language.lang);
 
   useSessionCheck();
@@ -103,9 +100,15 @@ export const RestClient = () => {
     );
   };
 
+  const { loading } = useFirebaseAuth();
+
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <main className={commonStyles.container}>
-      <RestfullRequestSection onPlay={onPlay} onUrlChange={onUrlChange} />
+      <RestFullRequestSection onPlay={onPlay} onUrlChange={onUrlChange} />
       <ResponseBlock data={response} status={responseStatus} />
     </main>
   );

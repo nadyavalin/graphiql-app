@@ -12,12 +12,20 @@ import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { Languages } from "@shared/types";
 import { RootState } from "@shared/store";
 import useSessionCheck from "@shared/hooks/useSessionCheck";
+import { useFirebaseAuth } from "@shared/hooks/useFirebaseAuth";
+import { Loader } from "@features/Loader";
 
 export const WelcomePage = () => {
   const dictionary = useDictionary();
   const user = useSelector((state: RootState) => state.user);
   const currentLanguage: Languages = useSelector((state: RootState) => state.language.lang);
   useSessionCheck();
+  const { loading } = useFirebaseAuth();
+
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <>
       <main>
