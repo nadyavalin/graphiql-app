@@ -1,36 +1,119 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center"> RestClient and GraphQL final Task</h1>
+
+<h2 align="center"> RS School React 2024 Q3</h2>
+
+<p align="center">
+  <img src='public/GQA-logo.png'alt="logo" width="150px" height="150px" style="border-radius: 50%; margin: 10px">
+</p>
+
+Our app is a light-weight versions of Postman and GraphQL combined in one app (Postman is a rich platform for using (and building) APIs. GraphQL is a playground/IDE for graphQL requests).
+
+## Team project by [Nadia](https://github.com/nadyavalin), [Kate](https://github.com/ifbfirst), and [Eugene](https://github.com/LarryDavidd)
+
+[The Rolling Scopes School React Course](https://rs.school/react/) | [Link to the task](https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/tasks/final.md)
+
+### Completed: September 2024
+
+## Technology stack
+
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+
+![Next.js](https://img.shields.io/badge/Next.js-%2320232a.svg?style=for-the-badge&logo=next.js&logoColor=%2361DAFB)
+
+![React Hook Form](https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white)
+
+![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
+
+![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
+
+![firebase](https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black)
+
+![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7)
+
+<!-- TABLE OF CONTENTS -->
+
+## Table of Contents
+
+- [Project description](#rs-school-react-2024-q3)
+- [Technology stack](#technology-stack)
+- [Getting Started](#getting-started)
+- [Installation](#installation)
+- [Scripts](#provided-scripts)
+
+<!-- GETTING STARTED -->
 
 ## Getting Started
 
-First, run the development server:
+To get a local copy - follow these simple steps.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Installation
+
+1. Clone the repo
+
+```sh
+  git clone https://github.com/nadyavalin/graphiql-app.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install NPM packages
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+  npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+3. Ask team to produce the .env.local file with settings and place it in the project root.
 
-## Learn More
+4. Start project
 
-To learn more about Next.js, take a look at the following resources:
+```sh
+  npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<!-- SCRIPTS -->
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Provided scripts
 
-## Deploy on Vercel
+```sh
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Start local development server
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```sh
+npm run build
+```
+
+Build project in production mode for further deployment
+
+```sh
+npm run format:fix
+```
+
+Reformat source code & configs to match `Prettier` settings
+
+```sh
+npm run lint
+```
+
+Check source code with `ESLint`. Exit with non-zero return code after the first found warning (useful for CI/CD)
+
+```sh
+npm run lint:fix
+```
+
+Automatically fix all auto-fixable errors & warnings with `ESLint`
+
+```sh
+npm run prepare
+```
+
+Runs automatically after package installation to install Husky hooks
+
+```sh
+npm run test
+```
+
+Runs tests with Vitest and displays coverage of implemented tests

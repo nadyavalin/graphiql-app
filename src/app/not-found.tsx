@@ -1,5 +1,7 @@
-import { NotFoundPage } from "@pages/NotFoundPage";
+import { NotFoundComponent } from "@shared/notFound";
 
-export default function NotFound() {
-  return <NotFoundPage />;
+function NotFound() {
+  return <NotFoundComponent />;
 }
+
+export default NotFound;

@@ -1,0 +1,25 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  font-size: 14px;
+  height: 60px;
+  background-color: var(--bg-middle-color);
+  padding: 10px;
+}
+
+.developers {
+  display: flex;
+  gap: 20px;
+}
+
+.devLink {
+  color: var(--lang-color);
+}
+
+@media (hover: hover) {
+  .devLink:hover {
+    color: var(--text-color);
+  }
+}

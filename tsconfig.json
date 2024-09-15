@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -18,7 +19,9 @@
       }
     ],
     "paths": {
-      "@app/*": ["./src/components/app/*"],
+      "@config/*": ["./config/*"],
+      "@public/*": ["./public/*"],
+      "@app/*": ["./src/app/*"],
       "@pages/*": ["./src/components/pages/*"],
       "@widgets/*": ["./src/components/widgets/*"],
       "@features/*": ["./src/components/features/*"],
@@ -26,6 +29,13 @@
       "@shared/*": ["./src/components/shared/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/[lang]/dictionaries.ts",
+    "next.config.mjs"
+  ],
   "exclude": ["node_modules"]
 }
