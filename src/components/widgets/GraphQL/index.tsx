@@ -42,6 +42,8 @@ export const GraphQL = () => {
     const paths = pathname.split("/").filter((value) => value !== "");
 
     const params = new URLSearchParams(searchParams.toString());
+    dispatch(updateResponse(""));
+    dispatch(updateResponseStatus(null));
 
     if (paths.length > 2) {
       dispatch(updateEndpoint(decodeBase64(paths[2])));

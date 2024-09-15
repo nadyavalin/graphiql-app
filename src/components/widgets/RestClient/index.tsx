@@ -41,6 +41,8 @@ export const RestClient = () => {
     const paths = pathname.split("/").filter((value) => value !== "");
     const params = new URLSearchParams(searchParams.toString());
     dispatch(updateMethod(paths[1] as Methods));
+    dispatch(updateResponse(""));
+    dispatch(updateResponseStatus(null));
 
     if (paths.length > 2) {
       dispatch(updateEndpoint(decodeBase64(paths[2])));

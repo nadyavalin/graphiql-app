@@ -35,6 +35,7 @@ export const DocsComponent = () => {
 
   useEffect(() => {
     onShemaResponse();
+    if (endpoint !== "" && sdlUrl === "") dispatch(updateSdlUrl(endpoint + "?sdl"));
   }, [sdlUrl]);
 
   useEffect(() => {
