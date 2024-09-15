@@ -43,10 +43,6 @@ vi.mock("react-redux", () => {
   };
 });
 
-vi.mock("react-hot-toast", () => ({
-  toast: { error: vi.fn() },
-}));
-
 vi.mock("@shared/utils/tokenDateCheck", () => ({
   isTokenValid: vi.fn(),
 }));

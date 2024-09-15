@@ -8,7 +8,8 @@ import { HistoryRequest } from "@shared/store/slices/historySlice";
 import { formatDate } from "@shared/utils/formatDate";
 import { sortArrayDate } from "@shared/utils/sortArray";
 import { useDispatch } from "react-redux";
-import { updateResponse } from "@shared/store/slices/restClientSlice";
+import { updateResponse as updateResponseRestClient } from "@shared/store/slices/restClientSlice";
+import { updateResponse as updateResponseGraphQl } from "@shared/store/slices/graphiqlSlice";
 
 interface HistoryBlockProps {
   listRequests: HistoryRequest[];
@@ -28,7 +29,10 @@ export const HistoryBlock = ({ listRequests, title }: HistoryBlockProps) => {
             href={`/${currentLanguage}/${request.encodeUrl}`}
             key={request.date}
             className={styles.listItem}
-            onClick={() => dispatch(updateResponse(""))}
+            onClick={() => {
+              dispatch(updateResponseRestClient(""));
+              dispatch(updateResponseGraphQl(""));
+            }}
           >
             <span>
               <DateRangeIcon />
