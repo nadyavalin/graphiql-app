@@ -36,6 +36,7 @@ export default defineConfig({
         "src/components/shared/ui/Header/index.tsx",
         "src/components/shared/ui/Header/view/Menu/index.tsx",
         "src/components/shared/ui/Header/view/UserMenu/index.tsx",
+        "src/components/shared/ui/Header/view/LangSwitcher/index.tsx",
         "src/components/widgets/WelcomePage/index.tsx",
         "src/components/widgets/Login/index.tsx",
         "src/components/widgets/Registration/index.tsx",
