@@ -14,6 +14,8 @@ export const DocsComponent = () => {
   const dictionary = useDictionary();
   const dispatch = useAppDispatch();
 
+  const [rightUrl, setRightUrl] = useState("");
+
   const [isDocsVisible, setDocsVisible] = useState(false);
   const toggleDocs = () => {
     setDocsVisible((prev) => !prev);
@@ -26,7 +28,9 @@ export const DocsComponent = () => {
   const endpoint = useAppSelector((state) => state.graphiql.endpoint);
 
   const onShemaResponse = async () => {
-    dispatch(updateIsSdlExists(await serverGraphiqlShemaResponse(sdlUrl)));
+    const isExist = await serverGraphiqlShemaResponse(sdlUrl);
+    if (isExist) setRightUrl(sdlUrl);
+    dispatch(updateIsSdlExists(isExist));
   };
 
   useEffect(() => {
@@ -34,10 +38,10 @@ export const DocsComponent = () => {
   }, [sdlUrl]);
 
   useEffect(() => {
-    dispatch(updateSdlUrl(endpoint + "?sdl"));
+    if (endpoint !== "" && sdlUrl === "") dispatch(updateSdlUrl(endpoint + "?sdl"));
   }, [endpoint]);
 
-  return isSdlExists ? (
+  return isSdlExists && sdlUrl !== "" ? (
     <div className={styles.docsBlock}>
       <div className={styles.imageText} onClick={toggleDocs}>
         <Image
@@ -52,7 +56,7 @@ export const DocsComponent = () => {
       </div>
       <div className={`${styles.docsComponent} ${isDocsVisible ? styles.visible : ""}`}>
         <div className={styles.docsArea}>
-          <GraphiQLProvider fetcher={createGraphiQLFetcher({ url: sdlUrl })}>
+          <GraphiQLProvider fetcher={createGraphiQLFetcher({ url: rightUrl })}>
             <DocExplorer />
           </GraphiQLProvider>
         </div>

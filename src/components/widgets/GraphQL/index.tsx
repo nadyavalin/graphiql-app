@@ -8,8 +8,10 @@ import {
   updateBody,
   updateEndpoint,
   updateHeaders,
+  updateIsSdlExists,
   updateResponse,
   updateResponseStatus,
+  updateSdlUrl,
 } from "@shared/store/slices/graphiqlSlice";
 import { IServerGraphiqlResponse, serverGraphiqlResponse } from "@shared/actions/graphiqlAction";
 import useAppDispatch from "@shared/hooks/useAppDispatch";
@@ -43,11 +45,17 @@ export const GraphQL = () => {
 
     if (paths.length > 2) {
       dispatch(updateEndpoint(decodeBase64(paths[2])));
+    } else {
+      dispatch(updateEndpoint(""));
+      dispatch(updateIsSdlExists(false));
+      dispatch(updateSdlUrl(""));
     }
 
     if (paths.length > 3) {
       if ((paths[1] as Methods) !== Methods.get) dispatch(updateBody(decodeBase64(paths[3])));
       else dispatch(updateBody(""));
+    } else {
+      dispatch(updateBody(""));
     }
 
     if (params.size > 0) {
@@ -57,6 +65,8 @@ export const GraphQL = () => {
       }));
 
       dispatch(updateHeaders(newItems));
+    } else {
+      dispatch(updateHeaders([]));
     }
   }, []);
 

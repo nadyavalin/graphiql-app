@@ -50,7 +50,7 @@ export const GHRequestSection: React.FC<RequestSectionProps> = ({ onPlay, onUrlC
         <Box sx={{ display: "flex", gap: 1 }}>
           <Field
             label={dictionary.labels.endpoint}
-            onChange={(newValue) => dispatch(updateEndpoint(newValue))}
+            onChange={(newValue) => dispatch(updateEndpoint(newValue.trim()))}
             value={endpoint}
           />
           <IconButton
@@ -67,7 +67,7 @@ export const GHRequestSection: React.FC<RequestSectionProps> = ({ onPlay, onUrlC
         </Box>
         <Field
           label={"SDL URL"}
-          onChange={(newValue) => dispatch(updateSdlUrl(newValue))}
+          onChange={(newValue) => dispatch(updateSdlUrl(newValue.trim()))}
           value={sdlUrl}
         />
         <h3>Query:</h3>

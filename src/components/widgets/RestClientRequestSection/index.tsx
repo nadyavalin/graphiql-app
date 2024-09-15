@@ -54,7 +54,7 @@ export const RestFullRequestSection: React.FC<RequestSectionProps> = ({ onPlay, 
           <MethodsBlock method={method} onChange={(value) => dispatch(updateMethod(value))} />
           <Field
             label={dictionary.labels.endpoint}
-            onChange={(value) => dispatch(updateEndpoint(value))}
+            onChange={(value) => dispatch(updateEndpoint(value.trim()))}
             value={endpoint}
           />
           <IconButton
