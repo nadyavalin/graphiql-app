@@ -26,7 +26,7 @@ const useSessionCheck = () => {
         signOut(auth).then(() => {
           dispatch(setDateToken(""));
           dispatch(setUserName(""));
-          toast.error(dictionary.logout.tokenExpired);
+          toast.error(dictionary?.logout?.tokenExpired);
           router.push(`/${currentLanguage}`);
           hasLoggedOutRef.current = true;
         });

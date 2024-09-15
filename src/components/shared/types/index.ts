@@ -6,3 +6,9 @@ export enum Languages {
 }
 
 export type Dictionary = Awaited<ReturnType<typeof getDictionary>>;
+
+export interface FormData {
+  email: string;
+  password: string;
+  passwordMatch: string;
+}

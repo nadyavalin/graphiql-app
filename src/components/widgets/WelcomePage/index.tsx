@@ -29,7 +29,7 @@ export const WelcomePage = () => {
   return (
     <>
       <main>
-        {user ? (
+        {user.userName ? (
           <h3>
             {dictionary.titles.welcomeUser},{" "}
             {user.userName ? user.userName : dictionary.titles.guest}!
