@@ -22,8 +22,6 @@ import encodeQueryParams from "@shared/utils/encodeQueryParams";
 import arrayToObj from "@shared/utils/arrayToObj";
 import { addRequestRestClient } from "@shared/store/slices/historySlice";
 import useAppSelector from "@shared/hooks/useAppSelector";
-import { useFirebaseAuth } from "@shared/hooks/useFirebaseAuth";
-import { Loader } from "@features/Loader";
 
 export const RestClient = () => {
   const response = useAppSelector((state) => state.restClient.response);
@@ -99,12 +97,6 @@ export const RestClient = () => {
       }),
     );
   };
-
-  const { loading } = useFirebaseAuth();
-
-  if (loading) {
-    return <Loader />;
-  }
 
   return (
     <main className={commonStyles.container}>
