@@ -21,8 +21,6 @@ export async function serverGraphiqlShemaResponse(sdlUrl: string) {
     });
 
     if (!response.ok) {
-      const errorMessage = `Error: ${response.status} ${response.statusText}`;
-      console.error(errorMessage);
       return false;
     }
 

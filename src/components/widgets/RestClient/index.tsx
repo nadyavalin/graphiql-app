@@ -41,14 +41,20 @@ export const RestClient = () => {
     const paths = pathname.split("/").filter((value) => value !== "");
     const params = new URLSearchParams(searchParams.toString());
     dispatch(updateMethod(paths[1] as Methods));
+    dispatch(updateResponse(""));
+    dispatch(updateResponseStatus(null));
 
     if (paths.length > 2) {
       dispatch(updateEndpoint(decodeBase64(paths[2])));
+    } else {
+      dispatch(updateEndpoint(""));
     }
 
     if (paths.length > 3) {
       if ((paths[1] as Methods) !== Methods.get) dispatch(updateBody(decodeBase64(paths[3])));
       else dispatch(updateBody(""));
+    } else {
+      dispatch(updateBody(""));
     }
 
     if (params.size > 0) {
@@ -58,6 +64,8 @@ export const RestClient = () => {
       }));
 
       dispatch(updateHeaders(newItems));
+    } else {
+      dispatch(updateHeaders([]));
     }
   }, []);
 

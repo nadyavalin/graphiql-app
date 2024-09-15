@@ -5,7 +5,7 @@ import configureMockStore from "redux-mock-store";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { serverGraphiqlShemaResponse } from "@shared/actions/graphqlShemaAction";
-import { updateSdlUrl } from "@shared/store/slices/graphiqlSlice";
+import { updateIsSdlExists } from "@shared/store/slices/graphiqlSlice";
 
 vi.mock("@shared/providers/DictionaryProvider", () => ({
   useDictionary: vi.fn(),
@@ -56,16 +56,18 @@ describe("DocsComponent", () => {
     });
   });
 
-  it("updates SDL URL and fetches schema on endpoint change", async () => {
+  it("sets the correct URL when SDL schema exists", async () => {
     render(
       <Provider store={store}>
         <DocsComponent />
       </Provider>,
     );
 
-    const actions = store.getActions();
-    expect(actions).toContainEqual(updateSdlUrl("http://localhost/graphql?sdl"));
-
     expect(serverGraphiqlShemaResponse).toHaveBeenCalledWith("http://localhost/sdl");
+
+    const actions = store.getActions();
+    await waitFor(() => {
+      expect(actions).toContainEqual(updateIsSdlExists(true));
+    });
   });
 });
