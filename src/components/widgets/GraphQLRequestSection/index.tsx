@@ -16,12 +16,16 @@ import {
 import commonStyles from "../commonStyles.module.css";
 import useAppDispatch from "@shared/hooks/useAppDispatch";
 import useAppSelector from "@shared/hooks/useAppSelector";
+import { IServerGraphiqlResponse } from "@shared/actions/graphiqlAction";
+import { Item } from "@shared/store/model";
+import { useEffect } from "react";
 
 interface RequestSectionProps {
-  onSend: () => void;
+  onPlay: ({ endpoint, body, headers, variables }: IServerGraphiqlResponse) => Promise<void>;
+  onUrlChange: (headers: Item[], endpoint: string, body: string) => void;
 }
 
-export const GHRequestSection: React.FC<RequestSectionProps> = ({ onSend }) => {
+export const GHRequestSection: React.FC<RequestSectionProps> = ({ onPlay, onUrlChange }) => {
   const dictionary = useDictionary();
   const dispatch = useAppDispatch();
 
@@ -31,45 +35,56 @@ export const GHRequestSection: React.FC<RequestSectionProps> = ({ onSend }) => {
   const headers = useAppSelector((state) => state.graphiql.headers);
   const variables = useAppSelector((state) => state.graphiql.variables);
 
+  useEffect(() => {
+    onUrlChange(headers, endpoint, body);
+  }, [endpoint, body, headers]);
+
+  const onSend = () => {
+    onPlay({ endpoint, body, headers, variables });
+  };
+
   return (
-    <div className={commonStyles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
-      <Box sx={{ display: "flex", gap: 1 }}>
+    <section>
+      <h2>Graph QL</h2>
+      <div className={commonStyles.card} style={{ backgroundColor: "var(--bg-light-color)" }}>
+        <Box sx={{ display: "flex", gap: 1 }}>
+          <Field
+            label={dictionary.labels.endpoint}
+            onChange={(newValue) => dispatch(updateEndpoint(newValue))}
+            value={endpoint}
+          />
+          <IconButton
+            title={dictionary.titles.query}
+            onClick={() => {
+              dispatch(updateBody(formatDataEditor(body)));
+            }}
+          >
+            <PrettifyIcon className={commonStyles.btnPrettify} />
+          </IconButton>
+          <IconButton title={dictionary.titles.sendRequest} onClick={onSend}>
+            <SendIcon className={commonStyles.btnSend} />
+          </IconButton>
+        </Box>
         <Field
-          label={dictionary.labels.endpoint}
-          onChange={(newValue) => dispatch(updateEndpoint(newValue))}
-          value={endpoint}
+          label={"SDL URL"}
+          onChange={(newValue) => dispatch(updateSdlUrl(newValue))}
+          value={sdlUrl}
         />
-        <IconButton
-          title={dictionary.titles.query}
-          onClick={() => {
-            dispatch(updateBody(formatDataEditor(body)));
-          }}
-        >
-          <PrettifyIcon className={commonStyles.btnPrettify} />
-        </IconButton>
-        <IconButton title={dictionary.titles.sendRequest} onClick={onSend}>
-          <SendIcon className={commonStyles.btnSend} />
-        </IconButton>
-      </Box>
-      <Field
-        label={"SDL URL"}
-        onChange={(newValue) => dispatch(updateSdlUrl(newValue))}
-        value={sdlUrl}
-      />
-      <h3>Query:</h3>
-      <Editor value={body} onChange={(newValue) => dispatch(updateBody(newValue))} />
-      <HeadersVariablesBlock
-        title={dictionary.titles.addHeader}
-        itemType={dictionary.titles.header}
-        onChange={(newValue) => dispatch(updateHeaders(newValue))}
-        value={headers}
-      />
-      <HeadersVariablesBlock
-        title={dictionary.titles.addVariable}
-        itemType={dictionary.titles.variable}
-        onChange={(newValue) => dispatch(updateVariables(newValue))}
-        value={variables}
-      />
-    </div>
+        <h3>Query:</h3>
+        <Editor value={body} onChange={(newValue) => dispatch(updateBody(newValue))} />
+        <HeadersVariablesBlock
+          title={dictionary.titles.addHeader}
+          itemType={dictionary.titles.header}
+          onChange={(newValue) => dispatch(updateHeaders(newValue))}
+          value={headers}
+        />
+        <HeadersVariablesBlock
+          title={dictionary.titles.addVariable}
+          itemType={dictionary.titles.variable}
+          onChange={(newValue) => dispatch(updateVariables(newValue))}
+          value={variables}
+        />
+      </div>
+    </section>
   );
 };

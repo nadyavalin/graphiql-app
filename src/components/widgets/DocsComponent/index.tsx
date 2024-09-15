@@ -2,13 +2,17 @@ import { DocExplorer, GraphiQLProvider } from "@graphiql/react";
 import { createGraphiQLFetcher } from "@graphiql/toolkit";
 import useAppSelector from "@shared/hooks/useAppSelector";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import docs from "@public/docs.png";
 import styles from "./styles.module.css";
+import { serverGraphiqlShemaResponse } from "@shared/actions/graphqlShemaAction";
+import { updateIsSdlExists, updateSdlUrl } from "@shared/store/slices/graphiqlSlice";
+import useAppDispatch from "@shared/hooks/useAppDispatch";
 
 export const DocsComponent = () => {
   const dictionary = useDictionary();
+  const dispatch = useAppDispatch();
 
   const [isDocsVisible, setDocsVisible] = useState(false);
   const toggleDocs = () => {
@@ -18,6 +22,20 @@ export const DocsComponent = () => {
   const isSdlExists = useAppSelector((state) => state.graphiql.isSdlExists);
 
   const sdlUrl = useAppSelector((state) => state.graphiql.sdlUrl);
+
+  const endpoint = useAppSelector((state) => state.graphiql.endpoint);
+
+  const onShemaResponse = async () => {
+    dispatch(updateIsSdlExists(await serverGraphiqlShemaResponse(sdlUrl)));
+  };
+
+  useEffect(() => {
+    onShemaResponse();
+  }, [sdlUrl]);
+
+  useEffect(() => {
+    dispatch(updateSdlUrl(endpoint + "?sdl"));
+  }, [endpoint]);
 
   return isSdlExists ? (
     <div className={styles.docsBlock}>

@@ -90,9 +90,11 @@ describe("serverResponse", () => {
   });
 
   it("should fix invalid JSON and replace variables in body", async () => {
-    (isValidJson as vi.Mock).mockReturnValueOnce(false);
-    (fixInvalidJson as vi.Mock).mockReturnValueOnce('{"fixed":"json"}');
-    (replaceVariables as vi.Mock).mockReturnValueOnce('{"fixed":"json with variables"}');
+    (isValidJson as ReturnType<typeof vi.fn>).mockReturnValueOnce(false);
+    (fixInvalidJson as ReturnType<typeof vi.fn>).mockReturnValueOnce('{"fixed":"json"}');
+    (replaceVariables as ReturnType<typeof vi.fn>).mockReturnValueOnce(
+      '{"fixed":"json with variables"}',
+    );
 
     const params: IServerResponse = {
       endpoint: "https://api.example.com",
