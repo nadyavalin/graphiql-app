@@ -19,7 +19,7 @@ describe("useFirebaseAuth", () => {
   });
 
   it("should return null user when auth state is not set", () => {
-    (onAuthStateChanged as unknown as vi.Mock).mockImplementation(
+    (onAuthStateChanged as unknown as ReturnType<typeof vi.fn>).mockImplementation(
       (_, callback: (user: unknown) => void) => {
         callback(null);
         return vi.fn();
@@ -35,7 +35,7 @@ describe("useFirebaseAuth", () => {
   it("should return a user when auth state is set", () => {
     const mockUser = { uid: "123", email: "test@example.com" };
 
-    (onAuthStateChanged as unknown as vi.Mock).mockImplementation(
+    (onAuthStateChanged as unknown as ReturnType<typeof vi.fn>).mockImplementation(
       (_, callback: (user: unknown) => void) => {
         callback(mockUser);
         return vi.fn();
@@ -51,7 +51,7 @@ describe("useFirebaseAuth", () => {
   it("should call unsubscribe on unmount", () => {
     const unsubscribeMock = vi.fn();
 
-    (onAuthStateChanged as unknown as vi.Mock).mockImplementation(
+    (onAuthStateChanged as unknown as ReturnType<typeof vi.fn>).mockImplementation(
       (_, callback: (user: unknown) => void) => {
         callback(null);
         return unsubscribeMock;
