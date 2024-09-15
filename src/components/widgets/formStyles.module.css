@@ -1,0 +1,48 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  max-width: 350px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: var(--bg-light-color);
+  border-radius: 10px;
+}
+
+.form label {
+  display: flex;
+  gap: 10px;
+}
+
+.validationMessage {
+  color: red;
+  font-size: 0.9em;
+}
+
+.sendBtn {
+  width: 100px;
+}
+
+.field {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.input {
+  width: 100%;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.disabled {
+  width: 100px;
+  pointer-events: none;
+}
+
+.link {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: center;
+}

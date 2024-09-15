@@ -1,0 +1,26 @@
+.loaderContainer {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  width: 50px;
+  padding: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--main-color);
+  -webkit-mask: var(--loader-mask);
+  mask: var(--loader-mask);
+  -webkit-mask-composite: source-out;
+  mask-composite: subtract;
+  animation: loader 1s infinite linear;
+}
+
+@keyframes loader {
+  to {
+    transform: rotate(1turn);
+  }
+}

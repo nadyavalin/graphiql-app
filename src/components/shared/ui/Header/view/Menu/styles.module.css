@@ -1,0 +1,28 @@
+.nav {
+  display: flex;
+  gap: 20px;
+}
+
+.navLink {
+  display: inline-block;
+  padding: 8px;
+  margin: 4px;
+  background-color: var(--main-color);
+  border-radius: 5px;
+  color: var(--text-color);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.active {
+  font-weight: bold;
+  background-color: var(--transparent-color);
+}
+
+@media (hover: hover) {
+  .navLink:hover {
+    background-color: var(--color-hover);
+    color: var(--text-color);
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@config/*": ["./config/*"],
+      "@public/*": ["./public/*"],
+      "@app/*": ["./src/app/*"],
+      "@pages/*": ["./src/components/pages/*"],
+      "@widgets/*": ["./src/components/widgets/*"],
+      "@features/*": ["./src/components/features/*"],
+      "@entities/*": ["./src/components/entities/*"],
+      "@shared/*": ["./src/components/shared/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/[lang]/dictionaries.ts",
+    "next.config.mjs"
+  ],
+  "exclude": ["node_modules"]
+}
