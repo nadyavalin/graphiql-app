@@ -1,13 +1,13 @@
 "use client";
 
+import { useSelector } from "react-redux";
+import Link from "next/link";
+import styles from "./styles.module.css";
 import { Box } from "@mui/material";
+import { HistoryBlock } from "@features/HistoryBlock";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { RootState } from "@shared/store";
 import { Languages } from "@shared/types";
-import Link from "next/link";
-import { useSelector } from "react-redux";
-import styles from "./styles.module.css";
-import { HistoryBlock } from "@features/HistoryBlock";
 
 export default function HistoryRequest() {
   const dictionary = useDictionary();

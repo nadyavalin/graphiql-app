@@ -9,7 +9,6 @@ import { Editor } from "@features/Editor";
 import { Field } from "@features/Field";
 import { HeadersVariablesBlock } from "@features/HeadersVariablesBlock";
 import { MethodsBlock } from "@features/Methods";
-
 import {
   updateBody,
   updateEndpoint,
@@ -18,12 +17,9 @@ import {
   updateVariables,
 } from "@shared/store/slices/restClientSlice";
 import { Item, Methods } from "@shared/store/model";
-
-import useAppSelector from "@shared/hooks/useAppSelector";
 import useAppDispatch from "@shared/hooks/useAppDispatch";
-
+import useAppSelector from "@shared/hooks/useAppSelector";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
-
 import { formatDataEditor } from "@shared/utils/formatDataEditor";
 import { IServerResponse } from "@shared/actions/restfulAction";
 
@@ -32,7 +28,7 @@ interface RequestSectionProps {
   onUrlChange: (headers: Item[], endpoint: string, body: string, method: Methods) => void;
 }
 
-export const RestfullRequestSection: React.FC<RequestSectionProps> = ({ onPlay, onUrlChange }) => {
+export const RestFullRequestSection: React.FC<RequestSectionProps> = ({ onPlay, onUrlChange }) => {
   const dictionary = useDictionary();
   const dispatch = useAppDispatch();
 

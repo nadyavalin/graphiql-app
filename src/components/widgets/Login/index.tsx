@@ -68,9 +68,11 @@ const Login = () => {
       toast.error(`${dictionary.LoginFrom.failed}`);
     }
   };
+
   if (loading) {
     return <Loader />;
   }
+
   if (user) {
     return null;
   }

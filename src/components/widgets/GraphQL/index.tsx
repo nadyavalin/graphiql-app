@@ -4,7 +4,6 @@ import commonStyles from "../commonStyles.module.css";
 import { ResponseBlock } from "@features/ResponseBlock";
 import useSessionCheck from "@shared/hooks/useSessionCheck";
 import useAppSelector from "@shared/hooks/useAppSelector";
-
 import {
   updateBody,
   updateEndpoint,
@@ -23,6 +22,8 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { DocsComponent } from "@widgets/DocsComponent";
 import { addRequestGraphQL } from "@shared/store/slices/historySlice";
 import { GHRequestSection } from "@widgets/GraphQLRequestSection";
+import { useFirebaseAuth } from "@shared/hooks/useFirebaseAuth";
+import { Loader } from "@features/Loader";
 
 export const GraphQL = () => {
   const dispatch = useAppDispatch();
@@ -95,6 +96,12 @@ export const GraphQL = () => {
       }),
     );
   };
+
+  const { loading } = useFirebaseAuth();
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <main className={commonStyles.container}>
