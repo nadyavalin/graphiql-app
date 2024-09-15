@@ -1,12 +1,11 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { GHRequestSection } from "."; // замените путь на ваш
+import { GHRequestSection } from ".";
 import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { updateBody } from "@shared/store/slices/graphiqlSlice";
 
-// Мокаем необходимые зависимости
 vi.mock("@shared/providers/DictionaryProvider", () => ({
   useDictionary: vi.fn(),
 }));
@@ -64,7 +63,6 @@ describe("GHRequestSection", () => {
     );
 
     fireEvent.change(screen.getByLabelText("Endpoint"), { target: { value: "http://localhost" } });
-    // fireEvent.change(screen.getByText("Query:"), { target: { value: "query { test }" } });
 
     expect(mockOnUrlChange).toHaveBeenCalled();
   });

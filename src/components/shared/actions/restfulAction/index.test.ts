@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { serverResponse, IServerResponse } from "."; // Замените путь на правильный
+import { serverResponse, IServerResponse } from ".";
 import isValidJson from "@shared/utils/checkIsValidJson";
 import fixInvalidJson from "@shared/utils/formatToValidJson";
 import replaceVariables from "@shared/utils/replaceVariables";
@@ -8,7 +8,6 @@ vi.mock("@shared/utils/checkIsValidJson");
 vi.mock("@shared/utils/formatToValidJson");
 vi.mock("@shared/utils/replaceVariables");
 
-// Мокируем глобальный fetch
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
 

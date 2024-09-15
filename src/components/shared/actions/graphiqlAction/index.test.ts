@@ -1,7 +1,6 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { serverGraphiqlResponse } from ".";
 
-// Мокаем глобальный fetch
 const mockFetch = vi.fn();
 
 globalThis.fetch = mockFetch;
