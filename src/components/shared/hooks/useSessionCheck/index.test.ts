@@ -53,7 +53,7 @@ describe("useSessionCheck", () => {
   });
 
   it("should not call signOut if token is valid", async () => {
-    (tokenUtil.isTokenValid as vi.Mock).mockReturnValue(true);
+    (tokenUtil.isTokenValid as ReturnType<typeof vi.fn>).mockReturnValue(true);
 
     renderHook(() => useSessionCheck());
 

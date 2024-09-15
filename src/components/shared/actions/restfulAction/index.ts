@@ -45,11 +45,8 @@ export async function serverResponse({
       body: newBody,
       headers: newHeaders,
     });
-    console.log(response, newBody, variables);
 
     if (!response.ok) {
-      const errorMessage = `Error: ${response.status} ${response.statusText}`;
-      console.error(errorMessage);
       return { status: response.status, data: response.statusText };
     }
 
