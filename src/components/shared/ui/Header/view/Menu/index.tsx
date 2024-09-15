@@ -12,8 +12,9 @@ export const Menu = ({ lang }: { lang: Locale }) => {
   const dictionary = useDictionary();
   const { user, loading } = useFirebaseAuth();
   const pathname = usePathname();
-  const isActive =
+  const isActiveRest =
     pathname.startsWith(`/${lang}/`) && /(GET|POST|PUT|DELETE)(\/.*)?$/.test(pathname);
+  const isActiveGraph = pathname.startsWith(`/${lang}/`) && /GRAPHQL(\/.*)?$/.test(pathname);
 
   if (loading) {
     return null;
@@ -25,7 +26,7 @@ export const Menu = ({ lang }: { lang: Locale }) => {
         <>
           <Link
             href={`/${lang}/rest-client`}
-            className={`${styles.navLink} ${isActive ? styles.active : ""}`}
+            className={`${styles.navLink} ${isActiveRest ? styles.active : ""}`}
             underline="none"
             component={NextLink}
             sx={{ color: "var(--text-color)" }}
@@ -34,8 +35,8 @@ export const Menu = ({ lang }: { lang: Locale }) => {
           </Link>
 
           <Link
-            href={`/${lang}/GRAPHQL`}
-            className={`${styles.navLink} ${pathname === `/${lang}/GRAPHQL` ? styles.active : ""}`}
+            href={`/${lang}/GRAPHQL/`}
+            className={`${styles.navLink} ${isActiveGraph ? styles.active : ""}`}
             underline="none"
             component={NextLink}
             sx={{ color: "var(--text-color)" }}
