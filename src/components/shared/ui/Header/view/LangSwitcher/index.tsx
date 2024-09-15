@@ -20,11 +20,14 @@ export const LangSwitcher = () => {
   };
 
   const getNewPath = (lang: Languages) => {
+    if (!pathname) {
+      return `/${lang}`;
+    }
     return pathname.replace(/\/(en|ru)(\/|$)/, `/${lang}/`);
   };
 
   const isActive = (lang: Languages) => {
-    return pathname.startsWith(`/${lang}`);
+    return pathname?.startsWith(`/${lang}`);
   };
 
   return (
