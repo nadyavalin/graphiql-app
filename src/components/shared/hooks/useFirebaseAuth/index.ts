@@ -17,5 +17,3 @@ export const useFirebaseAuth = () => {
 
   return { user, loading };
 };
-
-export default useFirebaseAuth;

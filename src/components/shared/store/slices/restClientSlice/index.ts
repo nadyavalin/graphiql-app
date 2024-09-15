@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { Item, Methods, RestClientState } from "../../model";
+import { Item, Methods, RestClientState } from "@shared/store/model";
 
 const initialState: RestClientState = {
   method: Methods.get,

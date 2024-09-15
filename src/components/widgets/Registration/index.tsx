@@ -6,20 +6,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FirebaseError } from "firebase/app";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import * as yup from "yup";
 import styles from "../formStyles.module.css";
 import { Box, IconButton, InputAdornment, Link, TextField } from "@mui/material";
-import * as yup from "yup";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { Dictionary, Languages } from "@shared/types";
 import { RootState } from "@shared/store";
 import { emailFormatSchema, passwordMatchSchema, passwordSchema } from "@shared/validationSchemas";
 import { auth } from "@config/firebaseConfig";
-import useFirebaseAuth from "@shared/hooks/useFirebaseAuth";
+import { useFirebaseAuth } from "@shared/hooks/useFirebaseAuth";
 import { Loader } from "@features/Loader";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDateToken, setUserName } from "@shared/store/slices/userSlice";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 interface FormData {
   email: string;

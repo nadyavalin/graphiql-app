@@ -33,7 +33,7 @@ export const Logout = () => {
   };
 
   return (
-    <IconButton title={dictionary.buttons.logout} onClick={logout}>
+    <IconButton title={dictionary?.buttons?.logout} onClick={logout}>
       <LogoutIcon />
     </IconButton>
   );

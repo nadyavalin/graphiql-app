@@ -2,24 +2,23 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import * as yup from "yup";
 import styles from "../formStyles.module.css";
 import { Box, IconButton, InputAdornment, Link, TextField } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { auth } from "@config/firebaseConfig";
 import { RootState } from "@shared/store";
 import { Dictionary, Languages } from "@shared/types";
 import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { emailFormatSchema, passwordSchema } from "@shared/validationSchemas";
 import { setDateToken, setUserName } from "@shared/store/slices/userSlice";
-import { useDispatch } from "react-redux";
-import { auth } from "@config/firebaseConfig";
-import useFirebaseAuth from "@shared/hooks/useFirebaseAuth";
+import { useFirebaseAuth } from "@shared/hooks/useFirebaseAuth";
 import { Loader } from "@features/Loader";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 interface FormData {
   email: string;
@@ -38,6 +37,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const dictionary = useDictionary();
   const schema = createValidationLoginFormSchema(dictionary);
+  7;
   const currentLanguage: Languages = useSelector((state: RootState) => state.language.lang);
   const { user, loading } = useFirebaseAuth();
   const [showPassword, setShowPassword] = useState(false);
