@@ -37,7 +37,6 @@ const Login = () => {
   const dispatch = useDispatch();
   const dictionary = useDictionary();
   const schema = createValidationLoginFormSchema(dictionary);
-  7;
   const currentLanguage: Languages = useSelector((state: RootState) => state.language.lang);
   const { user, loading } = useFirebaseAuth();
   const [showPassword, setShowPassword] = useState(false);
