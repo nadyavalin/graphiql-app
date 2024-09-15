@@ -3,16 +3,10 @@
 <h2 align="center"> RS School React 2024 Q3</h2>
 
 <p align="center">
-  <img src='public/GQA-logo.png'>
+  <img src='public/GQA-logo.png'alt="logo" width="150px" height="150px" style="border-radius: 50%; margin: 10px">
 </p>
 
 Our app is a light-weight versions of Postman and GraphQL combined in one app (Postman is a rich platform for using (and building) APIs. GraphQL is a playground/IDE for graphQL requests).
-
-<div align="center" style="display: flex; justify-content: center; padding: 5px; flex-wrap: wrap;">
-  <img src="public/nadyavalin.jpg" alt="Nadia" width="150px" height="150px" style="border-radius: 50%; margin: 10px">
-  <img src="public/ifbfirst.jpg" alt="Kate" width="150px" height="150px" style="border-radius: 50%; margin: 10px">
-  <img src="public/LarryDavidd.jpg" alt="Eugene" width="150px" height="150px" style="border-radius: 50%; margin: 10px">
-</div>
 
 ## Team project by [Nadia](https://github.com/nadyavalin), [Kate](https://github.com/ifbfirst), and [Eugene](https://github.com/LarryDavidd)
 
@@ -44,7 +38,7 @@ Our app is a light-weight versions of Postman and GraphQL combined in one app (P
 
 ## Table of Contents
 
-- [Project description](#rs-school-react-2023-q4)
+- [Project description](#rs-school-react-2024-q3)
 - [Technology stack](#technology-stack)
 - [Getting Started](#getting-started)
 - [Installation](#installation)
@@ -61,7 +55,7 @@ To get a local copy - follow these simple steps.
 1. Clone the repo
 
 ```sh
-  git clone https://github.com/gentoosiast/graphiql-app
+  git clone https://github.com/nadyavalin/graphiql-app.git
 ```
 
 2. Install NPM packages
@@ -111,18 +105,6 @@ npm run lint:fix
 ```
 
 Automatically fix all auto-fixable errors & warnings with `ESLint`
-
-```sh
-npm run typecheck
-```
-
-Perform TypeScript typechecking of source code with `tsc` (TypeScript Compiler)
-
-```sh
-npm run preview
-```
-
-Locally preview the production build
 
 ```sh
 npm run prepare
