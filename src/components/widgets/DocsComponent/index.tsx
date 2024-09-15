@@ -1,14 +1,14 @@
-import { DocExplorer, GraphiQLProvider } from "@graphiql/react";
-import { createGraphiQLFetcher } from "@graphiql/toolkit";
-import useAppSelector from "@shared/hooks/useAppSelector";
-import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import docs from "@public/docs.png";
 import styles from "./styles.module.css";
+import docs from "@public/docs.png";
+import { DocExplorer, GraphiQLProvider } from "@graphiql/react";
+import { createGraphiQLFetcher } from "@graphiql/toolkit";
+import { useDictionary } from "@shared/providers/DictionaryProvider";
 import { serverGraphiqlShemaResponse } from "@shared/actions/graphqlShemaAction";
 import { updateIsSdlExists, updateSdlUrl } from "@shared/store/slices/graphiqlSlice";
 import useAppDispatch from "@shared/hooks/useAppDispatch";
+import useAppSelector from "@shared/hooks/useAppSelector";
 
 export const DocsComponent = () => {
   const dictionary = useDictionary();
