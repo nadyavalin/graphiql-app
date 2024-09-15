@@ -20,14 +20,21 @@ export const LangSwitcher = () => {
   };
 
   const getNewPath = (lang: Languages) => {
+    if (!pathname) {
+      return `/${lang}`;
+    }
     return pathname.replace(/\/(en|ru)(\/|$)/, `/${lang}/`);
+  };
+
+  const isActive = (lang: Languages) => {
+    return pathname?.startsWith(`/${lang}`);
   };
 
   return (
     <div className={styles.lang}>
       <NextLink
         href={getNewPath(Languages.EN)}
-        className={`${styles.lang} ${pathname === `/en` ? styles.active : ""}`}
+        className={`${styles.lang} ${isActive(Languages.EN) ? styles.active : ""}`}
         onClick={() => handleLanguageChange(Languages.EN)}
         passHref
       >
@@ -38,7 +45,7 @@ export const LangSwitcher = () => {
 
       <NextLink
         href={getNewPath(Languages.RU)}
-        className={`${styles.lang} ${pathname === `/ru` ? styles.active : ""}`}
+        className={`${styles.lang} ${isActive(Languages.RU) ? styles.active : ""}`}
         onClick={() => handleLanguageChange(Languages.RU)}
         passHref
       >
